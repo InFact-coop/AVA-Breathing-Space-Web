@@ -1,5 +1,3 @@
-let test = () => {
-  let lucy = "lucy";
-};
-
-export default test;
+# ~/.huskyrc
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
