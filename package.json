@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "sanity-nextjs-landing-pages",
+  "name": "ava-breathing-space",
   "version": "1.0.5",
   "scripts": {
     "build": "lerna run build --parallel",
