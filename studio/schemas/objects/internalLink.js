@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InternalLinkRender = ({ children }) => <span>{children} 🔗</span>;
+const InternalLinkRender = ({ children }) => <span>{children}<span aria-label="paperclip" role="img">🔗</span></span>;
 
 export default {
   title: 'Internal link to another document',

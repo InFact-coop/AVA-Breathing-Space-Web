@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import imageUrlBuilder from '@sanity/image-url'
-import styles from './ImageSection.module.css'
 import client from '../../client'
 import SimpleBlockContent from '../SimpleBlockContent'
 import Cta from '../Cta'
+import styles from './ImageSection.module.css'
 
 const builder = imageUrlBuilder(client)
 

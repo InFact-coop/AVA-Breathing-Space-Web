@@ -7,37 +7,24 @@
     "build-web": "lerna bootstrap && (cd web && npm run build)",
     "build-studio": "lerna bootstrap && (cd studio && npm run build)",
     "dev": "lerna run dev --parallel",
-    "lerna-format": "lerna run format",
+    "format": "lerna run format",
     "graphql-deploy": "lerna run graphql-deploy",
-    "lerna-lint": "lerna run lint",
+    "lint": "lerna run lint",
     "postinstall": "lerna bootstrap",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "==lint&format==": "-----------------------------------------------------------------------------------",
-    "format": "npm run prettier -- --write",
-    "lint": "jest --config test/jest.lint.js",
-    "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
-    "validate": "npm run lint && npm run prettier -- --list-different"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
-  "jest-runner-eslint": {
-    "cliOptions": {
-      "fix": true,
-      "ext": [
-        ".js",
-        ".ts"
-      ]
-    }
-  },
   "devDependencies": {
     "@sanity/cli": "^1.149.13",
-    "lerna": "^3.9.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "autoprefixer": "^9.8.0",
+    "babel-eslint": "^10.0.1",
+    "cssnano": "^4.1.10",
     "eslint": "^7.0.0",
     "eslint-config-kentcdodds": "^14.13.0",
     "eslint-config-prettier": "^6.11.0",
@@ -45,8 +32,16 @@
     "husky": "^4.2.5",
     "jest": "^26.0.1",
     "jest-runner-eslint": "^0.8.0",
+    "lerna": "^3.21.0",
     "lint-staged": "^10.2.4",
+    "postcss-import": "^12.0.1",
+    "postcss-preset-env": "^6.6.0",
     "shell-quote": "^1.7.2",
+    "sitemap": "^2.1.0",
     "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "sanity-nextjs-landing-pages-studio": "file:studio",
+    "sanity-nextjs-landing-pages-web": "file:web"
   }
 }

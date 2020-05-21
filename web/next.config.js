@@ -17,9 +17,9 @@ const query = `
 }
 `
 const reduceRoutes = (obj, route) => {
-  const {page = {}, slug = {}} = route
-  const {_createdAt, _updatedAt} = page
-  const {includeInSitemap, disallowRobot} = route
+  const { page = {}, slug = {} } = route
+  const { _createdAt, _updatedAt } = page
+  const { includeInSitemap, disallowRobot } = route
   const path = route.slug.current === '/' ? '/' : `/${route.slug.current}`
   obj[path] = {
     query: {
@@ -40,13 +40,14 @@ module.exports = withCSS({
     importLoaders: 1,
     localIdentName: isProduction ? '[hash:base64:5]' : '[name]__[local]___[hash:base64:5]'
   },
+  //eslint-disable-next-line func-names
   exportPathMap: function () {
     return client.fetch(query).then(res => {
-      const {routes = []} = res
+      const { routes = [] } = res
       const nextRoutes = {
         // Routes imported from sanity
-        ...routes.filter(({slug}) => slug.current).reduce(reduceRoutes, {}),
-        '/custom-page': {page: '/CustomPage'}
+        ...routes.filter(({ slug }) => slug.current).reduce(reduceRoutes, {}),
+        '/custom-page': { page: '/CustomPage' }
       }
       return nextRoutes
     })

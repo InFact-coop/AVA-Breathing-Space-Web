@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import imageUrlBuilder from '@sanity/image-url'
-import styles from './Hero.module.css'
 import client from '../../client'
 import SimpleBlockContent from '../SimpleBlockContent'
 import Cta from '../Cta'
+import styles from './Hero.module.css'
 
 function urlFor (source) {
   return imageUrlBuilder(client).image(source)

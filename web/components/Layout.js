@@ -10,7 +10,7 @@ function Layout(props) {
   const { config, children } = props
 
   if (!config) {
-    console.error('Missing config')
+    console.error('Missing config') //eslint-disable-line no-console
     return <div>Missing config</div>
   }
 

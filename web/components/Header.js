@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import {withRouter} from 'next/router'
-import SVG from 'react-inlinesvg'
+import { withRouter } from 'next/router'
+import Svg from 'react-inlinesvg'
 import styles from './Header.module.css'
 import HamburgerIcon from './icons/Hamburger'
 
 class Header extends Component {
-  state = {showNav: false}
+  state = { showNav: false }
 
   static propTypes = {
     router: PropTypes.shape({
@@ -34,22 +34,22 @@ class Header extends Component {
     })
   }
 
-  componentDidMount () {
-    const {router} = this.props
+  componentDidMount() {
+    const { router } = this.props
     router.events.on('routeChangeComplete', this.hideMenu)
   }
 
-  componentWillUnmount () {
-    const {router} = this.props
+  componentWillUnmount() {
+    const { router } = this.props
     router.events.off('routeChangeComplete', this.hideMenu)
   }
 
   hideMenu = () => {
-    this.setState({showNav: false})
+    this.setState({ showNav: false })
   }
 
   handleMenuToggle = () => {
-    const {showNav} = this.state
+    const { showNav } = this.state
     this.setState({
       showNav: !showNav
     })
@@ -61,15 +61,15 @@ class Header extends Component {
     }
 
     if (logo.asset.extension === 'svg') {
-      return <SVG src={logo.asset.url} className={styles.logo} />
+      return <Svg src={logo.asset.url} className={styles.logo} />
     }
 
     return <img src={logo.asset.url} alt={logo.title} className={styles.logo} />
   }
 
-  render () {
-    const {title = 'Missing title', navItems, router, logo} = this.props
-    const {showNav} = this.state
+  render() {
+    const { title = 'Missing title', navItems, router, logo } = this.props
+    const { showNav } = this.state
 
     return (
       <div className={styles.root} data-show-nav={showNav}>
@@ -84,14 +84,14 @@ class Header extends Component {
             as='/'
             prefetch
           >
-            <a title={title}>{this.renderLogo(logo)}</a>
+            <a href="/" title={title}>{this.renderLogo(logo)}</a>
           </Link>
         </h1>
         <nav className={styles.nav}>
           <ul className={styles.navItems}>
             {navItems &&
               navItems.map(item => {
-                const {slug, title, _id} = item
+                const { slug, itemTitle, _id } = item
                 const isActive =
                   router.pathname === '/LandingPage' && router.query.slug === slug.current
                 return (
@@ -99,12 +99,12 @@ class Header extends Component {
                     <Link
                       href={{
                         pathname: '/LandingPage',
-                        query: {slug: slug.current}
+                        query: { slug: slug.current }
                       }}
                       as={`/${slug.current}`}
                       prefetch
                     >
-                      <a data-is-active={isActive ? 'true' : 'false'}>{title}</a>
+                      <span data-is-active={isActive ? 'true' : 'false'}>{itemTitle}</span>
                     </Link>
                   </li>
                 )

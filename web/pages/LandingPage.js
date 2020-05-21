@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import NextSeo from 'next-seo'
 import groq from 'groq'
 import imageUrlBuilder from '@sanity/image-url'
@@ -39,14 +39,14 @@ class LandingPage extends Component {
     slug: PropTypes.any
   }
 
-  static async getInitialProps ({query}) {
-    const {slug} = query
+  static getInitialProps({ query }) {
+    const { slug } = query
     if (!query) {
-      console.error('no query')
+      console.error('no query') //eslint-disable-line no-console
       return
     }
     if (slug && slug !== '/') {
-      return client.fetch(pageQuery, {slug}).then(res => ({...res.page, slug}))
+      return client.fetch(pageQuery, { slug }).then(res => ({ ...res.page, slug }))
     }
 
     // Frontpage
@@ -72,13 +72,13 @@ class LandingPage extends Component {
         }
       `
         )
-        .then(res => ({...res.frontpage, slug}))
+        .then(res => ({ ...res.frontpage, slug }))
     }
 
     return null
   }
 
-  render () {
+  render() {
     const {
       title = 'Missing title',
       description,
