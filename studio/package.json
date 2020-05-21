@@ -1,12 +1,13 @@
 {
+  "name": "avabreathingspace",
   "private": true,
-  "name": "sanity-nextjs-landing-pages-studio",
-  "version": "1.0.4",
+  "version": "1.0.0",
+  "description": "",
   "main": "package.json",
-  "author": "Sanity <hello@sanity.io>",
+  "author": "Max Gerber <mgerber94@gmail.com>",
+  "license": "UNLICENSED",
   "scripts": {
-    "build": "sanity build",
-    "dev": "sanity start",
+    "start": "sanity start",
     "test": "sanity check",
     "==lint&format==": "-----------------------------------------------------------------------------------",
     "format": "npm run prettier -- --write",
@@ -14,6 +15,9 @@
     "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
     "validate": "npm run lint && npm run prettier -- --list-different"
   },
+  "keywords": [
+    "sanity"
+  ],
   "jest-runner-eslint": {
     "cliOptions": {
       "fix": true,
@@ -25,24 +29,15 @@
   },
   "dependencies": {
     "@sanity/base": "^1.149.15",
-    "@sanity/cli": "^1.149.13",
     "@sanity/components": "^1.149.15",
     "@sanity/core": "^1.149.13",
-    "@sanity/dashboard": "^1.149.15",
     "@sanity/default-layout": "^1.149.15",
     "@sanity/default-login": "^1.149",
     "@sanity/desk-tool": "^1.149",
-    "@sanity/structure": "^1.149.7",
-    "bcp47": "^1.1.2",
     "jest": "^26.0.1",
     "jest-runner-eslint": "^0.8.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-icons": "^3.10.0",
-    "react-props-stream": "^1.0.0",
-    "rxjs": "^6.5.5",
-    "sanity-plugin-dashboard-widget-document-list": "^0.0.10",
-    "sanity-plugin-dashboard-widget-netlify": "^1.0.1"
+    "react-dom": "^16.13.1"
   }
 }
