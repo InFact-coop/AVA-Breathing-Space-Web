@@ -5,7 +5,8 @@
     "no-use-before-define": 0,
     "react/react-in-jsx-scope": 0,
     "react-hooks/exhaustive-deps": 0,
-    "consistent-return": 0
+    "consistent-return": 0,
+    "import/no-unresolved": [2, { "ignore": ["^(all|part):"] }]
   },
   "globals": {
     "cssTheme": "readonly"
@@ -24,7 +25,8 @@
       ],
       "rules": {
         "@typescript-eslint/ban-ts-ignore": 0,
-        "@typescript-eslint/no-explicit-any": 0
+        "@typescript-eslint/no-explicit-any": 0,
+        "import/no-unresolved": [2, { "ignore": ["^(all|part):"] }]
       },
       "settings": {
         "import/resolver": {
