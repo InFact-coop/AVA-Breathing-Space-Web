@@ -25,4 +25,4 @@ export default {
     { type: 'figure' },
     { type: 'embedHTML' },
   ],
-};
+}

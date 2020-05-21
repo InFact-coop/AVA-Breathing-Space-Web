@@ -5,7 +5,7 @@ export default {
   validation: Rule =>
     Rule.custom(
       (fields = {}) =>
-        !fields.route || !fields.link || 'Only one link type is allowed'
+        !fields.route || !fields.link || 'Only one link type is allowed',
     ),
   fieldsets: [
     {
@@ -46,11 +46,11 @@ export default {
         ? `Slug:/${slug}/`
         : link
         ? `External link: ${link}`
-        : 'Not set';
+        : 'Not set'
       return {
         title: `${title}`,
         subtitle: `${routeTitle} ${subtitleExtra}`,
-      };
+      }
     },
   },
-};
+}

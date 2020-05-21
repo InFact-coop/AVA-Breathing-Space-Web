@@ -40,7 +40,7 @@ export default {
         title: `Image: ${heading}`,
         subtitle: 'Image section',
         media,
-      };
+      }
     },
   },
-};
+}

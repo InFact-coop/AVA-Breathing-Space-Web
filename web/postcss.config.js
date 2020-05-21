@@ -1,4 +1,4 @@
-//eslint-disable-next-line no-unused-vars 
+//eslint-disable-next-line no-unused-vars
 module.exports = ({ file, options, env }) => ({
   plugins: {
     'postcss-import': {},
@@ -7,8 +7,8 @@ module.exports = ({ file, options, env }) => ({
       stage: 0,
       features: {
         'color-mod-function': { unresolved: 'warn' },
-        'nesting-rules': true
-      }
-    }
-  }
+        'nesting-rules': true,
+      },
+    },
+  },
 })

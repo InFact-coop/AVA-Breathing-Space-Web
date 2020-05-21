@@ -27,7 +27,7 @@ export default {
       return {
         title: `${heading}`,
         subtitle: 'Text section',
-      };
+      }
     },
   },
-};
+}

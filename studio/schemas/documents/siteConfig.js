@@ -5,25 +5,25 @@ export default {
   type: 'document',
   title: 'Site configuration',
   // https://www.sanity.io/docs/experimental/ui-affordances-for-actions
-  __experimental_actions: [/* create, delete, */ 'update', 'publish'],
-  fieldsets: [{name: 'footer', title: 'Footer'}],
+  __experimental_actions: [/* create, delete, */ 'update', 'publish'], //eslint-disable-line babel/camelcase
+  fieldsets: [{ name: 'footer', title: 'Footer' }],
   fields: [
     {
       name: 'title',
       type: 'string',
-      title: 'Site title'
+      title: 'Site title',
     },
     {
       title: 'URL',
       name: 'url',
       type: 'url',
-      description: 'The main site url. Used to create canonical url'
+      description: 'The main site url. Used to create canonical url',
     },
     {
       name: 'frontpage',
       type: 'reference',
       description: 'Choose page to be the frontpage',
-      to: {type: 'page'}
+      to: { type: 'page' },
     },
     {
       title: 'Site language',
@@ -33,8 +33,8 @@ export default {
       type: 'string',
       validation: Rule =>
         Rule.custom(lang =>
-          bcp47.parse(lang) ? true : 'Please use a valid bcp47 code'
-        )
+          bcp47.parse(lang) ? true : 'Please use a valid bcp47 code',
+        ),
     },
     // {
     //   title: 'Brand logo',
@@ -60,15 +60,15 @@ export default {
       description: 'Select pages for the top menu',
       validation: Rule => [
         Rule.max(5).warning('Are you sure you want more than 5 items?'),
-        Rule.unique().error('You have duplicate menu items')
+        Rule.unique().error('You have duplicate menu items'),
       ],
       type: 'array',
       of: [
         {
           type: 'reference',
-          to: [{type: 'route'}]
-        }
-      ]
+          to: [{ type: 'route' }],
+        },
+      ],
     },
     {
       title: 'Footer navigation items',
@@ -76,20 +76,20 @@ export default {
       type: 'array',
       validation: Rule => [
         Rule.max(10).warning('Are you sure you want more than 10 items?'),
-        Rule.unique().error('You have duplicate menu items')
+        Rule.unique().error('You have duplicate menu items'),
       ],
       fieldset: 'footer',
       of: [
         {
           type: 'reference',
-          to: [{type: 'route'}]
-        }
-      ]
+          to: [{ type: 'route' }],
+        },
+      ],
     },
     {
       name: 'footerText',
       type: 'simplePortableText',
-      fieldset: 'footer'
-    }
-  ]
+      fieldset: 'footer',
+    },
+  ],
 }

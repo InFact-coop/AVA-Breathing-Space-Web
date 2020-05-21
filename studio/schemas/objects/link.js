@@ -1,6 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-const LinkRender = ({ children }) => <span>{children} 🌍</span>;
+const LinkRender = ({ children }) => (
+  <span>
+    {children}{' '}
+    <span role="img" aria-label="globe">
+      🌍
+    </span>
+  </span>
+)
 
 export default {
   title: 'URL',
@@ -22,4 +29,4 @@ export default {
     icon: () => '🌍',
     render: LinkRender,
   },
-};
+}

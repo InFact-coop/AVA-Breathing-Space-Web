@@ -14,18 +14,21 @@ function Footer(props) {
           {navItems &&
             navItems.map(item => {
               const isActive =
-                router.pathname === '/LandingPage' && router.query.slug === item.slug.current
+                router.pathname === '/LandingPage' &&
+                router.query.slug === item.slug.current
               return (
                 <li key={item._id} className={styles.item}>
                   <Link
                     href={{
                       pathname: '/LandingPage',
-                      query: { slug: item.slug.current }
+                      query: { slug: item.slug.current },
                     }}
                     as={`/${item.slug.current}`}
                     prefetch
                   >
-                    <span data-is-active={isActive ? 'true' : 'false'}>{item.title}</span>
+                    <span data-is-active={isActive ? 'true' : 'false'}>
+                      {item.title}
+                    </span>
                   </Link>
                 </li>
               )
@@ -44,17 +47,17 @@ Footer.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       slug: PropTypes.shape({
-        current: PropTypes.string
-      }).isRequired
-    })
+        current: PropTypes.string,
+      }).isRequired,
+    }),
   ),
   text: PropTypes.arrayOf(PropTypes.object),
   router: PropTypes.shape({
     pathname: PropTypes.string,
     query: PropTypes.shape({
-      slug: PropTypes.string
-    })
-  })
+      slug: PropTypes.string,
+    }),
+  }),
 }
 
 export default withRouter(Footer)

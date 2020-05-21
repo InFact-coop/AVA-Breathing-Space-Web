@@ -11,7 +11,7 @@ function cta(props) {
       <Link
         href={{
           pathname: '/LandingPage',
-          query: { slug: route.slug.current }
+          query: { slug: route.slug.current },
         }}
         as={`/${route.slug.current}`}
       >
@@ -35,10 +35,10 @@ cta.propTypes = {
   title: PropTypes.string.isRequired,
   route: PropTypes.shape({
     slug: PropTypes.shape({
-      current: PropTypes.string
-    })
+      current: PropTypes.string,
+    }),
   }),
-  link: PropTypes.string
+  link: PropTypes.string,
 }
 
 export default cta

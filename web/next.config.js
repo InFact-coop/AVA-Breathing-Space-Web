@@ -23,13 +23,13 @@ const reduceRoutes = (obj, route) => {
   const path = route.slug.current === '/' ? '/' : `/${route.slug.current}`
   obj[path] = {
     query: {
-      slug: slug.current
+      slug: slug.current,
     },
     includeInSitemap,
     disallowRobot,
     _createdAt,
     _updatedAt,
-    page: '/LandingPage'
+    page: '/LandingPage',
   }
   return obj
 }
@@ -38,7 +38,9 @@ module.exports = withCSS({
   cssModules: true,
   cssLoaderOptions: {
     importLoaders: 1,
-    localIdentName: isProduction ? '[hash:base64:5]' : '[name]__[local]___[hash:base64:5]'
+    localIdentName: isProduction
+      ? '[hash:base64:5]'
+      : '[name]__[local]___[hash:base64:5]',
   },
   //eslint-disable-next-line func-names
   exportPathMap: function () {
@@ -47,9 +49,9 @@ module.exports = withCSS({
       const nextRoutes = {
         // Routes imported from sanity
         ...routes.filter(({ slug }) => slug.current).reduce(reduceRoutes, {}),
-        '/custom-page': { page: '/CustomPage' }
+        '/custom-page': { page: '/CustomPage' },
       }
       return nextRoutes
     })
-  }
+  },
 })

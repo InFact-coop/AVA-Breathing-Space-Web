@@ -29,7 +29,7 @@ export default {
       return {
         title,
         subtitle: 'Mailchimp newsletter signup section',
-      };
+      }
     },
   },
-};
+}

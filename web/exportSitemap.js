@@ -7,7 +7,7 @@ client.fetch(`*[_id == "global-config"] {url}[0]`).then(config => {
   exportPathMap().then(res => {
     const sitemap = sm.createSitemap({
       hostname: config.url,
-      cacheTime: 600000 // 600 sec (10 min) cache purge period
+      cacheTime: 600000, // 600 sec (10 min) cache purge period
     })
 
     //eslint-disable-next-line array-callback-return

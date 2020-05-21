@@ -17,7 +17,7 @@ export default () =>
           S.editor()
             .id('config')
             .schemaType('site-config')
-            .documentId('global-config')
+            .documentId('global-config'),
         ),
       S.listItem()
         .title('Pages')
@@ -28,5 +28,5 @@ export default () =>
         .title('Routes')
         .schemaType('route')
         .child(S.documentTypeList('route').title('Routes')),
-      ...S.documentTypeListItems().filter(hiddenDocTypes)
+      ...S.documentTypeListItems().filter(hiddenDocTypes),
     ])

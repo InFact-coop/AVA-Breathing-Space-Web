@@ -13,25 +13,25 @@ class Header extends Component {
     router: PropTypes.shape({
       pathname: PropTypes.string,
       query: PropTypes.shape({
-        slug: PropTypes.string
+        slug: PropTypes.string,
       }),
-      events: PropTypes.any
+      events: PropTypes.any,
     }),
     title: PropTypes.string,
     navItems: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         slug: PropTypes.shape({
-          current: PropTypes.string
-        }).isRequired
-      })
+          current: PropTypes.string,
+        }).isRequired,
+      }),
     ),
     logo: PropTypes.shape({
       asset: PropTypes.shape({
-        url: PropTypes.string
+        url: PropTypes.string,
       }),
-      logo: PropTypes.string
-    })
+      logo: PropTypes.string,
+    }),
   }
 
   componentDidMount() {
@@ -51,7 +51,7 @@ class Header extends Component {
   handleMenuToggle = () => {
     const { showNav } = this.state
     this.setState({
-      showNav: !showNav
+      showNav: !showNav,
     })
   }
 
@@ -78,13 +78,15 @@ class Header extends Component {
             href={{
               pathname: '/LandingPage',
               query: {
-                slug: '/'
-              }
+                slug: '/',
+              },
             }}
-            as='/'
+            as="/"
             prefetch
           >
-            <a href="/" title={title}>{this.renderLogo(logo)}</a>
+            <a href="/" title={title}>
+              {this.renderLogo(logo)}
+            </a>
           </Link>
         </h1>
         <nav className={styles.nav}>
@@ -93,24 +95,30 @@ class Header extends Component {
               navItems.map(item => {
                 const { slug, itemTitle, _id } = item
                 const isActive =
-                  router.pathname === '/LandingPage' && router.query.slug === slug.current
+                  router.pathname === '/LandingPage' &&
+                  router.query.slug === slug.current
                 return (
                   <li key={_id} className={styles.navItem}>
                     <Link
                       href={{
                         pathname: '/LandingPage',
-                        query: { slug: slug.current }
+                        query: { slug: slug.current },
                       }}
                       as={`/${slug.current}`}
                       prefetch
                     >
-                      <span data-is-active={isActive ? 'true' : 'false'}>{itemTitle}</span>
+                      <span data-is-active={isActive ? 'true' : 'false'}>
+                        {itemTitle}
+                      </span>
                     </Link>
                   </li>
                 )
               })}
           </ul>
-          <button className={styles.showNavButton} onClick={this.handleMenuToggle}>
+          <button
+            className={styles.showNavButton}
+            onClick={this.handleMenuToggle}
+          >
             <HamburgerIcon className={styles.hamburgerIcon} />
           </button>
         </nav>
