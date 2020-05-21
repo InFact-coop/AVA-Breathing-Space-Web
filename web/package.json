@@ -9,7 +9,7 @@
     "start": "next start",
     "==lint&format==": "-----------------------------------------------------------------------------------",
     "format": "npm run prettier -- --write",
-    "lint": "jest --config test/jest.lint.js",
+    "lint": "jest --config ../test/jest.lint.js",
     "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
     "validate": "npm run lint && npm run prettier -- --list-different"
   },

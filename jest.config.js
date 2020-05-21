@@ -1,4 +1,4 @@
 module.exports = {
-  ...require('./test/jest-common'),
+  ...require('./web/test/jest-common'),
   projects: ['./test/jest.lint.js'],
 }
