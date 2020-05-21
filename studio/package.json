@@ -34,6 +34,7 @@
     "@sanity/default-layout": "^1.149.15",
     "@sanity/default-login": "^1.149",
     "@sanity/desk-tool": "^1.149",
+    "@sanity/vision": "^1.149.0",
     "jest": "^26.0.1",
     "jest-runner-eslint": "^0.8.0",
     "prop-types": "^15.7.2",
