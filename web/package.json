@@ -5,9 +5,17 @@
   "license": "MIT",
   "dependencies": {
     "@sanity/client": "^1.149.13",
+    "apollo-boost": "^0.4.9",
+    "graphql": "^15.0.0",
+    "graphql-tag": "^2.10.3",
     "next": "^9.4.2",
+    "next-with-apollo": "^5.0.1",
     "react": "^16.13.1",
+    "react-apollo": "^3.1.5",
     "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0"
   },
   "scripts": {
     "dev": "next",

@@ -2,7 +2,7 @@
   "name": "avabreathingspace",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "_SEO friendly page builder in React.js. Heroes, sign-up forms and calls to action._",
   "main": "package.json",
   "author": "Max Gerber <mgerber94@gmail.com>",
   "license": "UNLICENSED",
@@ -25,5 +25,9 @@
     "react": "^16.2",
     "react-dom": "^16.2"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:maxgerber/AVA-Breathing-Space.git"
+  }
 }
