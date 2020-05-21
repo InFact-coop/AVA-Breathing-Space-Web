@@ -13,8 +13,24 @@
     "postinstall": "lerna bootstrap",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "devDependencies": {
     "@sanity/cli": "^1.149.13",
-    "lerna": "^3.9.0"
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "eslint": "^7.0.0",
+    "eslint-config-kentcdodds": "^14.13.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "husky": "^4.2.5",
+    "jest": "^24.9.0",
+    "jest-runner-eslint": "^0.7.5",
+    "lerna": "^3.21.0",
+    "lint-staged": "^10.2.4",
+    "shell-quote": "^1.7.2"
   }
 }

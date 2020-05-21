@@ -3,15 +3,31 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
-    "@sanity/client": "^1.149.13",
-    "next": "^9.4.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
-  },
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build && next export && node exportSitemap.js",
+    "start": "next start",
+    "==lint&format==": "-----------------------------------------------------------------------------------",
+    "format": "npm run prettier -- --write",
+    "lint": "jest --config ../test/jest.lint.js",
+    "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
+    "validate": "npm run lint && npm run prettier -- --list-different"
+  },
+  "jest-runner-eslint": {
+    "cliOptions": {
+      "fix": true,
+      "ext": [
+        ".js",
+        ".ts"
+      ]
+    }
+  },
+  "dependencies": {
+    "@sanity/client": "^1.149.13",
+    "jest": "^26.0.1",
+    "jest-runner-eslint": "^0.8.0",
+    "next": "^9.3.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }
