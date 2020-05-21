@@ -6,6 +6,8 @@ import { MdDashboard, MdSettings } from 'react-icons/lib/md'
 const hiddenDocTypes = listItem =>
   !['page', 'route', 'site-config'].includes(listItem.getId())
 
+  console.log('hello');
+  
 export default () =>
   S.list()
     .title('Site')
