@@ -1,3 +1,3 @@
-const Page = ({ children }) => <main>{children}</main>;
+const Page = ({ children }) => <main>{children}</main>
 
-export default Page;
+export default Page

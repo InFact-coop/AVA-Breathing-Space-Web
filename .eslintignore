@@ -1,0 +1,5 @@
+packages/studio/dist/*
+**/dist/*
+**/out/*
+**/.next/*
+**/_next/*
