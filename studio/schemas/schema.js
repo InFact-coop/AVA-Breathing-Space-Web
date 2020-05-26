@@ -15,7 +15,13 @@ export default createSchema({
       title: 'Service',
       name: 'service',
       type: 'document',
-      fields: [{ title: 'Name', name: 'name', type: 'string' }],
+      fields: [
+        {
+          title: 'Name',
+          name: 'name',
+          type: 'string',
+        },
+      ],
     },
   ]),
 })
