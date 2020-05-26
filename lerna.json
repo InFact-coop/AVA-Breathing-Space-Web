@@ -1,8 +1,5 @@
 {
-  "packages": [
-    "web",
-    "studio"
-  ],
+  "packages": ["web", "studio"],
   "version": "0.0.0",
   "npmClient": "yarn"
 }
