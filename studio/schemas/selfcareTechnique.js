@@ -52,38 +52,14 @@ export default {
     {
       name: 'video',
       title: 'Video',
-      type: 'file',
+      type: 'fileType',
       accept: '.mp4',
-      fields: [
-        {
-          name: 'title',
-          type: 'string',
-          title: 'Title',
-        },
-        {
-          name: 'author',
-          type: 'string',
-          title: 'Author',
-        },
-      ],
     },
     {
       name: 'audio',
       title: 'Audio',
-      type: 'file',
+      type: 'fileType',
       accept: '.mp3, .ogg, .wav',
-      fields: [
-        {
-          name: 'title',
-          type: 'string',
-          title: 'Title',
-        },
-        {
-          name: 'author',
-          type: 'string',
-          title: 'Author',
-        },
-      ],
     },
     {
       name: 'link',

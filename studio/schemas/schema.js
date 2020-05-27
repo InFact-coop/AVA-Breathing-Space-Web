@@ -8,6 +8,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import blockContent from './blockContent'
 import selfcareCategory from './selfcareCategory'
 import selfcareTechnique from './selfcareTechnique'
+import fileType from './file'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -19,5 +20,6 @@ export default createSchema({
     selfcareCategory,
     selfcareTechnique,
     blockContent,
+    fileType,
   ]),
 })
