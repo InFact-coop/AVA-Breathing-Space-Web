@@ -1,5 +1,6 @@
 {
   "extends": ["kentcdodds", "kentcdodds/react", "kentcdodds/jsx-a11y"],
+  "ignorePatterns": ["**/public/*.js"],
   "rules": {
     "react/prop-types": 0,
     "no-use-before-define": 0,

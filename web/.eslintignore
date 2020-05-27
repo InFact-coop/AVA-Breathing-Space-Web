@@ -3,3 +3,6 @@ packages/studio/dist/*
 **/out/*
 **/.next/*
 **/_next/*
+
+public/sw.js
+public/workbox-*.js
