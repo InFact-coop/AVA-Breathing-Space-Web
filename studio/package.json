@@ -10,6 +10,7 @@
     "dev": "sanity start",
     "start": "sanity start",
     "test": "sanity check",
+    "deploy": "sanity graphql deploy && sanity deploy",
     "==lint&format==": "-----------------------------------------------------------------------------------",
     "format": "npm run prettier -- --write",
     "lint": "jest --config ../test/jest.lint.js",
