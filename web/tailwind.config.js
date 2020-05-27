@@ -76,6 +76,7 @@ module.exports = {
       gray: '#9A96AB',
       lightgray: '#E0E0EB',
       lightestgray: '#FAFAFA',
+      white: '#FFFFFF',
       // gradients
       tealcoral:
         'radial-gradient(115.8% 115.5% at 120.99% -26.5%, rgba(79, 202, 209, 0.5) 0%, rgba(252, 214, 215, 0.5) 100%)',
