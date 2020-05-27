@@ -33,5 +33,6 @@
     "lint-staged": "^10.2.4",
     "shell-quote": "^1.7.2",
     "typescript": "^3.9.3"
-  }
+  },
+  "dependencies": {}
 }
