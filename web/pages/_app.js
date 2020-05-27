@@ -1,15 +1,13 @@
-import '../styles/index.css'
-
 import App from 'next/app'
 import { ApolloProvider } from 'react-apollo'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import { ThemeProvider } from 'styled-components'
 import withData from '../lib/withData'
+import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
+import '../styles/index.css' //eslint-disable-line
 
 import Page from '../components/Page'
 import Meta from '../components/Meta'
-
-import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 
 const { theme } = resolveConfig(tailwindConfig)
 
