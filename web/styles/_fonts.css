@@ -4,8 +4,7 @@
   font-style: normal;
   font-weight: 400;
   src: local('Porpara'), local('Porpara-Regular'),
-    /* Modern Browsers */ url('/public/fonts/porpara-regular.ttf')
-      format('truetype');
+    /* Modern Browsers */ url('/fonts/porpara-regular.ttf') format('truetype');
 }
 
 /* Caladea / Serif */
@@ -13,35 +12,33 @@
   font-family: 'Caladea';
   font-style: normal;
   font-weight: 400;
-  src: url('/public/fonts/caladea-v1-latin-regular.eot'); /* IE9 Compat Modes */
+  src: url('/fonts/caladea-v1-latin-regular.eot'); /* IE9 Compat Modes */
   src: local('Caladea Regular'), local('Caladea-Regular'),
-    url('/public/fonts/caladea-v1-latin-regular.eot?#iefix')
+    url('/fonts/caladea-v1-latin-regular.eot?#iefix')
       format('embedded-opentype'),
-    /* IE6-IE8 */ url('/public/fonts/caladea-v1-latin-regular.woff2')
-      format('woff2'),
-    /* Super Modern Browsers */
-      url('/public/fonts/caladea-v1-latin-regular.woff') format('woff'),
-    /* Modern Browsers */ url('/public/fonts/caladea-v1-latin-regular.ttf')
+    /* IE6-IE8 */ url('/fonts/caladea-v1-latin-regular.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('/fonts/caladea-v1-latin-regular.woff')
+      format('woff'),
+    /* Modern Browsers */ url('/fonts/caladea-v1-latin-regular.ttf')
       format('truetype'),
     /* Safari, Android, iOS */
-      url('/public/fonts/caladea-v1-latin-regular.svg#Caladea') format('svg'); /* Legacy iOS */
+      url('/fonts/caladea-v1-latin-regular.svg#Caladea') format('svg'); /* Legacy iOS */
 }
 
 @font-face {
   font-family: 'Karla';
   font-style: bold;
   font-weight: 700;
-  src: url('/public/fonts/karla-v13-latin-700.eot'); /* IE9 Compat Modes */
+  src: url('/fonts/karla-v13-latin-700.eot'); /* IE9 Compat Modes */
   src: local('Karla Bold'), local('Karla-Bold'),
-    url('/public/fonts/karla-v13-latin-700.eot?#iefix')
-      format('embedded-opentype'),
-    /* IE6-IE8 */ url('/public/fonts/karla-v13-latin-700.woff2') format('woff2'),
-    /* Super Modern Browsers */ url('/public/fonts/karla-v13-latin-700.woff')
+    url('/fonts/karla-v13-latin-700.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */ url('/fonts/karla-v13-latin-700.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('/fonts/karla-v13-latin-700.woff')
       format('woff'),
-    /* Modern Browsers */ url('/public/fonts/karla-v13-latin-700.ttf')
+    /* Modern Browsers */ url('/fonts/karla-v13-latin-700.ttf')
       format('truetype'),
-    /* Safari, Android, iOS */
-      url('/public/fonts/karla-v13-latin-700.svg#Karla') format('svg'); /* Legacy iOS */
+    /* Safari, Android, iOS */ url('/fonts/karla-v13-latin-700.svg#Karla')
+      format('svg'); /* Legacy iOS */
 }
 
 /* Set base font family */
