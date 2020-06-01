@@ -2,7 +2,6 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import * as R from 'ramda'
 import styled from 'styled-components'
-import Navbar from '../components/Navbar'
 
 const GET_SELF_CARE_TECHNIQUES = gql`
   query GET_SELF_CARE_TECHNIQUES {
@@ -26,7 +25,6 @@ const IndexStyled = styled.section.attrs({
 const Index = () => {
   return (
     <IndexStyled>
-      <Navbar />
       <Query query={GET_SELF_CARE_TECHNIQUES}>
         {({ data, error, loading }) => {
           if (loading) return <p>LOADING...</p>

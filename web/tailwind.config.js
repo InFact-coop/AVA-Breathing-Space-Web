@@ -31,7 +31,8 @@ module.exports = {
         '10d5': '2.625rem', // 42px
         '11': '2.75rem', // 44px
         '11d5': '2.875rem', // 46px
-        '12': '3.75rem', // 60px
+        '12': '3rem', // 48px
+        '15': '3.75rem', // 60px
         '17': '4.25rem', // 68px
         '18': '4.5rem', // 72px
         '20': '5rem', // 80px
@@ -44,8 +45,11 @@ module.exports = {
       width: {
         '49/100': '49%',
       },
+      height: {
+        '25': '6.25rem', // 100px
+      },
       borderRadius: {
-        '11': '2.75rem', // 44px
+        '2d5': '0.625rem', // 10px
       },
     },
     fontSize: {
@@ -77,6 +81,7 @@ module.exports = {
       lightgray: '#E0E0EB',
       lightestgray: '#FAFAFA',
       white: '#FFFFFF',
+      whiteoverlay: 'rgba(251, 250, 255, 0.3)',
       // gradients
       tealcoral:
         'radial-gradient(115.8% 115.5% at 120.99% -26.5%, rgba(79, 202, 209, 0.5) 0%, rgba(252, 214, 215, 0.5) 100%)',
@@ -126,6 +131,9 @@ module.exports = {
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
       ],
+    },
+    boxShadow: {
+      default: '0px 0px 4px rgba(154, 150, 171, 0.2)',
     },
   },
 }
