@@ -5,7 +5,7 @@ const AboutAVAStyled = styled.section.attrs({
 })``
 
 const AboutAVA = () => {
-  return <AboutAVAStyled>AboutAVA</AboutAVAStyled>
+  return <AboutAVAStyled>This is all about AVA</AboutAVAStyled>
 }
 
 export default AboutAVA
