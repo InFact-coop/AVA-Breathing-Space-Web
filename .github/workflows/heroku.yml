@@ -21,7 +21,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Deploy to Heroku remote
-      run: git push heroku 'git subtree split --prefix web':master --force
+      run: git push heroku `git subtree split --prefix web`:master --force
 
   staging: 
     # The type of runner that the job will run on
@@ -34,4 +34,4 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Deploy to Heroku remote
-      run: git push heroku 'git subtree split --prefix web':staging --force
+      run: git push heroku `git subtree split --prefix web`:staging --force
