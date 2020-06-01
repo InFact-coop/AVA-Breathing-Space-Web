@@ -24,7 +24,7 @@ jobs:
       run: |
         git remote add upstream https://github.com/InFact-coop/BreathingSpace-Web.git
         git checkout master
-        git push `git subtree split --prefix web`:upstream/master --force
+        git push upstream `git subtree split --prefix web`:master --force
 
   staging: 
     # The type of runner that the job will run on
@@ -39,5 +39,5 @@ jobs:
     - name: push to other repo
       run: |
         git remote add upstream https://github.com/InFact-coop/BreathingSpace-Web.git
-        git checkout -b staging
-        git push `git subtree split --prefix web`:upstream/staging --force
+        git checkout staging
+        git push upstream `git subtree split --prefix web`:staging --force
