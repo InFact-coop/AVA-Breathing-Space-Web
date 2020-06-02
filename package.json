@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start",
+    "build": "NODE_ENV=production next build",
+    "start": "NODE_ENV=production next start -p $PORT",
     "==lint&format==": "-----------------------------------------------------------------------------------",
     "format": "npm run prettier -- --write",
     "lint": "jest --config ./test/jest.lint.js",
@@ -32,6 +32,7 @@
     "@zeit/next-css": "^1.0.1",
     "apollo-boost": "^0.4.9",
     "autoprefixer": "^9.8.0",
+    "env-cmd": "^10.1.0",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
     "jest": "^26.0.1",
@@ -51,11 +52,10 @@
     "tailwindcss": "^1.4.6"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.10.7",
-    "postcss-import": "^12.0.1",
     "@sanity/cli": "^1.149.13",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
+    "babel-plugin-styled-components": "^1.10.7",
     "eslint": "^7.0.0",
     "eslint-config-kentcdodds": "^14.13.0",
     "eslint-config-prettier": "^6.11.0",
@@ -64,6 +64,7 @@
     "jest": "^24.9.0",
     "jest-runner-eslint": "^0.7.5",
     "lint-staged": "^10.2.4",
+    "postcss-import": "^12.0.1",
     "shell-quote": "^1.7.2",
     "typescript": "^3.9.3"
   }

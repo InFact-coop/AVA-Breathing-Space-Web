@@ -3,6 +3,8 @@
 logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log
 
 # Runtime data
 pids
@@ -34,9 +36,23 @@ jspm_packages
 # Optional npm cache directory
 .npm
 
+# Optional eslint cache
+.eslintcache
+
+# Yarn Integrity file
+.yarn-integrity
+
 # Optional REPL history
 .node_repl_history
 .next
 
+# dotenv environment variables file
+.env
+*.env
+
+# Config folder
+.config
+
 # Static
 out
+
