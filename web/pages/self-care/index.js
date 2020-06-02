@@ -9,13 +9,13 @@ const GET_SELF_CARE_BY_CATEGORY =
   '*[ _type == "selfcareCategory" ] {title, "techniques": *[ _type == "selfcareTechnique" && references(^._id) ] { title, "slug": slug.current } }'
 
 const TechniqueStyled = styled.a.attrs(({ colour }) => ({
-  className: `w-32 h-40 flex-shrink-0 rounded-2d5 mr-2d5 shadow
+  className: `w-32 h-40 flex-shrink-0 rounded-2.5 mr-2.5 shadow
   bg-${colour} 
   `,
 }))``
 
 const TechniqueTitle = styled.h2.attrs({
-  className: 'font-sm h-15 p-2d5 flex items-end',
+  className: 'font-sm h-15 p-2.5 flex items-end',
 })``
 
 const Preview = styled.div.attrs({ className: 'h-25 bg-whiteoverlay' })``
@@ -36,7 +36,7 @@ const Carousel = styled.div.attrs({
 })``
 
 const CategoryTitle = styled.h1.attrs({
-  className: 'font-serif font-lg mb-2d5',
+  className: 'font-serif font-lg mb-2.5',
 })``
 
 const CategoryStyled = styled.section.attrs({
