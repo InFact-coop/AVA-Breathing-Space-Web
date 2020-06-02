@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Navbar from './Navbar'
+import Exit from './Exit'
 
 const PageStyled = styled.main.attrs({
   className: 'p-5',
@@ -8,6 +9,7 @@ const PageStyled = styled.main.attrs({
 const Page = ({ children }) => (
   <>
     <Navbar />
+    <Exit />
     <PageStyled>{children}</PageStyled>
   </>
 )
