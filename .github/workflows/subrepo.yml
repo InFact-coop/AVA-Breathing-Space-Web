@@ -1,0 +1,25 @@
+name: Publish To Web
+on: push
+jobs:
+  master:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: push master branch
+        uses: johno/actions-push-subdirectories@master
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: web InFact-coop BreathingSpace-Web
+  staging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@staging
+      - name: push staging branch
+        uses: johno/actions-push-subdirectories@staging
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: web InFact-coop BreathingSpace-Web
