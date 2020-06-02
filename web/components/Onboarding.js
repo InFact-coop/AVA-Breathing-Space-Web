@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import styled from 'styled-components'
+import useLocalStorage from '../lib/useLocalStorage'
 import Exit from './Exit'
 
 const OnboardingStyled = styled.section.attrs({
@@ -13,8 +13,8 @@ const EmergencyCopy = styled.p.attrs({ className: 'font-bold pb-0.5' })``
 const Call = styled.a.attrs({ className: 'border-b' })``
 
 const Onboarding = () => {
-  const [onboarding, setonboarding] = useState(true)
-  const closeOnboarding = () => setonboarding(false)
+  const [onboarding, setOnboarding] = useLocalStorage('onboarding', true)
+  const closeOnboarding = () => setOnboarding(false)
 
   if (!onboarding) return null
   return (
