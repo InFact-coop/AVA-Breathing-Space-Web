@@ -23,7 +23,7 @@ jobs:
     - name: push to other repo
       run: |
         git remote add upstream https://github.com/InFact-coop/BreathingSpace-Web.git
-        git checkout master
+        git checkout origin/master
         git push upstream `git subtree split --prefix web`:refs/remotes/upstream/master --force
 
   staging: 
@@ -39,5 +39,5 @@ jobs:
     - name: push to other repo
       run: |
         git remote add upstream https://github.com/InFact-coop/BreathingSpace-Web.git
-        git checkout staging
+        git checkout origin/staging
         git push upstream `git subtree split --prefix web`:refs/remotes/upstream/staging --force
