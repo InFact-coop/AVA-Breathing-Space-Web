@@ -1,2 +1,2 @@
-/packages/studio/dist/*
-dist/*
+public/sw.js
+public/workbox-*.js
