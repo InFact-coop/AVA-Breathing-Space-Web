@@ -1,0 +1,72 @@
+Arguments: 
+  /Users/lucyking/.nvm/versions/node/v12.16.1/bin/node /usr/local/bin/yarn install
+
+PATH: 
+  /Users/lucyking/.nvm/versions/node/v12.16.1/bin:/Users/lucyking/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  12.16.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, lstat '/Users/lucyking/Documents/Client projects/AVA-Breathing-Space/web/node_modules/fork-ts-checker-webpack-plugin/node_modules/.bin'
+
+npm manifest: 
+  {
+    "private": true,
+    "name": "ava-breathing-space",
+    "version": "1.0.5",
+    "scripts": {
+      "build": "lerna run build --parallel",
+      "build-web": "lerna bootstrap && (cd web && npm run build)",
+      "build-studio": "lerna bootstrap && (cd studio && npm run build)",
+      "dev": "lerna run dev --parallel",
+      "format": "lerna run format",
+      "graphql-deploy": "lerna run graphql-deploy",
+      "lint": "lerna run lint",
+      "postinstall": "lerna bootstrap",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "lint-staged"
+      }
+    },
+    "devDependencies": {
+      "@sanity/cli": "^1.149.13",
+      "@typescript-eslint/eslint-plugin": "^2.34.0",
+      "@typescript-eslint/parser": "^2.34.0",
+      "autoprefixer": "^9.8.0",
+      "babel-eslint": "^10.0.1",
+      "cssnano": "^4.1.10",
+      "eslint": "^7.0.0",
+      "eslint-config-kentcdodds": "^14.13.0",
+      "eslint-config-prettier": "^6.11.0",
+      "eslint-import-resolver-typescript": "^2.0.0",
+      "husky": "^4.2.5",
+      "jest": "^26.0.1",
+      "jest-runner-eslint": "^0.8.0",
+      "lerna": "^3.21.0",
+      "lint-staged": "^10.2.4",
+      "postcss-import": "^12.0.1",
+      "postcss-preset-env": "^6.6.0",
+      "shell-quote": "^1.7.2",
+      "sitemap": "^2.1.0",
+      "typescript": "^3.9.3"
+    },
+    "dependencies": {
+      "sanity-nextjs-landing-pages-studio": "file:studio",
+      "sanity-nextjs-landing-pages-web": "file:web"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

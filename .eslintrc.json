@@ -1,0 +1,42 @@
+{
+  "extends": ["kentcdodds", "kentcdodds/react", "kentcdodds/jsx-a11y"],
+  "ignorePatterns": ["**/public/*.js"],
+  "rules": {
+    "react/prop-types": 0,
+    "no-use-before-define": 0,
+    "react/react-in-jsx-scope": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "consistent-return": 0,
+    "import/no-unresolved": [2, { "ignore": ["^(all|part):"] }]
+  },
+  "globals": {
+    "cssTheme": "readonly"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "prettier/@typescript-eslint"
+      ],
+      "rules": {
+        "@typescript-eslint/ban-ts-ignore": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "import/no-unresolved": [2, { "ignore": ["^(all|part):"] }]
+      },
+      "settings": {
+        "import/resolver": {
+          "typescript": {
+            "alwaysTryTypes": true,
+            "directory": "tsconfig.json"
+          }
+        }
+      }
+    }
+  ]
+}

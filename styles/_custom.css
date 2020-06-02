@@ -1,0 +1,8 @@
+body {
+  min-height: 100vh;
+  height: fit-content;
+  -webkit-font-smoothing: antialiased;
+  font-size: theme('fontSize.base');
+  line-height: theme('lineHeight.base');
+  background-color: theme('colors.lightestgray');
+}
