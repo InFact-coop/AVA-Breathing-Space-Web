@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
 export default (key, initialValue) => {
+  const onClientSide = typeof window !== 'undefined'
+
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      const item =
-        window && window.localStorage ? window.localStorage.getItem(key) : null
+      const item = onClientSide && window.localStorage.getItem(key)
 
       return item ? JSON.parse(item) : initialValue
     } catch (error) {
@@ -18,7 +19,7 @@ export default (key, initialValue) => {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value
       setStoredValue(valueToStore)
-      if (window) {
+      if (onClientSide) {
         window.localStorage.setItem(key, JSON.stringify(valueToStore))
       }
     } catch (error) {
