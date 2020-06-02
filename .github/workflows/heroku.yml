@@ -22,8 +22,7 @@ jobs:
     # Runs a single command using the runners shell
     - name: push to other repo
       run: |
-        git remote add upstream https://github.com/InFact-coop/BreathingSpace-Web.git
-        git checkout origin/master
+        git remote add upstream https://$API_TOKEN_GITHUB@github.com/InFact-coop/BreathingSpace-Web.git
         git push upstream `git subtree split --prefix web`:refs/remotes/upstream/master --force
 
   staging: 
@@ -38,6 +37,6 @@ jobs:
     # Runs a single command using the runners shell
     - name: push to other repo
       run: |
-        git remote add upstream https://github.com/InFact-coop/BreathingSpace-Web.git
-        git checkout origin/staging
+        git remote add upstream https://$API_TOKEN_GITHUB@github.com/InFact-coop/BreathingSpace-Web.git
+        git checkout -b origin/staging
         git push upstream `git subtree split --prefix web`:refs/remotes/upstream/staging --force
