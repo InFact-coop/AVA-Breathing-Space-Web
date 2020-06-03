@@ -2,4 +2,6 @@ packages/studio/dist/*
 **/dist/*
 **/out/*
 **/.next/*
-**/_next/*
+**/_next/
+**/public/sw.js
+**/public/sw.js.map

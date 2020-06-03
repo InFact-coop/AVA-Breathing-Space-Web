@@ -57,7 +57,7 @@
 }
 
 /* Set base font family */
-* {
+body {
   font-family: theme('fontFamily.sans');
 }
 

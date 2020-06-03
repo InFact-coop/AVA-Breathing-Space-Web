@@ -80,7 +80,7 @@ if (!self.define) {
     })
   }
 }
-define('./sw.js', ['./workbox-b90066a8'], function(workbox) {
+define('./sw.js', ['./workbox-b90066a8'], function (workbox) {
   'use strict'
 
   /**
