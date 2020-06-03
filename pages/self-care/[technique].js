@@ -8,6 +8,7 @@ import serializers from '../../components/serializers'
 import Container from '../../components/Container'
 
 const GET_SELF_CARE_TECHNIQUE = `*[_type == "selfcareTechnique" && slug.current == $slug][0]{
+  _type,
   title,
   mainImage,
   video, 
@@ -17,7 +18,7 @@ const GET_SELF_CARE_TECHNIQUE = `*[_type == "selfcareTechnique" && slug.current 
   likes
 }`
 
-const TechniqueStyled = styled.section.attrs({
+const TechniqueStyled = styled(Container).attrs({
   className: 'bg-white',
 })``
 
@@ -40,23 +41,21 @@ const Technique = props => {
   return (
     <OuterContainer className="h-full bg-white">
       {technique.video && <TechniqueVideo src={technique.video} controls />}
-      <Container bgColour="white">
-        <TechniqueStyled>
-          <TechniqueTitle>{technique.title}</TechniqueTitle>
-          <BlockContent
-            blocks={technique.body}
-            className="font-sm font-normal"
-            renderContainerOnSingleChild={true}
-            imageOptions={{ w: 320, h: 240, fit: 'max' }}
-            serializers={serializers}
-            projectId="is8j72h6"
-            dataset={
-              process.env.NODE_ENV === 'production' ? 'production' : 'staging'
-            }
-            {...client.config()}
-          />{' '}
-        </TechniqueStyled>
-      </Container>
+      <TechniqueStyled bgColour="white">
+        <TechniqueTitle>{technique.title}</TechniqueTitle>
+        <BlockContent
+          blocks={technique.body}
+          className="font-sm font-normal"
+          renderContainerOnSingleChild={true}
+          imageOptions={{ w: 320, h: 240, fit: 'max' }}
+          serializers={serializers}
+          projectId="is8j72h6"
+          dataset={
+            process.env.NODE_ENV === 'production' ? 'production' : 'staging'
+          }
+          {...client.config()}
+        />{' '}
+      </TechniqueStyled>
     </OuterContainer>
   )
 }

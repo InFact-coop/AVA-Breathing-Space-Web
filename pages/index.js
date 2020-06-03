@@ -1,14 +1,10 @@
 import styled from 'styled-components'
 import Container from '../components/Container'
 
-const IndexStyled = styled.section.attrs({
+const IndexStyled = styled(Container).attrs({
   className: '',
 })``
 
-const Index = () => (
-  <Container bgColour="lightgrey">
-    <IndexStyled />
-  </Container>
-)
+const Index = () => <IndexStyled>Index</IndexStyled>
 
 export default Index

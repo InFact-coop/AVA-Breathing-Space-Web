@@ -1,14 +1,10 @@
 import styled from 'styled-components'
-import Container from '../components/Container'
+import Container from '../../../components/Container'
 
-const CategoryStyled = styled.section.attrs({
+const CategoryStyled = styled(Container).attrs({
   className: '',
 })``
 
-const Category = () => (
-  <Container bgColour="lightgrey">
-    <CategoryStyled>Category</CategoryStyled>
-  </Container>
-)
+const Category = () => <CategoryStyled>Category</CategoryStyled>
 
 export default Category

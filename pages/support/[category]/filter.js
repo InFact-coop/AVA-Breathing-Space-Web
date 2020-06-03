@@ -1,14 +1,10 @@
 import styled from 'styled-components'
 import Container from '../../../components/Container'
 
-const FilterStyled = styled.section.attrs({
+const FilterStyled = styled(Container).attrs({
   className: '',
 })``
 
-const Filter = () => (
-  <Container bgColour="lightgrey">
-    <FilterStyled>Filter</FilterStyled>
-  </Container>
-)
+const Filter = () => <FilterStyled>Filter</FilterStyled>
 
 export default Filter

@@ -28,10 +28,6 @@ const Technique = ({ title, colour, slug }) => (
   </TechniqueStyled>
 )
 
-const SelfCareStyled = styled.section.attrs({
-  className: '',
-})``
-
 const Carousel = styled.div.attrs({
   className: 'flex flex-wrap mb-10',
 })``
@@ -62,6 +58,10 @@ const Category = ({ title, techniques }, index) => {
   )
 }
 
+const SelfCareStyled = styled(Container).attrs({
+  className: '',
+})``
+
 const SelfCare = () => {
   const [categories, setCategories] = useState()
   useEffect(() => {
@@ -75,9 +75,7 @@ const SelfCare = () => {
 
   if (!categories) return <div />
   return (
-    <Container bgColour="lightgrey">
-      <SelfCareStyled>{R.addIndex(R.map)(Category)(categories)}</SelfCareStyled>
-    </Container>
+    <SelfCareStyled>{R.addIndex(R.map)(Category)(categories)}</SelfCareStyled>
   )
 }
 

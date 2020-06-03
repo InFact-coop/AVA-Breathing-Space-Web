@@ -1,14 +1,10 @@
 import styled from 'styled-components'
 import Container from '../../components/Container'
 
-const StoriesStyled = styled.section.attrs({
+const StoriesStyled = styled(Container).attrs({
   className: '',
 })``
 
-const Stories = () => (
-  <Container bgColour="lightgrey">
-    <StoriesStyled>Stories</StoriesStyled>
-  </Container>
-)
+const Stories = () => <StoriesStyled>Stories</StoriesStyled>
 
 export default Stories
