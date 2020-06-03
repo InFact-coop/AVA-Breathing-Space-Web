@@ -104,6 +104,7 @@ define('./sw.js', ['./workbox-b90066a8'], function (workbox) {
    * See https://goo.gl/S9QRab
    */
 
+<<<<<<< HEAD:web/public/sw.js
   workbox.precacheAndRoute(
     [
       {
@@ -133,4 +134,27 @@ define('./sw.js', ['./workbox-b90066a8'], function (workbox) {
   )
   workbox.cleanupOutdatedCaches()
 })
+=======
+  workbox.precacheAndRoute([{
+    "url": "/_next/static/runtime/amp.js",
+    "revision": "2fdd189ea17faa56a4f44a2fdd88b84f"
+  }, {
+    "url": "/_next/static/runtime/main.js",
+    "revision": "bb855f8c73e9aaeeb01eb55fe2dd23ed"
+  }, {
+    "url": "/_next/static/runtime/polyfills.js",
+    "revision": "516c3d4deeff70783126396a5a14d34e"
+  }, {
+    "url": "/_next/static/runtime/react-refresh.js",
+    "revision": "9d11ea7095b60a828f2db49ed1004ade"
+  }, {
+    "url": "/_next/static/runtime/webpack.js",
+    "revision": "d11d621a06c2dd39aecc61db8187397e"
+  }], {
+    "ignoreURLParametersMatching": [/ts/]
+  });
+  workbox.cleanupOutdatedCaches();
+
+});
+>>>>>>> master:public/sw.js
 //# sourceMappingURL=sw.js.map
