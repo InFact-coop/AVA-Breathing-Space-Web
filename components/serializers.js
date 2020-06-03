@@ -1,29 +1,55 @@
+/* eslint-disable react/display-name */
+
 import styled from 'styled-components'
 
 const StyledList = styled.ul.attrs({
-  className: '',
-})``
+  className: 'pt-2.5',
+})`
+  > li:not(:last-of-type) {
+    padding-bottom: 10px;
+  }
+`
 
 const StyledListItem = styled.li.attrs({
-  className: 'pb-2d5',
+  className: '',
 })`
   display: list-item;
   list-style-type: disc;
   list-style-position: inside;
 
-  ::marker {
-    margin-right: 10px;
+  span {
+    margin-left: -6px;
   }
 `
 
 const serializers = {
-  list: props => <StyledList props={props} />, //eslint-disable-line react/display-name
-  listItem: props => <StyledListItem props={props} />, //eslint-disable-line react/display-name
+  list: ({ children }) => {
+    return <StyledList>{children}</StyledList>
+  },
+  listItem: ({ children }) => {
+    return (
+      <StyledListItem>
+        <span>{children}</span>
+      </StyledListItem>
+    )
+  },
+  marks: {
+    internalLink: ({ mark, children }) => {
+      const { slug = {} } = mark
+      const href = `/${slug.current}`
+      return <a href={href}>{children}</a>
+    },
+    link: ({ mark, children }) => {
+      const { blank, href } = mark
+      return blank ? (
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
+      ) : (
+        <a href={href}>{children}</a>
+      )
+    },
+  },
 }
-
-// const serializers = {
-//   list: StyledList,
-//   listItem: StyledListItem,
-// }
 
 export default serializers
