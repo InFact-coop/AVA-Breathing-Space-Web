@@ -1,0 +1,24 @@
+{
+  "ast": null,
+  "code": "var _this = this,\n    _jsxFileName = \"/Users/lucyking/Documents/Client projects/AVA-Breathing-Space-Web/pages/stories/index.js\";\n\nimport React from \"react\";\nvar __jsx = React.createElement;\nimport styled from 'styled-components';\nvar StoriesStyled = styled.section.attrs({\n  className: ''\n}).withConfig({\n  displayName: \"stories__StoriesStyled\",\n  componentId: \"sc-752rpr-0\"\n})([\"\"]);\n_c = StoriesStyled;\n\nvar Stories = function Stories() {\n  return __jsx(StoriesStyled, {\n    __self: _this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 8,\n      columnNumber: 10\n    }\n  }, \"Stories\");\n};\n\n_c2 = Stories;\nexport default Stories;\n\nvar _c, _c2;\n\n$RefreshReg$(_c, \"StoriesStyled\");\n$RefreshReg$(_c2, \"Stories\");",
+  "map": {
+    "version": 3,
+    "sources": [
+      "/Users/lucyking/Documents/Client projects/AVA-Breathing-Space-Web/pages/stories/index.js"
+    ],
+    "names": [
+      "styled",
+      "StoriesStyled",
+      "section",
+      "attrs",
+      "className",
+      "Stories"
+    ],
+    "mappings": ";;;;;AAAA,OAAOA,MAAP,MAAmB,mBAAnB;AAEA,IAAMC,aAAa,GAAGD,MAAM,CAACE,OAAP,CAAeC,KAAf,CAAqB;AACzCC,EAAAA,SAAS,EAAE;AAD8B,CAArB,CAAH;AAAA;AAAA;AAAA,QAAnB;KAAMH,a;;AAIN,IAAMI,OAAO,GAAG,SAAVA,OAAU,GAAM;AACpB,SAAO,MAAC,aAAD;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,eAAP;AACD,CAFD;;MAAMA,O;AAIN,eAAeA,OAAf",
+    "sourcesContent": [
+      "import styled from 'styled-components'\n\nconst StoriesStyled = styled.section.attrs({\n  className: '',\n})``\n\nconst Stories = () => {\n  return <StoriesStyled>Stories</StoriesStyled>\n}\n\nexport default Stories\n"
+    ]
+  },
+  "metadata": {},
+  "sourceType": "module"
+}

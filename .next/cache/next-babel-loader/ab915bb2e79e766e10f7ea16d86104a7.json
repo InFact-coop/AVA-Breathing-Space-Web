@@ -1,0 +1,24 @@
+{
+  "ast": null,
+  "code": "var _this = this,\n    _jsxFileName = \"/Users/lucyking/Documents/Client projects/AVA-Breathing-Space-Web/pages/self-care/index.js\";\n\nimport React from \"react\";\nvar __jsx = React.createElement;\nimport styled from 'styled-components';\nvar SelfCareStyled = styled.section.attrs({\n  className: ''\n}).withConfig({\n  displayName: \"self-care__SelfCareStyled\",\n  componentId: \"sc-9htt3t-0\"\n})([\"\"]);\n_c = SelfCareStyled;\n\nvar SelfCare = function SelfCare() {\n  return __jsx(SelfCareStyled, {\n    __self: _this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 8,\n      columnNumber: 10\n    }\n  }, \"SelfCare\");\n};\n\n_c2 = SelfCare;\nexport default SelfCare;\n\nvar _c, _c2;\n\n$RefreshReg$(_c, \"SelfCareStyled\");\n$RefreshReg$(_c2, \"SelfCare\");",
+  "map": {
+    "version": 3,
+    "sources": [
+      "/Users/lucyking/Documents/Client projects/AVA-Breathing-Space-Web/pages/self-care/index.js"
+    ],
+    "names": [
+      "styled",
+      "SelfCareStyled",
+      "section",
+      "attrs",
+      "className",
+      "SelfCare"
+    ],
+    "mappings": ";;;;;AAAA,OAAOA,MAAP,MAAmB,mBAAnB;AAEA,IAAMC,cAAc,GAAGD,MAAM,CAACE,OAAP,CAAeC,KAAf,CAAqB;AAC1CC,EAAAA,SAAS,EAAE;AAD+B,CAArB,CAAH;AAAA;AAAA;AAAA,QAApB;KAAMH,c;;AAIN,IAAMI,QAAQ,GAAG,SAAXA,QAAW,GAAM;AACrB,SAAO,MAAC,cAAD;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,gBAAP;AACD,CAFD;;MAAMA,Q;AAIN,eAAeA,QAAf",
+    "sourcesContent": [
+      "import styled from 'styled-components'\n\nconst SelfCareStyled = styled.section.attrs({\n  className: '',\n})``\n\nconst SelfCare = () => {\n  return <SelfCareStyled>SelfCare</SelfCareStyled>\n}\n\nexport default SelfCare\n"
+    ]
+  },
+  "metadata": {},
+  "sourceType": "module"
+}

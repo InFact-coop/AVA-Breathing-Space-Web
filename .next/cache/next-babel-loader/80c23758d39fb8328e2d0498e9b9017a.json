@@ -1,0 +1,36 @@
+{
+  "ast": null,
+  "code": "var _jsxFileName = \"/Users/lucyking/Documents/Client projects/AVA-Breathing-Space-Web/components/Navbar.js\";\nimport React from \"react\";\nvar __jsx = React.createElement;\nimport styled from 'styled-components';\nimport * as R from 'ramda';\nimport Link from 'next/link';\nimport { useRouter } from 'next/router';\nconst TabStyled = styled.a.attrs(({\n  selected\n}) => ({\n  className: `text-sm font-bold py-5 text-center border-b\n  ${selected ? 'text-black border-black' : 'text-gray border-lightgray'}`\n})).withConfig({\n  displayName: \"Navbar__TabStyled\",\n  componentId: \"sc-1hpovma-0\"\n})([\"flex:1;\"]);\n\nconst Tab = ({\n  href,\n  children\n}) => {\n  const {\n    pathname\n  } = useRouter();\n  const isTabActive = R.equals(href, pathname);\n  return __jsx(Link, {\n    href: href,\n    passHref: true,\n    __self: this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 18,\n      columnNumber: 5\n    }\n  }, __jsx(TabStyled, {\n    selected: isTabActive,\n    __self: this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 19,\n      columnNumber: 7\n    }\n  }, children));\n};\n\nconst NavbarStyled = styled.nav.attrs({\n  className: 'flex items-center bg-white'\n}).withConfig({\n  displayName: \"Navbar__NavbarStyled\",\n  componentId: \"sc-1hpovma-1\"\n})([\"\"]);\n\nconst Navbar = () => __jsx(NavbarStyled, {\n  __self: this,\n  __source: {\n    fileName: _jsxFileName,\n    lineNumber: 29,\n    columnNumber: 3\n  }\n}, __jsx(Tab, {\n  href: \"/\",\n  __self: this,\n  __source: {\n    fileName: _jsxFileName,\n    lineNumber: 30,\n    columnNumber: 5\n  }\n}, \"Support\"), __jsx(Tab, {\n  href: \"/self-care\",\n  __self: this,\n  __source: {\n    fileName: _jsxFileName,\n    lineNumber: 31,\n    columnNumber: 5\n  }\n}, \"Self-Care\"), __jsx(Tab, {\n  href: \"/stories\",\n  __self: this,\n  __source: {\n    fileName: _jsxFileName,\n    lineNumber: 32,\n    columnNumber: 5\n  }\n}, \"Stories\"));\n\nexport default Navbar;",
+  "map": {
+    "version": 3,
+    "sources": [
+      "/Users/lucyking/Documents/Client projects/AVA-Breathing-Space-Web/components/Navbar.js"
+    ],
+    "names": [
+      "styled",
+      "R",
+      "Link",
+      "useRouter",
+      "TabStyled",
+      "a",
+      "attrs",
+      "selected",
+      "className",
+      "Tab",
+      "href",
+      "children",
+      "pathname",
+      "isTabActive",
+      "equals",
+      "NavbarStyled",
+      "nav",
+      "Navbar"
+    ],
+    "mappings": ";;;AAAA,OAAOA,MAAP,MAAmB,mBAAnB;AACA,OAAO,KAAKC,CAAZ,MAAmB,OAAnB;AACA,OAAOC,IAAP,MAAiB,WAAjB;AACA,SAASC,SAAT,QAA0B,aAA1B;AAEA,MAAMC,SAAS,GAAGJ,MAAM,CAACK,CAAP,CAASC,KAAT,CAAe,CAAC;AAAEC,EAAAA;AAAF,CAAD,MAAmB;AAClDC,EAAAA,SAAS,EAAG;IACVD,QAAQ,GAAG,yBAAH,GAA+B,4BAA6B;AAFpB,CAAnB,CAAf,CAAH;AAAA;AAAA;AAAA,eAAf;;AAOA,MAAME,GAAG,GAAG,CAAC;AAAEC,EAAAA,IAAF;AAAQC,EAAAA;AAAR,CAAD,KAAwB;AAClC,QAAM;AAAEC,IAAAA;AAAF,MAAeT,SAAS,EAA9B;AACA,QAAMU,WAAW,GAAGZ,CAAC,CAACa,MAAF,CAASJ,IAAT,EAAeE,QAAf,CAApB;AAEA,SACE,MAAC,IAAD;AAAM,IAAA,IAAI,EAAEF,IAAZ;AAAkB,IAAA,QAAQ,MAA1B;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,KACE,MAAC,SAAD;AAAW,IAAA,QAAQ,EAAEG,WAArB;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,KAAmCF,QAAnC,CADF,CADF;AAKD,CATD;;AAWA,MAAMI,YAAY,GAAGf,MAAM,CAACgB,GAAP,CAAWV,KAAX,CAAiB;AACpCE,EAAAA,SAAS,EAAE;AADyB,CAAjB,CAAH;AAAA;AAAA;AAAA,QAAlB;;AAIA,MAAMS,MAAM,GAAG,MACb,MAAC,YAAD;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,GACE,MAAC,GAAD;AAAK,EAAA,IAAI,EAAC,GAAV;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,aADF,EAEE,MAAC,GAAD;AAAK,EAAA,IAAI,EAAC,YAAV;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,eAFF,EAGE,MAAC,GAAD;AAAK,EAAA,IAAI,EAAC,UAAV;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,aAHF,CADF;;AAQA,eAAeA,MAAf",
+    "sourcesContent": [
+      "import styled from 'styled-components'\nimport * as R from 'ramda'\nimport Link from 'next/link'\nimport { useRouter } from 'next/router'\n\nconst TabStyled = styled.a.attrs(({ selected }) => ({\n  className: `text-sm font-bold py-5 text-center border-b\n  ${selected ? 'text-black border-black' : 'text-gray border-lightgray'}`,\n}))`\n  flex: 1;\n`\n\nconst Tab = ({ href, children }) => {\n  const { pathname } = useRouter()\n  const isTabActive = R.equals(href, pathname)\n\n  return (\n    <Link href={href} passHref>\n      <TabStyled selected={isTabActive}>{children}</TabStyled>\n    </Link>\n  )\n}\n\nconst NavbarStyled = styled.nav.attrs({\n  className: 'flex items-center bg-white',\n})``\n\nconst Navbar = () => (\n  <NavbarStyled>\n    <Tab href=\"/\">Support</Tab>\n    <Tab href=\"/self-care\">Self-Care</Tab>\n    <Tab href=\"/stories\">Stories</Tab>\n  </NavbarStyled>\n)\n\nexport default Navbar\n"
+    ]
+  },
+  "metadata": {},
+  "sourceType": "module"
+}
