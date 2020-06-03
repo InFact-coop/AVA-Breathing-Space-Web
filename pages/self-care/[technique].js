@@ -16,7 +16,7 @@ const GET_SELF_CARE_TECHNIQUE = `*[_type == "selfcareTechnique" && slug.current 
 }`
 
 const TechniqueStyled = styled.section.attrs({
-  className: '',
+  className: 'bg-white',
 })``
 
 const TechniqueTitle = styled.h2.attrs({
