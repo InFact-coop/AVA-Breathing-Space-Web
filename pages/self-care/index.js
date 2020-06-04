@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import client from '../../client'
 import cycleColours from '../../lib/cycleColours'
+import Container from '../../components/Container'
 
 const GET_SELF_CARE_BY_CATEGORY =
   '*[ _type == "selfcareCategory" ] {title, "techniques": *[ _type == "selfcareTechnique" && references(^._id) ] { title, "slug": slug.current } }'
@@ -74,7 +75,9 @@ const SelfCare = () => {
 
   if (!categories) return <div />
   return (
-    <SelfCareStyled>{R.addIndex(R.map)(Category)(categories)}</SelfCareStyled>
+    <Container bgColour="lightgrey">
+      <SelfCareStyled>{R.addIndex(R.map)(Category)(categories)}</SelfCareStyled>
+    </Container>
   )
 }
 
