@@ -55,6 +55,11 @@ module.exports = {
       height: {
         '7.5': '1.875rem', // 30px
         '25': '6.25rem', // 100px
+        '45': '11.25rem', // 180px
+        '50': '12.5rem', // 200px
+      },
+      minHeight: {
+        content: 'calc(100vh - 200px - 60px)', // screen minus footer minus nav
       },
       borderRadius: {
         '2.5': '0.625rem', // 10px

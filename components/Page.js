@@ -5,7 +5,7 @@ import Onboarding from './Onboarding'
 import Footer from './Footer'
 
 const PageStyled = styled.main.attrs({
-  className: 'p-5',
+  className: 'min-h-content',
 })``
 
 const Page = ({ children }) => (
