@@ -28,7 +28,7 @@ class BreathingSpace extends App {
       <ApolloProvider client={apollo}>
         <ThemeProvider theme={theme}>
           <Meta />
-          <Page>
+          <Page _type={pageProps._type} title={pageProps.title}>
             <Component {...pageProps} />
           </Page>
         </ThemeProvider>

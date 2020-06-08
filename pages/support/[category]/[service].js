@@ -1,14 +1,10 @@
 import styled from 'styled-components'
 import Container from '../../../components/Container'
 
-const ServiceStyled = styled.section.attrs({
+const ServiceStyled = styled(Container).attrs({
   className: '',
 })``
 
-const Service = () => (
-  <Container bgColour="white">
-    <ServiceStyled>Service</ServiceStyled>
-  </Container>
-)
+const Service = () => <ServiceStyled bgColour="white">Service</ServiceStyled>
 
 export default Service

@@ -1,14 +1,10 @@
 import styled from 'styled-components'
 import Container from '../../components/Container'
 
-const ShareStoryStyled = styled.section.attrs({
+const ShareStoryStyled = styled(Container).attrs({
   className: '',
 })``
 
-const ShareStory = () => (
-  <Container bgColour="lightgrey">
-    <ShareStoryStyled>ShareStory</ShareStoryStyled>
-  </Container>
-)
+const ShareStory = () => <ShareStoryStyled>ShareStory</ShareStoryStyled>
 
 export default ShareStory

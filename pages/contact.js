@@ -1,14 +1,10 @@
 import styled from 'styled-components'
 import Container from '../components/Container'
 
-const ContactStyled = styled.section.attrs({
+const ContactStyled = styled(Container).attrs({
   className: '',
 })``
 
-const Contact = () => (
-  <Container bgColour="lightgrey">
-    <ContactStyled>Contact</ContactStyled>
-  </Container>
-)
+const Contact = () => <ContactStyled>Contact</ContactStyled>
 
 export default Contact
