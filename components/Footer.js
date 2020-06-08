@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const FooterStyled = styled.nav.attrs({
   className:
-    'flex justify-between w-full fixed bottom-0 bg-lightestgray font-sm pt-9.5 pb-20 px-5 underline',
+    'flex justify-between w-full bottom-0 bg-lightestgray font-sm pt-9.5 pb-20 px-5 h-50 underline',
 })`
   a:not(:last-of-type) {
     padding-bottom: 15px;
