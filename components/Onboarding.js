@@ -17,7 +17,11 @@ const Onboarding = () => {
   const [onboarding, setOnboarding] = useLocalStorage('onboarding', null)
   const closeOnboarding = () => setOnboarding(false)
 
-  useEffect(() => onboarding === null && setOnboarding(true), [])
+  useEffect(() => {
+    if (onboarding === null) {
+      setOnboarding(true)
+    }
+  }, [])
 
   if (!onboarding) return null
   return (
