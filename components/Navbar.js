@@ -8,7 +8,6 @@ import HeartIcon from '../public/icons/heart-black.svg'
 
 const Back = styled.img.attrs({
   className: '',
-  onClick: () => Router.back(),
   src: BackIcon,
 })``
 
@@ -54,7 +53,16 @@ const NavbarStyled = styled.nav.attrs(
   }),
 )``
 
-const Navbar = ({ border, links, title, heart, back, empty, colour }) => {
+const Navbar = ({
+  border,
+  links,
+  title,
+  heart,
+  back,
+  empty,
+  colour,
+  backToHome,
+}) => {
   if (links)
     return (
       <NavbarStyled>
@@ -69,7 +77,9 @@ const Navbar = ({ border, links, title, heart, back, empty, colour }) => {
       colour={colour}
       border={border}
     >
-      {back && <Back />}
+      {back && (
+        <Back onClick={() => (backToHome ? Router.push('/') : Router.back())} />
+      )}
       {title && <Title>{title}</Title>}
       {heart && <Heart />}
       {empty && <div />}
@@ -83,7 +93,7 @@ export const getNavbarOptions = ({ _type, title }) => {
       return { border: true, back: true, heart: true, title, colour: 'coral' }
     case 'questionnaire':
     case 'page':
-      return { border: true, back: true, title, empty: true }
+      return { border: true, back: true, backToHome: true, title, empty: true }
     default:
       return { links: true }
   }
