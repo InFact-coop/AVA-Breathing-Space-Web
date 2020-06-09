@@ -11,7 +11,7 @@ const GET_SELF_CARE_TECHNIQUE = `*[_type == "selfcareTechnique" && slug.current 
   _type,
   title,
   mainImage,
-  video, 
+  "videoUrl": video.asset->url,
   body,
   audio, 
   link, 
@@ -32,7 +32,7 @@ const TechniqueVideo = styled.video.attrs({
 
 const Technique = props => {
   const [technique] = useState(props)
-  // console.log({ technique })
+  console.log({ technique })
 
   const OuterContainer = styled.div.attrs({
     className: 'bg-white min-h-content',
@@ -40,7 +40,9 @@ const Technique = props => {
 
   return (
     <OuterContainer className="h-full bg-white">
-      {technique.video && <TechniqueVideo src={technique.video} controls />}
+      {technique.videoUrl && (
+        <TechniqueVideo src={technique.videoUrl} controls />
+      )}
       <TechniqueStyled bgColour="white">
         <TechniqueTitle>{technique.title}</TechniqueTitle>
         <BlockContent
