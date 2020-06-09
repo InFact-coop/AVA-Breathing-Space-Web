@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import * as R from 'ramda'
 import styled from 'styled-components'
+import Flickity from 'react-flickity-component'
 
 import client from '../../client'
 import cycleColours from '../../lib/cycleColours'
@@ -28,8 +29,14 @@ const Technique = ({ title, colour, slug }) => (
   </TechniqueStyled>
 )
 
-const Carousel = styled.div.attrs({
-  className: 'flex flex-wrap mb-10',
+const Carousel = styled(Flickity).attrs({
+  options: {
+    prevNextButtons: false,
+    pageDots: false,
+    cellAlign: 'left',
+    contain: true,
+  },
+  className: 'mb-10',
 })``
 
 const CategoryTitle = styled.h1.attrs({

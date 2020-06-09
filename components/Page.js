@@ -13,7 +13,7 @@ const Page = ({ _type, title, children }) => {
   const navbarOptions = getNavbarOptions({ _type, title })
 
   useEffect(() => {
-    // footer = 200ox, top navbar = 60x
+    // footer = 200px, top navbar = 60px
     setWindowHeight(`${window.innerHeight - 200 - 60}px`)
   })
 
