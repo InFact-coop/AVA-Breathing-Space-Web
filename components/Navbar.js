@@ -5,11 +5,21 @@ import Router, { useRouter } from 'next/router'
 
 import BackIcon from '../public/icons/back-black.svg'
 import HeartIcon from '../public/icons/heart-black.svg'
+import { HOME, RELATIVE } from '../lib/constants'
 
-const Back = styled.img.attrs({
+const Back = styled.img.attrs(({ back }) => ({
   className: '',
+  onClick: () => {
+    switch (back) {
+      case HOME:
+        return Router.push('/')
+      default:
+      case RELATIVE:
+        return Router.back()
+    }
+  },
   src: BackIcon,
-})``
+}))``
 
 const Heart = styled.img.attrs({
   className: '',
@@ -53,16 +63,7 @@ const NavbarStyled = styled.nav.attrs(
   }),
 )``
 
-const Navbar = ({
-  border,
-  links,
-  title,
-  heart,
-  back,
-  empty,
-  colour,
-  backToHome,
-}) => {
+const Navbar = ({ border, links, title, heart, back, empty, colour }) => {
   if (links)
     return (
       <NavbarStyled>
@@ -77,9 +78,7 @@ const Navbar = ({
       colour={colour}
       border={border}
     >
-      {back && (
-        <Back onClick={() => (backToHome ? Router.push('/') : Router.back())} />
-      )}
+      {back && <Back back={back} />}
       {title && <Title>{title}</Title>}
       {heart && <Heart />}
       {empty && <div />}
@@ -90,10 +89,16 @@ const Navbar = ({
 export const getNavbarOptions = ({ _type, title }) => {
   switch (_type) {
     case 'selfcareTechnique':
-      return { border: true, back: true, heart: true, title, colour: 'coral' }
+      return {
+        border: true,
+        back: RELATIVE,
+        heart: true,
+        title,
+        colour: 'coral',
+      }
     case 'questionnaire':
     case 'page':
-      return { border: true, back: true, backToHome: true, title, empty: true }
+      return { border: true, back: HOME, title, empty: true }
     default:
       return { links: true }
   }
