@@ -1,6 +1,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import 'flickity/css/flickity.css';
 
 @import './_custom.css';
 @import './_fonts.css';
