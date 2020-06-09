@@ -6,7 +6,6 @@ const screens = {
 }
 
 module.exports = {
-  purge: ['./components/**/*.js', './pages/**/*.js'],
   theme: {
     screens,
     media: {
