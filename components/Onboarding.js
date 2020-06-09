@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import useLocalStorage from '../lib/useLocalStorage'
 import Exit from './Exit'
@@ -13,8 +14,10 @@ const EmergencyCopy = styled.p.attrs({ className: 'font-bold pb-0.5' })``
 const Call = styled.a.attrs({ className: 'border-b' })``
 
 const Onboarding = () => {
-  const [onboarding, setOnboarding] = useLocalStorage('onboarding', true)
+  const [onboarding, setOnboarding] = useLocalStorage('onboarding', null)
   const closeOnboarding = () => setOnboarding(false)
+
+  useEffect(() => onboarding === null && setOnboarding(true), [])
 
   if (!onboarding) return null
   return (

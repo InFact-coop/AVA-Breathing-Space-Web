@@ -32,8 +32,6 @@ const TechniqueVideo = styled.video.attrs({
 
 const Technique = props => {
   const [technique] = useState(props)
-  // console.log({ technique })
-
   const OuterContainer = styled.div.attrs({
     className: 'bg-white min-h-content',
   })``
