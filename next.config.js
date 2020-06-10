@@ -6,7 +6,7 @@ const withCSS = require('@zeit/next-css')
 const withFonts = require('next-fonts')
 const withPWA = require('next-pwa')
 
-const FRONTEND_ENV_KEYS = ['NODE_ENV', 'HOST']
+const FRONTEND_ENV_KEYS = ['NODE_ENV', 'HOST', 'SANITY_DATASET']
 
 if (process.env.HEROKU_APP_NAME) {
   process.env.HOST = `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
