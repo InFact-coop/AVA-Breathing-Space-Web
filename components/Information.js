@@ -26,9 +26,7 @@ const Information = props => {
         imageOptions={{ w: 320, h: 240, fit: 'max' }}
         serializers={serializers}
         projectId="is8j72h6"
-        dataset={
-          process.env.NODE_ENV === 'production' ? 'production' : 'staging'
-        }
+        dataset={process.env.SANITY_DATASET}
         {...client.config()}
       />
     </InformationStyled>
