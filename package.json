@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "next",
-    "build": "NODE_ENV=production next build",
-    "start": "NODE_ENV=production next start -p $PORT",
+    "build": "next build",
+    "start": "next start -p $PORT",
     "==lint&format==": "-----------------------------------------------------------------------------------",
     "format": "npm run prettier -- --write",
     "lint": "jest --config ./test/jest.lint.js",
