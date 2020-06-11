@@ -11,9 +11,9 @@ const AboutAvaStyled = styled(Container).attrs({
 
 const AboutAVA = props => {
   return (
-      <AboutAvaStyled>
-        <Information {...props} />
-      </AboutAvaStyled>
+    <AboutAvaStyled>
+      <Information {...props} />
+    </AboutAvaStyled>
   )
 }
 

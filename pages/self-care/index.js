@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import * as R from 'ramda'
 import styled from 'styled-components'
 import Flickity from 'react-flickity-component'
@@ -69,21 +68,16 @@ const SelfCareStyled = styled(Container).attrs({
   className: '',
 })``
 
-const SelfCare = () => {
-  const [categories, setCategories] = useState()
-  useEffect(() => {
-    const getCategories = async () => {
-      const selfCareCategories = await client.fetch(GET_SELF_CARE_BY_CATEGORY)
-      setCategories(selfCareCategories)
-    }
-
-    getCategories()
-  }, [])
-
+const SelfCare = ({ categories }) => {
   if (!categories) return <div />
   return (
     <SelfCareStyled>{R.addIndex(R.map)(Category)(categories)}</SelfCareStyled>
   )
+}
+
+SelfCare.getInitialProps = async () => {
+  const categories = await client.fetch(GET_SELF_CARE_BY_CATEGORY)
+  return { categories }
 }
 
 export default SelfCare
