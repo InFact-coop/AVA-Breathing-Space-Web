@@ -1,6 +1,11 @@
+import { useApolloClient } from '@apollo/react-hooks'
+
+import Link from 'next/link'
+
 import * as R from 'ramda'
 import styled from 'styled-components'
 import Flickity from 'react-flickity-component'
+import { updateNavbarColour } from '../../components/Navbar'
 
 import client from '../../client'
 import cycleColours from '../../lib/cycleColours'
@@ -21,11 +26,18 @@ const TechniqueTitle = styled.h2.attrs({
 
 const Preview = styled.div.attrs({ className: 'h-25 bg-whiteoverlay' })``
 
-const Technique = ({ title, colour, slug }) => (
-  <TechniqueStyled href={`/self-care/${slug}`} colour={colour} key={slug}>
-    <Preview />
-    <TechniqueTitle>{title}</TechniqueTitle>
-  </TechniqueStyled>
+const Technique = ({ title, colour, slug, onClick }) => (
+  <Link
+    href="/self-care/[technique]"
+    as={`/self-care/${slug}`}
+    passHref
+    key={slug}
+  >
+    <TechniqueStyled colour={colour} onClick={onClick}>
+      <Preview />
+      <TechniqueTitle>{title}</TechniqueTitle>
+    </TechniqueStyled>
+  </Link>
 )
 
 const Carousel = styled(Flickity).attrs({
@@ -47,12 +59,13 @@ const CategoryStyled = styled.section.attrs({
 })``
 
 const Category = ({ title, techniques }, index) => {
+  const apollo = useApolloClient()
   if (R.isEmpty(techniques)) return undefined
 
   const colour = cycleColours(index)
-
   const Techniques = R.pipe(
     R.map(R.assoc('colour', colour)),
+    R.map(R.assoc('onClick', updateNavbarColour({ apollo, colour }))),
     R.map(Technique),
   )(techniques)
 
