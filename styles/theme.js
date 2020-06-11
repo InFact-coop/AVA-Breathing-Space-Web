@@ -6,3 +6,4 @@ const cssTheme = strPath => props => {
 }
 
 module.exports = cssTheme
+export default cssTheme
