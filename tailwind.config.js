@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin')
+
 const screens = {
   sm: '640px',
   md: '768px',
@@ -50,6 +52,11 @@ module.exports = {
       },
       width: {
         '7.5': '1.875rem', // 30px
+        '36': '9rem', // 144px
+        half: '49%', // 50%
+      },
+      minWidth: {
+        '36': '9rem', // 144px
       },
       height: {
         '7.5': '1.875rem', // 30px
@@ -98,21 +105,6 @@ module.exports = {
       lightestgray: '#FAFAFA',
       white: '#FFFFFF',
       whiteoverlay: 'rgba(251, 250, 255, 0.3)',
-      // gradients
-      tealcoral:
-        'radial-gradient(115.8% 115.5% at 120.99% -26.5%, rgba(79, 202, 209, 0.5) 0%, rgba(252, 214, 215, 0.5) 100%)',
-      teallilac:
-        'radial-gradient(145.19% 158% at 100% 100%, rgba(206, 219, 255, 0.5) 8.85%, rgba(225, 173, 255, 0.5) 100%)',
-      graylilac:
-        'radial-gradient(89.16% 86.13% at 75.86% 17.87%, rgba(235, 235, 235, 0.5) 0%, rgba(225, 173, 255, 0.5) 100%)',
-      palebluecornflower:
-        'radial-gradient(122.94% 120.33% at 80.37% 73.33%, rgba(252, 214, 215, 0.5) 0%, rgba(210, 133, 255, 0.5) 100%)',
-      lightteallightviolet:
-        'radial-gradient(144.42% 132.5% at -59.01% -59.5%, rgba(79, 202, 209, 0.75) 0%, rgba(218, 209, 238, 0.75) 100%)',
-      cornflowerlightviolet:
-        'radial-gradient(93.59% 91.2% at 93.59% 91.2%, rgba(127, 162, 255, 0.5) 1.64%, rgba(218, 209, 238, 0.5) 100%)',
-      grayteal:
-        'radial-gradient(146.37% 136.96% at 90.47% 33.54%, rgba(224, 224, 235, 0.5) 0%, rgba(79, 202, 209, 0.5) 100%)',
     },
     fontFamily: {
       serif: ['Caladea', 'Georgia', 'Cambria', 'Times New Roman', 'Times'],
@@ -153,4 +145,40 @@ module.exports = {
       exit: '0px 0px 10px rgba(154, 150, 171, 0.5)',
     },
   },
+  plugins: [
+    plugin(({ addUtilities }) => {
+      const linearGradients = {
+        '.bg-tealcoral': {
+          background:
+            'radial-gradient(115.8% 115.5% at 120.99% -26.5%, rgba(79, 202, 209, 0.5) 0%, rgba(252, 214, 215, 0.5) 100%)',
+        },
+        '.bg-teallilac': {
+          background:
+            'radial-gradient(145.19% 158% at 100% 100%, rgba(206, 219, 255, 0.5) 8.85%, rgba(225, 173, 255, 0.5) 100%)',
+        },
+        '.bg-graylilac': {
+          background:
+            'radial-gradient(89.16% 86.13% at 75.86% 17.87%, rgba(235, 235, 235, 0.5) 0%, rgba(225, 173, 255, 0.5) 100%)',
+        },
+        '.bg-palebluecornflower': {
+          background:
+            'radial-gradient(122.94% 120.33% at 80.37% 73.33%, rgba(252, 214, 215, 0.5) 0%, rgba(210, 133, 255, 0.5) 100%)',
+        },
+        '.bg-lighttealgrayviolet': {
+          background:
+            'radial-gradient(144.42% 132.5% at -59.01% -59.5%, rgba(79, 202, 209, 0.75) 0%, rgba(218, 209, 238, 0.75) 100%)',
+        },
+        '.bg-cornflowergrayviolet': {
+          background:
+            'radial-gradient(93.59% 91.2% at 93.59% 91.2%, rgba(127, 162, 255, 0.5) 1.64%, rgba(218, 209, 238, 0.5) 100%)',
+        },
+        '.bg-grayteal': {
+          background:
+            'radial-gradient(146.37% 136.96% at 90.47% 33.54%, rgba(224, 224, 235, 0.5) 0%, rgba(79, 202, 209, 0.5) 100%)',
+        },
+      }
+
+      addUtilities(linearGradients, ['responsive', 'hover'])
+    }),
+  ],
 }
