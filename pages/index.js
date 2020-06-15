@@ -2,11 +2,11 @@ import * as R from 'ramda'
 import styled from 'styled-components'
 import cycleColours from '../lib/cycleColours'
 import Container from '../components/Container'
+import Button from '../components/Button'
 import client from '../client'
 
-const Button = styled.a.attrs({
-  className:
-    'bg-white border border-lightgray py-4.5 rounded-2.5 block text-center tc font-sm mb-2.5',
+const OutlineButton = styled(Button).attrs({
+  className: 'bg-white border border-lightgray mb-2.5',
 })``
 
 const GET_SUPPORT_BY_CATEGORY =
@@ -50,9 +50,9 @@ const SupportStyled = styled(Container).attrs({
 
 const Support = ({ categories }) => (
   <SupportStyled>
-    <Button href="/am-i-in-an-abusive-relationship">
+    <OutlineButton href="/am-i-in-an-abusive-relationship">
       Am I in an abusive relationship?
-    </Button>
+    </OutlineButton>
     <Categories>{R.addIndex(R.map)(Category)(categories)}</Categories>
   </SupportStyled>
 )

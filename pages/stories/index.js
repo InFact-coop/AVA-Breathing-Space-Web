@@ -9,6 +9,7 @@ import Arrow from '../../public/icons/forwardArrow.svg'
 
 import client from '../../client'
 import Container from '../../components/Container'
+import Button from '../../components/Button'
 
 const GET_STORIES = `*[ _type == "story" ]{
   _type,
@@ -95,6 +96,10 @@ const Tags = ({ tags, updateTags }) => {
   )
 }
 
+const PurpleButton = styled(Button).attrs({
+  className: 'bg-lightviolet',
+})``
+
 const Stories = props => {
   const allTheStories = props.storiesWithTitle
 
@@ -141,6 +146,9 @@ const Stories = props => {
       {selectedStories.map(({ title, slug, preview }) => (
         <Story title={title} slug={slug} preview={preview} key={slug} />
       ))}
+      <PurpleButton href="/stories/share-your-story">
+        Share your story
+      </PurpleButton>
     </StoriesStyled>
   )
 }
