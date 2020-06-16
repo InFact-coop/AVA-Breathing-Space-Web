@@ -38,6 +38,7 @@ const TabStyled = styled.a.attrs(({ selected }) => ({
 
 const Tab = ({ href, children }) => {
   const { pathname } = useRouter()
+
   const isTabActive = R.equals(href, pathname)
 
   return (
@@ -97,6 +98,13 @@ export const getNavbarOptions = ({ _type, title }) => {
         colour: 'coral',
       }
     case 'questionnaire':
+    case 'story':
+      return {
+        border: true,
+        back: RELATIVE,
+        heart: true,
+        title,
+      }
     case 'page':
       return { border: true, back: HOME, title, empty: true }
     default:

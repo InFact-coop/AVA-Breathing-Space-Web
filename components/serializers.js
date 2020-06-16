@@ -30,6 +30,10 @@ const StyledSubheading = styled.h2.attrs({
   className: 'font-bold font-base mb-5',
 })``
 
+const StandoutParagraph = styled.h4.attrs({
+  className: 'font-xl mb-5 font-serif',
+})``
+
 const serializers = {
   list: ({ children }) => {
     return <StyledList>{children}</StyledList>
@@ -46,7 +50,8 @@ const serializers = {
       switch (props.node.style) {
         case 'h2':
           return <StyledSubheading>{props.children}</StyledSubheading>
-
+        case 'h4':
+          return <StandoutParagraph>{props.children}</StandoutParagraph>
         default:
           return <StyledParagraph>{props.children}</StyledParagraph>
       }
