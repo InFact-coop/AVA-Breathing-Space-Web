@@ -1,25 +1,39 @@
+import { useQuery } from '@apollo/react-hooks'
+
 import styled from 'styled-components'
 import * as R from 'ramda'
 import Link from 'next/link'
+import gql from 'graphql-tag'
 import Router, { useRouter } from 'next/router'
 
 import BackIcon from '../public/icons/back-black.svg'
 import HeartIcon from '../public/icons/heart-black.svg'
 import { HOME, RELATIVE } from '../lib/constants'
 
-const Back = styled.img.attrs(({ back }) => ({
-  className: '',
-  onClick: () => {
-    switch (back) {
-      case HOME:
-        return Router.push('/')
-      default:
-      case RELATIVE:
-        return Router.back()
+const GET_NAVBAR_COLOUR = gql`
+  query {
+    state @client {
+      navbarColour
     }
-  },
-  src: BackIcon,
+  }
+`
+
+const BackContainer = styled.div.attrs(({ lines = 1 }) => ({
+  className: `${lines > 1 ? 'w-full pt-5' : ''}`,
 }))``
+
+const BackButton = styled.img.attrs(({ back }) => ({
+  src: BackIcon,
+  onClick: back === RELATIVE ? () => Router.back() : () => Router.push('/'),
+}))``
+
+const Back = ({ back, lines }) => {
+  return (
+    <BackContainer lines={lines}>
+      <BackButton back={back} />
+    </BackContainer>
+  )
+}
 
 const Heart = styled.img.attrs({
   className: '',
@@ -27,7 +41,13 @@ const Heart = styled.img.attrs({
   src: HeartIcon,
 })``
 
-const Title = styled.h1.attrs({ className: 'py-5' })``
+const Filter = styled.div.attrs({
+  className: 'rounded-full border border-gray text-gray font-sm px-2.5 py-1.5',
+  onClick: () => ({}),
+})``
+const Title = styled.h1.attrs(({ font = 'sans' }) => ({
+  className: `py-5 font-${font}`,
+}))``
 
 const TabStyled = styled.a.attrs(({ selected }) => ({
   className: `text-sm font-bold py-5 text-center border-b
@@ -57,17 +77,36 @@ const Tabs = () => (
 )
 
 const NavbarStyled = styled.nav.attrs(
-  ({ left, right, border, colour = 'white' }) => ({
-    className: `flex items-center justify-between bg-${colour}${
+  ({ left, right, border, colour, lines = 1 }) => ({
+    className: `flex ${
+      lines > 1 ? 'flex-wrap' : 'flex-no-wrap'
+    } items-center justify-between bg-${colour}${
       border ? ' border-b border-lightgray' : ''
     }${left ? ' pl-4.5' : ''}${right ? ' pr-5.5' : ''}`,
   }),
 )``
 
-const Navbar = ({ border, links, title, heart, back, empty, colour }) => {
+const Navbar = ({
+  back,
+  border,
+  colour,
+  empty,
+  fallbackColour,
+  filter,
+  font,
+  heart,
+  lines,
+  links,
+  title,
+}) => {
+  const { loading, error, data } = useQuery(GET_NAVBAR_COLOUR)
+  const { navbarColour } = data && data.state
+
+  if (loading || error) return <div />
+
   if (links)
     return (
-      <NavbarStyled>
+      <NavbarStyled colour={colour}>
         <Tabs />
       </NavbarStyled>
     )
@@ -75,14 +114,16 @@ const Navbar = ({ border, links, title, heart, back, empty, colour }) => {
   return (
     <NavbarStyled
       left={back}
-      right={heart || empty}
-      colour={colour}
+      right={heart || empty || filter}
+      colour={colour || navbarColour || fallbackColour}
       border={border}
+      lines={lines}
     >
-      {back && <Back back={back} />}
-      {title && <Title>{title}</Title>}
+      {back && <Back back={back} lines={lines} />}
+      {title && <Title font={font}>{title}</Title>}
       {heart && <Heart />}
       {empty && <div />}
+      {filter && <Filter>Filters</Filter>}
     </NavbarStyled>
   )
 }
@@ -91,11 +132,21 @@ export const getNavbarOptions = ({ _type, title }) => {
   switch (_type) {
     case 'selfcareTechnique':
       return {
-        border: true,
         back: RELATIVE,
+        border: true,
         heart: true,
+        fallbackColour: 'coral',
         title,
-        colour: 'coral',
+      }
+    case 'supportCategory':
+      return {
+        back: RELATIVE,
+        border: true,
+        filter: true,
+        font: 'serif font-xl',
+        fallbackColour: 'tealcoral',
+        lines: 2,
+        title,
       }
     case 'questionnaire':
     case 'story':
@@ -106,9 +157,15 @@ export const getNavbarOptions = ({ _type, title }) => {
         title,
       }
     case 'page':
-      return { border: true, back: HOME, title, empty: true }
+      return { back: HOME, border: true, empty: true, title, colour: 'white' }
     default:
-      return { links: true }
+      return { links: true, colour: 'white' }
   }
 }
+
+export const updateNavbarColour = ({ apollo, colour }) => () =>
+  apollo.writeData({
+    data: { state: { __typename: 'State', navbarColour: colour } },
+  })
+
 export default Navbar

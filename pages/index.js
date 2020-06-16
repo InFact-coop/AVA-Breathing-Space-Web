@@ -1,15 +1,19 @@
+import { useApolloClient } from '@apollo/react-hooks'
+import Link from 'next/link'
+
 import * as R from 'ramda'
 import styled from 'styled-components'
 import cycleColours from '../lib/cycleColours'
 import Container from '../components/Container'
 import client from '../client'
+import { updateNavbarColour } from '../components/Navbar'
 
 const Button = styled.a.attrs({
   className:
     'bg-white border border-lightgray py-4.5 rounded-2.5 block text-center tc font-sm mb-2.5',
 })``
 
-const GET_SUPPORT_BY_CATEGORY =
+const GET_SUPPORT_CATEGORIES =
   '*[ _type == "supportCategory" ] {title, "slug": slug.current}'
 
 const CategoryStyled = styled.a.attrs(({ colour }) => ({
@@ -23,6 +27,8 @@ const Categories = styled.section.attrs({
 })``
 
 const Category = ({ title, slug }, index) => {
+  const apollo = useApolloClient()
+
   const colour = cycleColours(index, [
     'tealcoral',
     'teallilac',
@@ -34,13 +40,19 @@ const Category = ({ title, slug }, index) => {
   ])
 
   return (
-    <CategoryStyled
+    <Link
+      href="/support/[category]"
+      as={`/support/${slug}`}
+      passHref
       key={`category-${index}`}
-      href={`/support/${slug}`}
-      colour={colour}
     >
-      {title}
-    </CategoryStyled>
+      <CategoryStyled
+        colour={colour}
+        onClick={updateNavbarColour({ apollo, colour })}
+      >
+        {title}
+      </CategoryStyled>
+    </Link>
   )
 }
 
@@ -50,15 +62,15 @@ const SupportStyled = styled(Container).attrs({
 
 const Support = ({ categories }) => (
   <SupportStyled>
-    <Button href="/am-i-in-an-abusive-relationship">
-      Am I in an abusive relationship?
-    </Button>
+    <Link href="/am-i-in-an-abusive-relationship">
+      <Button>Am I in an abusive relationship?</Button>
+    </Link>
     <Categories>{R.addIndex(R.map)(Category)(categories)}</Categories>
   </SupportStyled>
 )
 
 Support.getInitialProps = async () => {
-  const categories = await client.fetch(GET_SUPPORT_BY_CATEGORY)
+  const categories = await client.fetch(GET_SUPPORT_CATEGORIES)
   return { categories }
 }
 
