@@ -46,7 +46,7 @@ const Filter = styled.div.attrs({
   onClick: () => ({}),
 })``
 const Title = styled.h1.attrs(({ font = 'sans' }) => ({
-  className: `py-5 font-${font}`,
+  className: `py-5 font-${font} text-center`,
 }))``
 
 const TabStyled = styled.a.attrs(({ selected }) => ({
@@ -136,6 +136,14 @@ export const getNavbarOptions = ({ _type, title }) => {
         border: true,
         heart: true,
         fallbackColour: 'coral',
+        title,
+      }
+    case 'supportService':
+      return {
+        back: RELATIVE,
+        border: true,
+        heart: true,
+        fallbackColour: 'tealcoral',
         title,
       }
     case 'supportCategory':
