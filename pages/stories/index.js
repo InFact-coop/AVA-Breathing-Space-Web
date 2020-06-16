@@ -9,7 +9,7 @@ import Arrow from '../../public/icons/forwardArrow.svg'
 
 import client from '../../client'
 import Container from '../../components/Container'
-import Button from '../../components/Button'
+import { PurpleButton } from '../../components/Button'
 
 const GET_STORIES = `*[ _type == "story" ]{
   _type,
@@ -95,10 +95,6 @@ const Tags = ({ tags, updateTags }) => {
     </Carousel>
   )
 }
-
-const PurpleButton = styled(Button).attrs({
-  className: 'bg-lightviolet',
-})``
 
 const Stories = props => {
   const allTheStories = props.storiesWithTitle
