@@ -4,4 +4,5 @@ body {
   font-size: theme('fontSize.base');
   line-height: theme('lineHeight.base');
   background-color: theme('colors.lightestgray');
+  color: theme('colors.black');
 }

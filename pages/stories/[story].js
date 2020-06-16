@@ -1,11 +1,10 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import BlockContent from '@sanity/block-content-to-react'
 
 import client from '../../client'
-import serializers from '../../components/serializers'
 import formatAuthor from '../../lib/formatAuthor'
 
+import Block from '../../components/Block'
 import Container from '../../components/Container'
 import { PurpleButton } from '../../components/Button'
 
@@ -32,17 +31,14 @@ const Story = props => {
     <>
       <StoryStyled bgColour="white">
         <StoryTitle>{story.title}</StoryTitle>
-        <BlockContent
-          blocks={story.body}
+        <Block
+          body={story.body}
           className="font-base font-normal leading-large"
-          renderContainerOnSingleChild={true}
-          serializers={serializers}
-          projectId="is8j72h6"
-          dataset={process.env.SANITY_DATASET}
-          {...client.config()}
         />{' '}
       </StoryStyled>
-      <PurpleButton className="mx-5 mt-7.5">Share your story</PurpleButton>
+      <PurpleButton href="/stories/share-your-story" className="mx-5 mt-7.5">
+        Share your story
+      </PurpleButton>
     </>
   )
 }
