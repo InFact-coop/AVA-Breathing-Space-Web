@@ -58,17 +58,16 @@ const ShareStory = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
 
   const [formCompleted, updateFormCompleted] = useState(false)
   const [inputs, handleInputChange, handleSubmit] = useForm(
-    R.mergeAll(
-      R.map(input => R.objOf(toCamelCase(input.title), ''), inputsFromSanity),
-    ),
+    R.pipe(
+      R.map(input => R.objOf(toCamelCase(input.title), '')),
+      R.mergeAll,
+    )(inputsFromSanity),
     uploadStoryToSanity,
   )
 
   useEffect(
     () =>
-      inputs.yourStory === ''
-        ? updateFormCompleted(false)
-        : updateFormCompleted(true),
+      inputs.yourStory ? updateFormCompleted(true) : updateFormCompleted(false),
     [inputs.yourStory],
   )
 
