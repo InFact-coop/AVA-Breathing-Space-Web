@@ -1,11 +1,10 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import BlockContent from '@sanity/block-content-to-react'
 
 import client from '../../client'
-import serializers from '../../components/serializers'
 
 import Container from '../../components/Container'
+import Block from '../../components/Block'
 
 const GET_SELF_CARE_TECHNIQUE = `*[_type == "selfcareTechnique" && slug.current == $slug][0]{
   _type,
@@ -44,15 +43,10 @@ const Technique = props => {
       )}
       <TechniqueStyled bgColour="white">
         <TechniqueTitle>{technique.title}</TechniqueTitle>
-        <BlockContent
-          blocks={technique.body}
+        <Block
+          body={technique.body}
           className="font-sm font-normal"
-          renderContainerOnSingleChild={true}
           imageOptions={{ w: 320, h: 240, fit: 'max' }}
-          serializers={serializers}
-          projectId="is8j72h6"
-          dataset={process.env.SANITY_DATASET}
-          {...client.config()}
         />{' '}
       </TechniqueStyled>
     </OuterContainer>
