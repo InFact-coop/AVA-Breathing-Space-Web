@@ -4,18 +4,18 @@ import * as R from 'ramda'
 import { v4 as uuidv4 } from 'uuid'
 import useModal from 'use-react-modal'
 
-import client from '../../client'
+import client from '../client'
 
-import useForm from '../../lib/useForm'
-import toCamelCase from '../../lib/toCamelCase'
+import useForm from '../lib/useForm'
+import toCamelCase from '../lib/toCamelCase'
 
-import Container from '../../components/Container'
-import { PurpleButton, CoralButton } from '../../components/Button'
-import { SingleButtonModal, DoubleButtonModal } from '../../components/Modal'
-import Block from '../../components/Block'
-import { FormFieldWithLabel } from '../../components/Form'
+import Container from '../components/Container'
+import { PurpleButton } from '../components/Button'
+import { SingleButtonModal } from '../components/Modal'
+import Block from '../components/Block'
+import { FormFieldWithLabel } from '../components/Form'
 
-const GET_SHARE_STORY_FORM = `*[_type == "form" && slug.current == "share-your-story"][0]{
+const GET_CONTACT_FORM = `*[_type == "form" && slug.current == "contact-us"][0]{
   _type, 
   title, 
   body, 
@@ -24,37 +24,41 @@ const GET_SHARE_STORY_FORM = `*[_type == "form" && slug.current == "share-your-s
   confirmationText
 }`
 
-const uploadStoryToSanity = (
+const uploadMessageToSanity = (openModal, updateModalType) => (
   e,
   inputs,
   setInputs,
   initialState,
-  updateModalType,
 ) => {
-  const story = {
+  const message = {
     _id: `drafts.${uuidv4()}`,
-    _type: 'story',
-    author: `${R.isEmpty(inputs.yourName) ? 'anonymous' : inputs.yourName}`,
+    _type: 'message',
+    from: `${R.isEmpty(inputs.yourName) ? 'anonymous' : inputs.yourName}`,
     email: `${R.isEmpty(inputs.yourEmail) ? 'anonymous' : inputs.yourEmail}`,
-    body: [
+    message: [
       {
         _type: 'block',
         markDefs: [],
-        children: [{ _type: 'span', text: `${inputs.yourStory}`, marks: [] }],
+        children: [{ _type: 'span', text: `${inputs.yourMessage}`, marks: [] }],
       },
     ],
   }
 
   client
-    .create(story)
+    .create(message)
     .then(() => {
-      updateModalType('storyShared')
+      updateModalType('messageSent')
+      openModal(e)
       setInputs(initialState)
     })
-    .catch(e => updateModalType('error')) //eslint-disable-line
+    .catch(error => {
+      console.log('error submitting message', error) //eslint-disable-line
+      updateModalType('error')
+      openModal(e)
+    })
 }
 
-const ShareStoryStyled = styled(Container).attrs({
+const ContactStyled = styled(Container).attrs({
   className: '',
 })``
 
@@ -66,43 +70,11 @@ const ModalChildren = ({
   modalType,
   updateModalType,
   closeModal,
-  setInputs,
-  initialState,
   confirmationText,
+  updateFormCompleted,
 }) => {
   switch (modalType) {
-    case 'shareStory?':
-      return (
-        <DoubleButtonModal
-          type="submit"
-          form="share-story"
-          modalText="Are you sure you want to submit your story? You can't undo this action."
-          confirmButtonText="Share"
-          undoButtonText="Cancel"
-          undoButtonAction={() => {
-            updateModalType('')
-            closeModal()
-          }}
-        />
-      )
-    case 'deleteStory?':
-      return (
-        <DoubleButtonModal
-          modalText="Are you sure you want to delete your story? You can't undo this action."
-          confirmButtonText="Delete"
-          confirmButtonAction={() => {
-            setInputs(initialState)
-            closeModal()
-            updateModalType('')
-          }}
-          undoButtonText="Cancel"
-          undoButtonAction={() => {
-            updateModalType('')
-            closeModal()
-          }}
-        />
-      )
-    case 'storyShared':
+    case 'messageSent':
       return (
         <SingleButtonModal
           modalText={confirmationText}
@@ -119,6 +91,7 @@ const ModalChildren = ({
           modalText="Something went wrong, your story hasn't been sent yet. Please close this window and try again. "
           confirmButtonText="OK"
           confirmButtonAction={() => {
+            updateFormCompleted(true)
             closeModal()
             updateModalType('')
           }}
@@ -129,7 +102,7 @@ const ModalChildren = ({
   }
 }
 
-const ShareStory = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
+const ContactUs = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
   const initialState = R.pipe(
     R.map(input => ({ [toCamelCase(input.title)]: '' })),
     R.mergeAll,
@@ -138,28 +111,28 @@ const ShareStory = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
   const { isOpen, openModal, closeModal, Modal } = useModal()
   const [modalType, updateModalType] = useState('')
   const [formCompleted, updateFormCompleted] = useState(false)
-  const [
-    inputs,
-    setInputs,
-    handleInputChange,
-    handleSubmit,
-  ] = useForm(initialState, () => uploadStoryToSanity(updateModalType))
+  const [inputs, setInputs, handleInputChange, handleSubmit] = useForm(
+    initialState,
+    uploadMessageToSanity(openModal, updateModalType),
+  )
 
   useEffect(
     () =>
-      inputs.yourStory ? updateFormCompleted(true) : updateFormCompleted(false),
-    [inputs.yourStory],
+      inputs.yourMessage
+        ? updateFormCompleted(true)
+        : updateFormCompleted(false),
+    [inputs.yourMessage],
   )
 
   return (
-    <ShareStoryStyled>
+    <ContactStyled>
       <Title>{subtitle}</Title>
       <Block
         body={body}
         className="font-sm font-normal text-gray"
         imageOptions={{ w: 320, h: 240, fit: 'max' }}
       />
-      <form id="share-story" key="form" onSubmit={handleSubmit}>
+      <form key="form" onSubmit={e => handleSubmit(e)}>
         {R.map(
           ({ title, required, type: [type] }) => (
             <FormFieldWithLabel
@@ -175,25 +148,15 @@ const ShareStory = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
           inputsFromSanity,
         )}
         <PurpleButton
+          as="button"
           className={
             formCompleted ? 'mb-2.5 w-full' : 'w-full mb-2.5 opacity-50'
           }
-          onClick={e => {
-            updateModalType('shareStory?')
-            openModal(e)
-          }}
+          type="submit"
+          onClick={() => updateFormCompleted(false)}
         >
-          Share your story
+          Send message
         </PurpleButton>
-        <CoralButton
-          onClick={e => {
-            updateModalType('deleteStory?')
-            openModal(e)
-          }}
-          className={formCompleted ? '' : 'opacity-50'}
-        >
-          Delete your story
-        </CoralButton>
         {isOpen && (
           <Modal>
             <ModalChildren
@@ -203,14 +166,15 @@ const ShareStory = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
               setInputs={setInputs}
               initialState={initialState}
               confirmationText={confirmationText}
+              updateFormCompleted={updateFormCompleted}
             />
           </Modal>
         )}
       </form>
-    </ShareStoryStyled>
+    </ContactStyled>
   )
 }
 
-export default ShareStory
+export default ContactUs
 
-ShareStory.getInitialProps = () => client.fetch(GET_SHARE_STORY_FORM)
+ContactUs.getInitialProps = () => client.fetch(GET_CONTACT_FORM)
