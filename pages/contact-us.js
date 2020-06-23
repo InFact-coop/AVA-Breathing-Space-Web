@@ -15,6 +15,8 @@ import { SingleButtonModal } from '../components/Modal'
 import Block from '../components/Block'
 import { FormFieldWithLabel } from '../components/Form'
 
+const [messageSent, error] = ['messageSent', 'error']
+
 const GET_CONTACT_FORM = `*[_type == "form" && slug.current == "contact-us"][0]{
   _type, 
   title, 
@@ -25,7 +27,6 @@ const GET_CONTACT_FORM = `*[_type == "form" && slug.current == "contact-us"][0]{
 }`
 
 const uploadMessageToSanity = (openModal, updateModalType) => (
-  e,
   inputs,
   setInputs,
   initialState,
@@ -33,13 +34,13 @@ const uploadMessageToSanity = (openModal, updateModalType) => (
   const message = {
     _id: `drafts.${uuidv4()}`,
     _type: 'message',
-    from: `${R.isEmpty(inputs.yourName) ? 'anonymous' : inputs.yourName}`,
-    email: `${R.isEmpty(inputs.yourEmail) ? 'anonymous' : inputs.yourEmail}`,
+    from: R.isEmpty(inputs.yourName) ? 'anonymous' : inputs.yourName,
+    email: R.isEmpty(inputs.yourEmail) ? 'anonymous' : inputs.yourEmail,
     message: [
       {
         _type: 'block',
         markDefs: [],
-        children: [{ _type: 'span', text: `${inputs.yourMessage}`, marks: [] }],
+        children: [{ _type: 'span', text: inputs.yourMessage, marks: [] }],
       },
     ],
   }
@@ -47,14 +48,14 @@ const uploadMessageToSanity = (openModal, updateModalType) => (
   client
     .create(message)
     .then(() => {
-      updateModalType('messageSent')
-      openModal(e)
+      updateModalType(messageSent)
+      openModal()
       setInputs(initialState)
     })
-    .catch(error => {
-      console.log('error submitting message', error) //eslint-disable-line
-      updateModalType('error')
-      openModal(e)
+    .catch(err => {
+      console.log('error submitting message', err) //eslint-disable-line
+      updateModalType(error)
+      openModal()
     })
 }
 
@@ -88,7 +89,7 @@ const ModalChildren = ({
     case 'error':
       return (
         <SingleButtonModal
-          modalText="Something went wrong, your story hasn't been sent yet. Please close this window and try again. "
+          modalText="Something went wrong, your message hasn't been sent yet. Please close this window and try again. "
           confirmButtonText="OK"
           confirmButtonAction={() => {
             updateFormCompleted(true)
@@ -108,7 +109,7 @@ const ContactUs = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
     R.mergeAll,
   )(inputsFromSanity)
 
-  const { isOpen, openModal, closeModal, Modal } = useModal()
+  const { targetRef, isOpen, openModal, closeModal, Modal } = useModal()
   const [modalType, updateModalType] = useState('')
   const [formCompleted, updateFormCompleted] = useState(false)
   const [inputs, setInputs, handleInputChange, handleSubmit] = useForm(
@@ -149,6 +150,7 @@ const ContactUs = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
         )}
         <PurpleButton
           as="button"
+          ref={targetRef}
           className={
             formCompleted ? 'mb-2.5 w-full' : 'w-full mb-2.5 opacity-50'
           }
