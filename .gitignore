@@ -58,3 +58,6 @@ out
 
 # vscode
 .vscode
+
+**/public/workbox-*.js
+**/public/sw.js
