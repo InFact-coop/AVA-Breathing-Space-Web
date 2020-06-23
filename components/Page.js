@@ -17,7 +17,9 @@ const Page = ({ _type, title, children }) => {
     setWindowHeight(`${window.innerHeight - 200 - 60}px`)
   })
 
-  return (
+  return title === 'Landing' ? (
+    <PageStyled>{children}</PageStyled>
+  ) : (
     <>
       <Onboarding />
       <Navbar {...navbarOptions} />
