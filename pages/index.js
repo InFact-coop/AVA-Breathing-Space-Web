@@ -5,13 +5,9 @@ import * as R from 'ramda'
 import styled from 'styled-components'
 import cycleColours from '../lib/cycleColours'
 import Container from '../components/Container'
-import { Button } from '../components/Button'
+import { OutlineButton } from '../components/Button'
 import client from '../client'
 import { updateNavbarColour } from '../components/Navbar'
-
-const OutlineButton = styled(Button).attrs({
-  className: 'bg-white border border-lightgray mb-2.5',
-})``
 
 const GET_SUPPORT_CATEGORIES =
   '*[ _type == "supportCategory" ] {title, "slug": slug.current}'

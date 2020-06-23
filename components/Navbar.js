@@ -165,6 +165,7 @@ export const getNavbarOptions = ({ _type, title }) => {
         title,
       }
     case 'page':
+    case 'form':
       return { back: HOME, border: true, empty: true, title, colour: 'white' }
     default:
       return { links: true, colour: 'white' }

@@ -12,4 +12,8 @@ const CoralButton = styled(Button).attrs({
   className: 'bg-coral',
 })``
 
-export { Button, PurpleButton, CoralButton }
+const OutlineButton = styled(Button).attrs({
+  className: 'bg-white border border-lightgray mb-2.5',
+})``
+
+export { Button, PurpleButton, CoralButton, OutlineButton }
