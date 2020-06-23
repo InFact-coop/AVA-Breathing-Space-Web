@@ -18,7 +18,7 @@ const Footer = () => (
       <Link href="/about-ava" passHref>
         <StyledLink>About AVA</StyledLink>
       </Link>
-      <Link href="/contact" passHref>
+      <Link href="/contact-us" passHref>
         <StyledLink>Contact us</StyledLink>
       </Link>
       <Link href="/add-to-homescreen" passHref>

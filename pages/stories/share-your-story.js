@@ -31,11 +31,10 @@ const GET_SHARE_STORY_FORM = `*[_type == "form" && slug.current == "share-your-s
   confirmationText
 }`
 
-const uploadStoryToSanity = (
+const uploadStoryToSanity = updateModalType => (
   inputs,
   setInputs,
   initialState,
-  updateModalType,
 ) => {
   const story = {
     _id: `drafts.${uuidv4()}`,
@@ -57,7 +56,7 @@ const uploadStoryToSanity = (
       updateModalType(storyShared)
       setInputs(initialState)
     })
-    .catch(e => updateModalType(error)) //eslint-disable-line
+    .catch(() => updateModalType(error)) //eslint-disable-line
 }
 
 const ShareStoryStyled = styled(Container).attrs({
@@ -146,8 +145,7 @@ const ShareStory = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
   const [formCompleted, updateFormCompleted] = useState(false)
   const [inputs, setInputs, handleInputChange, handleSubmit] = useForm(
     initialState,
-    uploadStoryToSanity,
-    updateModalType,
+    uploadStoryToSanity(updateModalType),
   )
 
   useEffect(
