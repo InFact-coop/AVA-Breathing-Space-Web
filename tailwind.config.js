@@ -18,6 +18,7 @@ module.exports = {
     },
     extend: {
       spacing: {
+        '0.125': '0.03125rem', // 0.5px
         '0.5': '0.125rem', // 2px
         '1.25': '0.3125rem', // 5px
         '1.5': '0.375rem', // 6px
@@ -46,6 +47,7 @@ module.exports = {
         '40': '10rem', // 160px
         '43': '10.75rem', // 172px
         '65': '16.25rem', // 260px
+        '75': '18.75rem', // 300px
       },
       inset: {
         '-1.25': '-0.3125rem', // -5px
@@ -114,6 +116,7 @@ module.exports = {
       lightestgray: '#FAFAFA',
       white: '#FFFFFF',
       whiteoverlay: 'rgba(251, 250, 255, 0.3)',
+      blackoverlay: 'rgba(69, 62, 83, 0.8)',
     },
     fontFamily: {
       serif: ['Caladea', 'Georgia', 'Cambria', 'Times New Roman', 'Times'],
