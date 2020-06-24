@@ -63,7 +63,7 @@ const FormContainer = styled.form.attrs({
 
 const ContactUsForm = ({ inputsFromSanity, confirmationText }) => {
   const initialState = R.pipe(
-    R.map(input => R.objOf(toCamelCase(input.title), '')),
+    R.map(input => ({ [toCamelCase(input.title)]: '' })),
     R.mergeAll,
   )(inputsFromSanity)
 

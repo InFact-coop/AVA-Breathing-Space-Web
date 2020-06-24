@@ -24,15 +24,12 @@ const CommentBody = styled.div.attrs({
   className: 'font-sm text-black',
 })``
 
-const Comment = ({ comment, publishedAt, publishInApp }) => {
-  if (!publishInApp) return undefined
-  return (
-    <CommentStyled key={`comment-${publishedAt}`}>
-      <CommentDate>{moment(publishedAt).format('D MMMM YYYY')}</CommentDate>
-      <CommentBody>{comment}</CommentBody>
-    </CommentStyled>
-  )
-}
+const Comment = ({ comment, publishedAt }) => (
+  <CommentStyled key={`comment-${publishedAt}`}>
+    <CommentDate>{moment(publishedAt).format('D MMMM YYYY')}</CommentDate>
+    <CommentBody>{comment}</CommentBody>
+  </CommentStyled>
+)
 
 const LoadCommentsButton = styled(OutlineButton).attrs(
   ({ commentLength, updateCommentLength }) => ({

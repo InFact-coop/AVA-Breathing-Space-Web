@@ -47,7 +47,7 @@ const GET_SERVICE_DETAILS = `*[_type == "supportService" && slug.current == $slu
 }`
 
 const GET_COMMENTS = `*[_type == "supportService" && slug.current == $slug][0] {
-  comments[0..$commentLength]->[publishInApp == true]{ comment, publishedAt, publishInApp },
+  comments[0..$commentLength]->[publishInApp == true]{ comment, publishedAt },
   "commentTotal": count(comments[]->[publishInApp == true])
   }`
 
@@ -107,7 +107,7 @@ const ServiceCommentForm = ({
   subtitle,
 }) => {
   const initialState = R.pipe(
-    R.map(input => R.objOf(toCamelCase(input.title), '')),
+    R.map(input => ({ [toCamelCase(input.title)]: '' })),
     R.mergeAll,
   )(inputsFromSanity)
 
