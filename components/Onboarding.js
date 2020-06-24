@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import useLocalStorage from '../lib/useLocalStorage'
 import Exit from './Exit'
+import Landing from './Landing'
 
 const OnboardingStyled = styled.section.attrs({
   className:
@@ -15,6 +16,7 @@ const Call = styled.a.attrs({ className: 'border-b' })``
 
 const Onboarding = () => {
   const [onboarding, setOnboarding] = useLocalStorage('onboarding', null)
+  const [landing, setLanding] = useState(true)
   const closeOnboarding = () => setOnboarding(false)
 
   useEffect(() => {
@@ -24,7 +26,13 @@ const Onboarding = () => {
   }, [])
 
   if (!onboarding) return null
-  return (
+  return landing ? (
+    <Landing
+      title="Breathing Space"
+      subtitle="Helping you find the right support at the right time"
+      buttonClick={() => setLanding(false)}
+    />
+  ) : (
     <OnboardingStyled onClick={closeOnboarding}>
       <Title>Welcome.</Title>
       <Copy>

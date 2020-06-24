@@ -11,9 +11,10 @@ const ExitTutorialCopy = styled.div.attrs({
 })``
 
 const ExitStyled = styled.a.attrs(({ onboarding }) => ({
-  className: `bg-teal text-white font-sm p-3 pr-5 rounded-r-25 rounded-l-25 flex items-center text-bold font-bold z-20 shadow-exit
+  className: `bg-teal text-white font-sm p-3 pr-5 rounded-r-25 rounded-l-25 flex items-center text-bold font-bold shadow-exit
     ${onboarding ? 'mr-4' : 'mr-0'}`,
 }))`
+  z-index: 5;
   height: fit-content;
   min-width: 142px;
 `
@@ -23,8 +24,10 @@ const Icon = styled.img.attrs({
 })``
 
 const ContainerStyled = styled.div.attrs({
-  className: 'flex fixed z-20 bottom-2.5 left-2.5 items-end',
-})``
+  className: 'flex fixed  bottom-2.5 left-2.5 items-end',
+})`
+  z-index: 5;
+`
 
 const ExitButton = ({ onboarding }) => (
   <ExitStyled href="https://www.bbc.co.uk/" onboarding={onboarding}>
