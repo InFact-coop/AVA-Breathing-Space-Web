@@ -17,7 +17,7 @@ const GET_SELF_CARE_BY_CATEGORY =
 const TechniqueStyled = styled.a.attrs(({ colour }) => ({
   className: `w-32 h-40 flex-shrink-0 rounded-2.5 mr-2.5 shadow
   bg-${colour} 
-  `,
+`,
 }))``
 
 const TechniqueTitle = styled.h2.attrs({

@@ -1,4 +1,16 @@
 import styled from 'styled-components'
+import {
+  SHARE_STORY,
+  DELETE_STORY,
+  STORY_SHARED,
+  STORY_ERROR,
+  SINGLE,
+  DOUBLE,
+  SERVICE_COMMENT_SHARED,
+  SERVICE_COMMENT_ERROR,
+  CONTACT_US_SENT,
+  CONTACT_US_ERROR,
+} from '../lib/constants'
 
 const ModalContainer = styled.div.attrs({
   className: 'bg-white shadow rounded-2.5 w-75',
@@ -69,4 +81,100 @@ const DoubleButtonModal = ({
   </ModalContainer>
 )
 
-export { SingleButtonModal, DoubleButtonModal }
+const getModalProps = ({
+  modalAction,
+  updateModalAction,
+  closeModal,
+  setInputs,
+  initialState,
+  confirmationText,
+}) => {
+  const closeAndResetModal = () => {
+    updateModalAction('')
+    closeModal()
+  }
+
+  const resetForm = () => {
+    setInputs(initialState)
+    closeAndResetModal()
+  }
+
+  switch (modalAction) {
+    case SHARE_STORY:
+      return {
+        type: 'submit',
+        modalLayout: DOUBLE,
+        form: 'share-story',
+        modalText:
+          "Are you sure you want to submit your story? You can't undo this action.",
+        confirmButtonText: 'Share',
+        undoButtonText: 'Cancel',
+        undoButtonAction: closeAndResetModal,
+      }
+    case DELETE_STORY:
+      return {
+        modalText:
+          "Are you sure you want to delete your story? You can't undo this action.",
+        modalLayout: DOUBLE,
+        confirmButtonText: 'Delete',
+        undoButtonAction: resetForm,
+      }
+    case STORY_SHARED:
+      return {
+        modalText: confirmationText,
+        modalLayout: SINGLE,
+        confirmButtonText: 'OK',
+        confirmButtonAction: closeAndResetModal,
+      }
+    case CONTACT_US_SENT:
+      return {
+        modalLayout: SINGLE,
+        modalText: confirmationText,
+        confirmButtonText: 'OK',
+        confirmButtonAction: resetForm,
+      }
+    case SERVICE_COMMENT_SHARED:
+      return {
+        modalText: confirmationText,
+        modalLayout: SINGLE,
+        confirmButtonText: 'OK',
+        confirmButtonAction: closeAndResetModal,
+      }
+    case SERVICE_COMMENT_ERROR:
+      return {
+        modalLayout: SINGLE,
+        modalText:
+          "Something went wrong, your comment hasn't been sent yet. Please close this window and try again.",
+        confirmButtonText: 'OK',
+        confirmButtonAction: closeAndResetModal,
+      }
+    case STORY_ERROR:
+      return {
+        modalLayout: SINGLE,
+        modalText:
+          "Something went wrong, your story hasn't been sent yet. Please close this window and try again.",
+        confirmButtonText: 'OK',
+        confirmButtonAction: closeAndResetModal,
+      }
+    case CONTACT_US_ERROR:
+      return {
+        modalLayout: SINGLE,
+        modalText:
+          "Something went wrong, your message hasn't been sent yet. Please close this window and try again.",
+        confirmButtonText: 'OK',
+        confirmButtonAction: closeAndResetModal,
+      }
+    default:
+      return { modalLayout: null }
+  }
+}
+
+const Modal = props => {
+  const { modalLayout, ...modalProps } = getModalProps(props)
+
+  if (!modalLayout) return null
+  if (modalLayout === SINGLE) return <SingleButtonModal {...modalProps} />
+  if (modalLayout === DOUBLE) return <DoubleButtonModal {...modalProps} />
+}
+
+export default Modal
