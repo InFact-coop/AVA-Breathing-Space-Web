@@ -45,27 +45,28 @@ const Tags = styled.ul.attrs({
 `
 
 const PreviewStyled = styled.div.attrs({
-  className: 'px-2.5 py-4 shadow mb-2 bg-white rounded flex justify-between',
+  className:
+    'px-2.5 py-4 shadow mb-2 bg-white rounded flex justify-between w-full',
 })``
 
 const DetailsStyled = styled.div.attrs({
   className: 'flex justify-between',
 })``
 
-export const ServicePreview = ({ name, logo, tags, slug }, index) => {
-  return (
+export const ServicePreview = ({ name, logo, tags, slug }, index) => (
+  <Link href={`/${slug}`}>
     <PreviewStyled key={`ServicePreview-${index}`}>
       <Left>
         <Name>{name}</Name>
         {tags && <Tags>{R.addIndex(R.map)(Tag)(tags)}</Tags>}
-        <Link href={`/${slug}`}>
+        <div className="flex">
           More details <Arrow />
-        </Link>
+        </div>
       </Left>
       <Right>{logo && <Logo src={logo} alt={`${name} logo`} />}</Right>
     </PreviewStyled>
-  )
-}
+  </Link>
+)
 
 export const ServiceDetails = ({ title, logo, tags }) => {
   return (
