@@ -11,7 +11,7 @@ import client from '../../client'
 import Container from '../../components/Container'
 import { PurpleButton } from '../../components/Button'
 
-const GET_STORIES = `*[ _type == "story" ]{
+const GET_STORIES = `*[ _type == "story" && !(_id in path('drafts.**'))]{
   _type,
   "title": author,
   "tags": tags[]->title,
