@@ -74,9 +74,7 @@ const Tags = ({ tags, updateTags }) => {
   const toggleTag = clickedTag => {
     return R.map(({ title }) => {
       if (title === clickedTag.title) {
-        return clickedTag.selected
-          ? { title, selected: false }
-          : { title, selected: true }
+        return { title, selected: !clickedTag.selected }
       }
       return { title, selected: false }
     })(tags)
