@@ -1,14 +1,12 @@
-import styled from 'styled-components'
-import Container from '../components/Container'
+import client from '../client'
+import Information from '../components/Information'
 
-const QuestionnaireStyled = styled(Container).attrs({
-  className: '',
-})``
+const GET_QUESTIONNAIRE = `*[_type == "page" && slug.current == "am-i-in-an-abusive-relationship"][0]`
 
-const Questionnaire = () => {
-  return (
-    <QuestionnaireStyled>Am I in an abusive relationship?</QuestionnaireStyled>
-  )
+const Questionnaire = props => {
+  return <Information background="bg-white" props={props} />
 }
 
 export default Questionnaire
+
+Questionnaire.getInitialProps = () => client.fetch(GET_QUESTIONNAIRE)
