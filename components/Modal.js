@@ -117,7 +117,9 @@ const getModalProps = ({
           "Are you sure you want to delete your story? You can't undo this action.",
         modalLayout: DOUBLE,
         confirmButtonText: 'Delete',
-        undoButtonAction: resetForm,
+        confirmButtonAction: resetForm,
+        undoButtonText: 'Cancel',
+        undoButtonAction: closeAndResetModal,
       }
     case STORY_SHARED:
       return {
