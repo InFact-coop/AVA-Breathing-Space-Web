@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 
 import styled from 'styled-components'
+import infoIcon from '../public/icons/infoWhite.svg'
 
 const StyledList = styled.ul.attrs({
   className: 'pt-2.5 mb-5',
@@ -34,6 +35,10 @@ const StandoutParagraph = styled.h4.attrs({
   className: 'font-xl mb-5 font-serif',
 })``
 
+const Background = styled.div.attrs({
+  className: 'bg-teal flex items-start text-white rounded-1.5 p-2.5 mt-1 mb-5',
+})``
+
 const serializers = {
   list: ({ children }) => {
     return <StyledList>{children}</StyledList>
@@ -52,6 +57,13 @@ const serializers = {
           return <StyledSubheading>{props.children}</StyledSubheading>
         case 'h4':
           return <StandoutParagraph>{props.children}</StandoutParagraph>
+        case 'blockquote':
+          return (
+            <Background>
+              <img alt="info icon" src={infoIcon} />
+              <p className="ml-2.5">{props.children}</p>
+            </Background>
+          )
         default:
           return <StyledParagraph>{props.children}</StyledParagraph>
       }

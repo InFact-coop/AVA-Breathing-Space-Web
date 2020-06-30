@@ -80,6 +80,7 @@ module.exports = {
         content: 'calc(100vh - 200px - 60px)', // screen minus footer minus nav
       },
       borderRadius: {
+        '1.5': '0.375rem', // 6px
         '2.5': '0.625rem', // 10px
         '25': '6.25rem', // 100px
       },
