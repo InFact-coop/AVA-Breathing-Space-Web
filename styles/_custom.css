@@ -5,4 +5,6 @@ body {
   line-height: theme('lineHeight.base');
   background-color: theme('colors.lightestgray');
   color: theme('colors.black');
+  max-width: theme('maxWidth.256');
+  margin: 0 auto;
 }
