@@ -63,7 +63,7 @@ const StoriesStyled = styled(Container).attrs({
 })``
 
 const Tag = styled.button.attrs(({ selected }) => ({
-  className: `rounded-full text-sm mr-1.5 border border-solid py-1.5 px-2.5 text-${
+  className: `rounded-full whitespace-no-wrap text-sm mr-1.5 border border-solid py-1.5 px-2.5 text-${
     selected ? 'black' : 'gray'
   } bg-${selected ? 'lightgray' : 'lightestgray'} border-${
     selected ? 'black' : 'gray'
