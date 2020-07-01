@@ -32,16 +32,20 @@ const Icon = styled.img.attrs({
   className: 'w-4.5 h-4.5 mr-4.5',
 })``
 
-const ContactDetail = ({ icon, text, href }) => {
-  return (
-    <ContactDetailStyled>
-      <Icon src={icon} />
-      <ContactDetailText as={href ? 'a' : 'div'} href={href} underline={!!href}>
-        {text}
-      </ContactDetailText>
-    </ContactDetailStyled>
-  )
-}
+const ContactDetail = ({ icon, text, href }) => (
+  <ContactDetailStyled>
+    <Icon src={icon} />
+    <ContactDetailText
+      as={href ? 'a' : 'div'}
+      href={href}
+      underline={!!href}
+      target={href && '_blank'}
+    >
+      {text}
+    </ContactDetailText>
+  </ContactDetailStyled>
+)
+
 const ContactStyled = styled(Container).attrs({
   className: 'bg-white border-b border-lightgray',
 })``
