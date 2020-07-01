@@ -7,7 +7,7 @@ import Container from './Container'
 import { OutlineButton } from './Button'
 
 const GET_COMMENTS = `*[_type == $_type && slug.current == $slug][0] {
-  "newComments": comments[0..$commentLength]->[publishInApp == true]{ comment, publishedAt },
+  "newComments": comments[0...$commentLength]->[publishInApp == true]{ comment, publishedAt },
   "newCommentTotal": count(comments[]->[publishInApp == true])
   }`
 

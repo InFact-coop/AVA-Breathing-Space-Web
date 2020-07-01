@@ -60,7 +60,7 @@ const CategoryStyled = styled.section.attrs({
 
 const Category = ({ title, techniques }, index) => {
   const apollo = useApolloClient()
-  if (R.isEmpty(techniques)) return undefined
+  if (R.isEmpty(techniques)) return null
 
   const colour = cycleColours(index)
   const Techniques = R.pipe(
