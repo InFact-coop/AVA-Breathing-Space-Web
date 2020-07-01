@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import * as R from 'ramda'
 import moment from 'moment'
 import client from '../client'
-import Container from './Container'
 import { OutlineButton } from './Button'
 
 const GET_COMMENTS = `*[_type == $_type && slug.current == $slug][0] {
@@ -47,8 +46,8 @@ const LoadCommentsButton = styled(OutlineButton).attrs(
   }),
 )``
 
-const CommentsContainer = styled(Container).attrs({
-  className: '',
+const CommentsContainer = styled.div.attrs({
+  className: 'bg-lightestgray p-5 max-w-256',
 })``
 
 const Comments = ({ slug, _type }) => {
@@ -76,7 +75,7 @@ const Comments = ({ slug, _type }) => {
 
   if (R.isEmpty(comments)) return null
   return (
-    <CommentsContainer shadow={false} bgColour="lightestgray">
+    <CommentsContainer>
       {R.map(Comment)(comments)}
       {comments.length < commentTotal && (
         <LoadCommentsButton {...{ commentLength, updateCommentLength }} />

@@ -6,15 +6,20 @@ import Exit from './Exit'
 import Onboarding from './Onboarding'
 import Footer from './Footer'
 
-const PageStyled = styled.main.attrs({})``
+const PageStyled = styled.main.attrs({
+  className: '',
+})``
 
 const Page = ({ _type, title, children }) => {
   const [windowHeight, setWindowHeight] = useState('100vh')
   const navbarOptions = getNavbarOptions({ _type, title })
 
   useEffect(() => {
+    if (_type === 'supportCategory') {
+      setWindowHeight(`${window.innerHeight - 200 - 103}px`)
+    }
     // footer = 200px, top navbar = 60px
-    setWindowHeight(`${window.innerHeight - 200 - 60}px`)
+    else setWindowHeight(`${window.innerHeight - 200 - 60}px`)
   })
 
   return title === 'Landing' ? (

@@ -11,7 +11,6 @@ import { PurpleButton } from '../components/Button'
 import { Input } from '../components/Form'
 
 import client from '../client'
-import Container from './Container'
 
 const onSubmit = (onResponse, parentID) => async (
   inputs,
@@ -65,10 +64,10 @@ const SubmitButton = styled(PurpleButton).attrs(({ formCompleted }) => ({
   children: 'Submit',
 }))``
 
-const FormContainer = styled(Container).attrs({
-  as: 'form',
+const FormContainer = styled.form.attrs({
   id: 'share-service-comment',
   key: 'form',
+  className: 'p-5 bg-lightestgray max-w-256',
 })``
 
 const CommentForm = ({
