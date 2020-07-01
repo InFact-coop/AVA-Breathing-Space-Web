@@ -54,7 +54,7 @@ const Service = ({
     summary,
     parentID,
   },
-  form: { title: formTitle, subtitle, inputsFromSanity, confirmationText },
+  form: { formTitle, subtitle, inputsFromSanity, confirmationText },
 }) => {
   return (
     <>

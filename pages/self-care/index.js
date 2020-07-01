@@ -21,7 +21,7 @@ const TechniqueStyled = styled.a.attrs(({ colour }) => ({
 }))``
 
 const TechniqueTitle = styled.h2.attrs({
-  className: 'font-sm h-15 p-2.5 flex items-end',
+  className: 'font-sm font-bold h-15 p-2.5 flex items-end',
 })``
 
 const Preview = styled.div.attrs({ className: 'h-25 bg-whiteoverlay' })``
