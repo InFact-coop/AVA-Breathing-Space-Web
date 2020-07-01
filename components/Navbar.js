@@ -6,6 +6,8 @@ import Link from 'next/link'
 import gql from 'graphql-tag'
 import Router, { useRouter } from 'next/router'
 
+import getParentPath from '../lib/getParentPath'
+
 import BackIcon from '../public/icons/back-black.svg'
 import HeartIcon from '../public/icons/heart-black.svg'
 import { HOME, RELATIVE } from '../lib/constants'
@@ -22,15 +24,20 @@ const BackContainer = styled.div.attrs(({ lines = 1 }) => ({
   className: `${lines > 1 ? 'w-full pt-5' : ''}`,
 }))``
 
-const BackButton = styled.img.attrs(({ back }) => ({
+const BackButton = styled.img.attrs(({ back, current }) => ({
   src: BackIcon,
-  onClick: back === RELATIVE ? () => Router.back() : () => Router.push('/'),
+  onClick:
+    back === RELATIVE
+      ? () => Router.push(getParentPath(current))
+      : () => Router.push('/'),
 }))``
 
 const Back = ({ back, lines }) => {
+  const { asPath } = useRouter()
+
   return (
     <BackContainer lines={lines}>
-      <BackButton back={back} />
+      <BackButton back={back} current={asPath} />
     </BackContainer>
   )
 }
