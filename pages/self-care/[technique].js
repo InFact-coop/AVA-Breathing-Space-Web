@@ -13,7 +13,8 @@ const GET_SELF_CARE_TECHNIQUE = `*[_type == "selfcareTechnique" && slug.current 
   "technique": {
     "parentID": _id,
     title,
-    "videoUrl": video.asset->url,
+    "videoUrl": videoFile.asset->url,
+    videoLink,
     body,
     audio, 
     link, 
@@ -54,6 +55,9 @@ const Technique = ({
     <OuterContainer className="h-full bg-white">
       {technique.videoUrl && (
         <TechniqueVideo src={technique.videoUrl} controls />
+      )}
+      {technique.videoLink && (
+        <TechniqueVideo as="iframe" src={technique.videoLink} />
       )}
       <TechniqueStyled bgColour="white">
         <TechniqueTitle>{technique.title}</TechniqueTitle>
