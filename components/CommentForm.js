@@ -49,7 +49,7 @@ const onSubmit = (onResponse, parentID) => async (
 }
 
 const Title = styled.h2.attrs({
-  className: 'font-serif text-lg leading-base mb-1.25',
+  className: 'font-sans text-base mt-5 font-bold leading-base mb-1.25',
 })``
 
 const Subtitle = styled.h3.attrs({
@@ -75,7 +75,7 @@ const CommentForm = ({
   inputsFromSanity,
   confirmationText,
   parentID,
-  formTitle,
+  title,
   subtitle,
 }) => {
   const initialState = R.pipe(
@@ -110,8 +110,12 @@ const CommentForm = ({
   )
 
   return (
-    <FormContainer onSubmit={handleSubmit}>
-      <Title>{formTitle}</Title>
+    <FormContainer
+      shadow={false}
+      bgColour="lightestgray"
+      onSubmit={handleSubmit}
+    >
+      <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>
       {R.map(passDownInput)(inputsFromSanity)}
       <SubmitButton {...{ formCompleted, ref }} />

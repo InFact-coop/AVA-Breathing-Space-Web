@@ -76,7 +76,7 @@ const Comments = ({ slug, _type }) => {
 
   if (R.isEmpty(comments)) return null
   return (
-    <CommentsContainer>
+    <CommentsContainer shadow={false} bgColour="lightestgray">
       {R.map(Comment)(comments)}
       {comments.length < commentTotal && (
         <LoadCommentsButton {...{ commentLength, updateCommentLength }} />
