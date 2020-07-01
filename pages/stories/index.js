@@ -122,9 +122,9 @@ const Stories = props => {
     if (selected !== null && !R.isEmpty(selected)) {
       const [{ title }] = selected
 
-      filteredStories = R.filter(story => R.contains(title, story.tags))(
-        allTheStories,
-      )
+      filteredStories = R.filter(
+        story => story.tags && R.includes(title, story.tags),
+      )(allTheStories)
     }
 
     updateSelectedStories(filteredStories)
