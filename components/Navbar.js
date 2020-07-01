@@ -7,7 +7,7 @@ import gql from 'graphql-tag'
 import Router, { useRouter } from 'next/router'
 
 import BackIcon from '../public/icons/back-black.svg'
-import HeartIcon from '../public/icons/heart-black.svg'
+// import HeartIcon from '../public/icons/heart-black.svg'
 import { HOME, RELATIVE } from '../lib/constants'
 
 const GET_NAVBAR_COLOUR = gql`
@@ -35,16 +35,17 @@ const Back = ({ back, lines }) => {
   )
 }
 
-const Heart = styled.img.attrs({
-  className: '',
-  onClick: () => ({}), // TODO: Write plus-one function
-  src: HeartIcon,
-})``
+// const Heart = styled.img.attrs({
+//   className: '',
+//   onClick: () => ({}), // TODO: Write plus-one function
+//   src: HeartIcon,
+// })``
 
-const Filter = styled.div.attrs({
-  className: 'rounded-full border border-gray text-gray font-sm px-2.5 py-1.5',
-  onClick: () => ({}),
-})``
+// const Filter = styled.div.attrs({
+//   className: 'rounded-full border border-gray text-gray font-sm px-2.5 py-1.5',
+//   onClick: () => ({}),
+// })``
+
 const Title = styled.h1.attrs(({ font = 'sans' }) => ({
   className: `py-5 font-${font} text-center`,
 }))``
@@ -121,9 +122,9 @@ const Navbar = ({
     >
       {back && <Back back={back} lines={lines} />}
       {title && <Title font={font}>{title}</Title>}
-      {heart && <Heart />}
-      {empty && <div />}
-      {filter && <Filter>Filters</Filter>}
+      {/* {heart && <Heart />} */}
+      {(empty || heart || filter) && <div />}
+      {/* {filter && <Filter>Filters</Filter>} */}
     </NavbarStyled>
   )
 }

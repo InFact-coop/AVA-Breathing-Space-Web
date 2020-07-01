@@ -5,6 +5,8 @@ import * as R from 'ramda'
 import useModal from 'use-react-modal'
 import useForm from '../../lib/useForm'
 import toCamelCase from '../../lib/toCamelCase'
+import scrollToTop from '../../lib/scrollToTop'
+
 import { SHARE_STORY, DELETE_STORY, STORY_SHARED } from '../../lib/constants'
 
 import Modal from '../../components/Modal'
@@ -50,9 +52,12 @@ const onSubmit = onResponse => async (inputs, setInputs, initialState) => {
 
 const ShareButton = styled(PurpleButton).attrs(
   ({ formCompleted, openModal, updateModalAction }) => ({
-    className: `mb-2.5 w-full ${formCompleted ? '' : 'opacity-50'}`,
+    className: `mb-2.5 cursor-pointer w-full ${
+      formCompleted ? '' : 'opacity-50'
+    }`,
     children: 'Share your story',
     onClick: e => {
+      scrollToTop()
       updateModalAction(SHARE_STORY)
       openModal(e)
     },
@@ -61,9 +66,12 @@ const ShareButton = styled(PurpleButton).attrs(
 
 const DeleteButton = styled(CoralButton).attrs(
   ({ formCompleted, openModal, updateModalAction }) => ({
-    className: `mb-2.5 w-full ${formCompleted ? '' : 'opacity-50'}`,
+    className: `mb-2.5 cursor-pointer w-full ${
+      formCompleted ? '' : 'opacity-50'
+    }`,
     children: 'Delete your story',
     onClick: e => {
+      scrollToTop()
       updateModalAction(DELETE_STORY)
       openModal(e)
     },

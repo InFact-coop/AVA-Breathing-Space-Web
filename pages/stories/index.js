@@ -11,7 +11,7 @@ import client from '../../client'
 import Container from '../../components/Container'
 import { PurpleButton } from '../../components/Button'
 
-const GET_STORIES = `*[ _type == "story" ]{
+const GET_STORIES = `*[ _type == "story" && !(_id in path('drafts.**'))]{
   _type,
   "title": author,
   "tags": tags[]->title,
@@ -63,7 +63,7 @@ const StoriesStyled = styled(Container).attrs({
 })``
 
 const Tag = styled.button.attrs(({ selected }) => ({
-  className: `rounded-full text-sm mr-1.5 border border-solid py-1.5 px-2.5 text-${
+  className: `rounded-full whitespace-no-wrap text-sm mr-1.5 border border-solid py-1.5 px-2.5 text-${
     selected ? 'black' : 'gray'
   } bg-${selected ? 'lightgray' : 'lightestgray'} border-${
     selected ? 'black' : 'gray'
@@ -74,9 +74,7 @@ const Tags = ({ tags, updateTags }) => {
   const toggleTag = clickedTag => {
     return R.map(({ title }) => {
       if (title === clickedTag.title) {
-        return clickedTag.selected
-          ? { title, selected: false }
-          : { title, selected: true }
+        return { title, selected: !clickedTag.selected }
       }
       return { title, selected: false }
     })(tags)
