@@ -1,4 +1,5 @@
 const webpack = require('webpack') //eslint-disable-line
+
 const path = require('path') //eslint-disable-line
 const withPlugins = require('next-compose-plugins')
 const withImages = require('next-images')
@@ -12,6 +13,10 @@ const FRONTEND_ENV_KEYS = [
   'SANITY_DATASET',
   'SANITY_TOKEN',
   'SANITY_ID',
+  'SENTRY_DSN',
+  'SENTRY_ORG',
+  'SENTRY_PROJECT',
+  'SENTRY_AUTH_TOKEN',
 ]
 
 if (process.env.HEROKU_APP_NAME) {
@@ -30,14 +35,14 @@ module.exports = withPlugins(
   [withImages, withCSS, withFonts, [withPWA, { pwa: { dest: 'public' } }]],
   {
     webpack: (config, { _isServer }) => {
-      // adds access to specific env variables on front end
-      config.plugins.push(new webpack.DefinePlugin(envPlugin))
-
       config.plugins.push(
         new webpack.ProvidePlugin({
           cssTheme: path.resolve(path.join(__dirname, 'styles/theme')),
         }),
       )
+
+      // adds access to specific env variables on front end
+      config.plugins.push(new webpack.DefinePlugin(envPlugin))
 
       return config
     },
