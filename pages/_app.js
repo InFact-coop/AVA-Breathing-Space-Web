@@ -3,6 +3,8 @@ import { ApolloProvider } from 'react-apollo'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'use-react-modal'
+import Router from 'next/router'
+import * as gtag from '../lib/gtag'
 
 import withData from '../lib/withData'
 import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
@@ -22,6 +24,16 @@ class BreathingSpace extends App {
 
     pageProps.query = ctx.query
     return { pageProps }
+  }
+
+  componentDidMount() {
+    const handleRouteChange = url => {
+      gtag.pageview(url)
+    }
+    Router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      Router.events.off('routeChangeComplete', handleRouteChange)
+    }
   }
 
   render() {

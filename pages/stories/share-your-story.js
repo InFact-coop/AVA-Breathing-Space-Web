@@ -6,6 +6,7 @@ import useModal from 'use-react-modal'
 import useForm from '../../lib/useForm'
 import toCamelCase from '../../lib/toCamelCase'
 import scrollToTop from '../../lib/scrollToTop'
+import * as gtag from '../../lib/gtag'
 
 import { SHARE_STORY, DELETE_STORY, STORY_SHARED } from '../../lib/constants'
 
@@ -72,6 +73,11 @@ const DeleteButton = styled(CoralButton).attrs(
     children: 'Delete your story',
     onClick: e => {
       scrollToTop()
+      gtag.event({
+        action: 'clear_form',
+        category: 'Story',
+        label: 'delete story',
+      })
       updateModalAction(DELETE_STORY)
       openModal(e)
     },
