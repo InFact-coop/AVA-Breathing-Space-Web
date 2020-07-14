@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/node'
+
 import App from 'next/app'
 import { ApolloProvider } from 'react-apollo'
 import resolveConfig from 'tailwindcss/resolveConfig'
@@ -13,6 +15,11 @@ import Meta from '../components/Meta'
 
 const { theme } = resolveConfig(tailwindConfig)
 
+Sentry.init({
+  enabled: process.env.NODE_ENV !== 'production',
+  dsn: process.env.SENTRY_DSN,
+})
+
 class BreathingSpace extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
@@ -25,14 +32,14 @@ class BreathingSpace extends App {
   }
 
   render() {
-    const { Component, apollo, pageProps } = this.props
+    const { Component, apollo, pageProps, err } = this.props
     return (
       <ApolloProvider client={apollo}>
         <ThemeProvider theme={theme}>
           <Meta />
           <Provider background={theme.colors.blackoverlay}>
             <Page _type={pageProps._type} title={pageProps.title}>
-              <Component {...pageProps} />
+              <Component {...pageProps} err={err} />
             </Page>
           </Provider>
         </ThemeProvider>
