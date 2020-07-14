@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 
 import styled from 'styled-components'
@@ -9,8 +10,10 @@ import Router, { useRouter } from 'next/router'
 import getParentPath from '../lib/getParentPath'
 
 import BackIcon from '../public/icons/back-black.svg'
+import CrossIcon from '../public/icons/cross-black.svg'
 // import HeartIcon from '../public/icons/heart-black.svg'
-import { HOME, RELATIVE } from '../lib/constants'
+import { HOME, RELATIVE, DISCARD } from '../lib/constants'
+import { ModalContext } from './Modal'
 
 const GET_NAVBAR_COLOUR = gql`
   query {
@@ -24,20 +27,22 @@ const BackContainer = styled.div.attrs(({ lines = 1 }) => ({
   className: `${lines > 1 ? 'w-full pt-5' : ''}`,
 }))``
 
-const BackButton = styled.img.attrs(({ back, current }) => ({
-  src: BackIcon,
+const BackButton = styled.img.attrs(({ back, current, closeModal }) => ({
+  src: back === DISCARD ? CrossIcon : BackIcon,
   onClick:
-    back === RELATIVE
-      ? () => Router.push(getParentPath(current))
-      : () => Router.push('/'),
+    back === HOME
+      ? () => Router.push('/')
+      : back === DISCARD
+      ? () => closeModal()
+      : () => Router.push(getParentPath(current)),
 }))``
 
-const Back = ({ back, lines }) => {
+const Back = ({ back, lines, closeModal }) => {
   const { asPath } = useRouter()
 
   return (
     <BackContainer lines={lines}>
-      <BackButton back={back} current={asPath} />
+      <BackButton back={back} current={asPath} closeModal={closeModal} />
     </BackContainer>
   )
 }
@@ -48,10 +53,15 @@ const Back = ({ back, lines }) => {
 //   src: HeartIcon,
 // })``
 
-// const Filter = styled.div.attrs({
-//   className: 'rounded-full border border-gray text-gray font-sm px-2.5 py-1.5',
-//   onClick: () => ({}),
-// })``
+const Clear = styled.div.attrs({
+  className: 'text-gray pr-4.5 font-sm',
+  children: 'Clear',
+})``
+
+const Filter = styled.div.attrs({
+  className: 'rounded-full border border-gray text-gray font-sm px-2.5 py-1.5',
+  children: 'Filter',
+})``
 
 const Title = styled.h1.attrs(({ font = 'sans' }) => ({
   className: `py-5 font-${font} text-center`,
@@ -98,6 +108,7 @@ const Navbar = ({
   back,
   border,
   colour,
+  clear,
   empty,
   fallbackColour,
   filter,
@@ -107,6 +118,10 @@ const Navbar = ({
   links,
   title,
 }) => {
+  const {
+    modal: { openModal, closeModal },
+  } = useContext(ModalContext)
+
   const { loading, error, data } = useQuery(GET_NAVBAR_COLOUR)
   const { navbarColour } = data && data.state
 
@@ -122,21 +137,22 @@ const Navbar = ({
   return (
     <NavbarStyled
       left={back}
-      right={heart || empty || filter}
+      right={heart || filter || empty}
       colour={colour || navbarColour || fallbackColour}
       border={border}
       lines={lines}
     >
-      {back && <Back back={back} lines={lines} />}
+      {back && <Back back={back} lines={lines} closeModal={closeModal} />}
       {title && <Title font={font}>{title}</Title>}
       {/* {heart && <Heart />} */}
-      {(empty || heart || filter) && <div />}
-      {/* {filter && <Filter>Filters</Filter>} */}
+      {filter && <Filter onClick={openModal} />}
+      {clear && <Clear onClick={clear} />}
+      {empty && <div />}
     </NavbarStyled>
   )
 }
 
-export const getNavbarOptions = ({ _type, title }) => {
+export const getNavbarOptions = ({ _type, title, clear }) => {
   switch (_type) {
     case 'selfcareTechnique':
       return {
@@ -151,6 +167,7 @@ export const getNavbarOptions = ({ _type, title }) => {
         back: RELATIVE,
         border: true,
         heart: true,
+        empty: true,
         fallbackColour: 'tealcoral',
         title,
       }
@@ -163,6 +180,13 @@ export const getNavbarOptions = ({ _type, title }) => {
         fallbackColour: 'tealcoral',
         lines: 2,
         title,
+      }
+    case 'supportFilterType':
+      return {
+        border: true,
+        back: DISCARD,
+        clear,
+        title: 'Filters',
       }
     case 'questionnaire':
     case 'story':

@@ -1,3 +1,4 @@
+import { createContext } from 'react'
 import styled from 'styled-components'
 import {
   SHARE_STORY,
@@ -178,5 +179,10 @@ const Modal = props => {
   if (modalLayout === SINGLE) return <SingleButtonModal {...modalProps} />
   if (modalLayout === DOUBLE) return <DoubleButtonModal {...modalProps} />
 }
+
+export const ModalContext = createContext({
+  modal: undefined,
+  setModal: undefined,
+})
 
 export default Modal
