@@ -12,6 +12,7 @@ const FRONTEND_ENV_KEYS = [
   'SANITY_DATASET',
   'SANITY_TOKEN',
   'SANITY_ID',
+  'GOOGLE_ID',
 ]
 
 if (process.env.HEROKU_APP_NAME) {
