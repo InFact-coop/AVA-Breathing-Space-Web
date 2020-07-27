@@ -43,7 +43,11 @@ class BreathingSpace extends App {
         <ThemeProvider theme={theme}>
           <Meta />
           <Provider background={theme.colors.blackoverlay}>
-            <Page _type={pageProps._type} title={pageProps.title}>
+            <Page
+              _type={pageProps._type}
+              title={pageProps.title}
+              pageTitle={pageProps.pageTitle}
+            >
               <Component {...pageProps} />
             </Page>
           </Provider>

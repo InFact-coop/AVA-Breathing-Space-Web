@@ -80,7 +80,10 @@ const Service = ({
 }
 
 export default Service
-Service.getInitialProps = ctx =>
-  client.fetch(GET_SERVICE_DETAILS, {
+Service.getInitialProps = async ctx => {
+  const data = await client.fetch(GET_SERVICE_DETAILS, {
     slug: ctx.query.service,
   })
+
+  return { pageTitle: data._type, ...data }
+}

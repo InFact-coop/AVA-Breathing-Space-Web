@@ -90,7 +90,7 @@ const SelfCare = ({ categories }) => {
 
 SelfCare.getInitialProps = async () => {
   const categories = await client.fetch(GET_SELF_CARE_BY_CATEGORY)
-  return { categories }
+  return { pageTitle: 'selfcareCategories', categories }
 }
 
 export default SelfCare

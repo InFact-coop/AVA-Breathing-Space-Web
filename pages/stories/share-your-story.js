@@ -151,4 +151,10 @@ const ShareStory = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
 }
 
 export default ShareStory
-ShareStory.getInitialProps = () => client.fetch(GET_SHARE_STORY_FORM)
+ShareStory.getInitialProps = async () => {
+  const data = await client.fetch(GET_SHARE_STORY_FORM)
+  return {
+    ...data,
+    pageTitle: 'shareStory',
+  }
+}

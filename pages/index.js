@@ -67,7 +67,7 @@ const Support = ({ categories }) => (
 
 Support.getInitialProps = async () => {
   const categories = await client.fetch(GET_SUPPORT_CATEGORIES)
-  return { categories }
+  return { pageTitle: 'support', categories }
 }
 
 export default Support

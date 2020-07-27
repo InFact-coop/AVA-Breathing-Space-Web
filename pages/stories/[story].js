@@ -50,6 +50,7 @@ Story.getInitialProps = async ctx => {
 
   return {
     ...data,
+    pageTitle: data._type,
     title: `${formatAuthor(data.title)} story`,
   }
 }
