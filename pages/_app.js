@@ -38,6 +38,7 @@ class BreathingSpace extends App {
 
   render() {
     const { Component, apollo, pageProps } = this.props
+
     return (
       <ApolloProvider client={apollo}>
         <ThemeProvider theme={theme}>
@@ -48,7 +49,7 @@ class BreathingSpace extends App {
               title={pageProps.title}
               pageTitle={pageProps.pageTitle}
             >
-              <Component {...pageProps} />
+              <Component theme={theme} {...pageProps} />
             </Page>
           </Provider>
         </ThemeProvider>
