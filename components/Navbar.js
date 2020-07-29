@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { useContext } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 
@@ -144,10 +145,9 @@ const Navbar = ({
     >
       {back && <Back back={back} lines={lines} closeModal={closeModal} />}
       {title && <Title font={font}>{title}</Title>}
-      {/* {heart && <Heart />} */}
       {filter && <Filter onClick={openModal} />}
       {clear && <Clear onClick={clear} />}
-      {empty && <div />}
+      {(empty || heart) && <div />}
     </NavbarStyled>
   )
 }

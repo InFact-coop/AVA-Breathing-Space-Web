@@ -8,11 +8,13 @@ import Flickity from 'react-flickity-component'
 import { updateNavbarColour } from '../../components/Navbar'
 
 import client from '../../client'
-import cycleColours from '../../lib/cycleColours'
 import Container from '../../components/Container'
 
-const GET_SELF_CARE_BY_CATEGORY =
-  '*[ _type == "selfcareCategory" ] {title, "techniques": *[ _type == "selfcareTechnique" && references(^._id) ] { title, "slug": slug.current } }'
+const GET_SELF_CARE_BY_CATEGORY = `*[ _type == "selfcareCategory" ] {
+    title, 
+    "techniques": *[ _type == "selfcareTechnique" && references(^._id) ] { title, "slug": slug.current }, 
+    "illustration": *[ _type == "illustration" && _id == ^.illustration._ref ][0] { "url": file.asset->url, color }, 
+  }`
 
 const TechniqueStyled = styled.a.attrs(({ colour }) => ({
   className: `w-32 h-40 flex-shrink-0 rounded-2.5 mr-2.5 shadow
@@ -24,9 +26,24 @@ const TechniqueTitle = styled.h2.attrs({
   className: 'font-sm font-bold h-15 p-2.5 flex items-end',
 })``
 
-const Preview = styled.div.attrs({ className: 'h-25 bg-whiteoverlay' })``
+const Preview = styled.div.attrs({
+  className: 'h-25 bg-whiteoverlay',
+})`
+  background-image: ${({ illustration }) => `url(${illustration})`};
+  background-position: ${({ cardNumber }) =>
+    `${0 - 32 * cardNumber}px ${0 + 100 * cardNumber}px`};
+  background-size: 100px;
+  background-repeat: repeat;
+`
 
-const Technique = ({ title, colour, slug, onClick }) => (
+const Technique = ({
+  title,
+  colour,
+  illustration,
+  slug,
+  onClick,
+  cardNumber,
+}) => (
   <Link
     href="/self-care/[technique]"
     as={`/self-care/${slug}`}
@@ -34,7 +51,7 @@ const Technique = ({ title, colour, slug, onClick }) => (
     key={slug}
   >
     <TechniqueStyled colour={colour} onClick={onClick}>
-      <Preview />
+      <Preview cardNumber={cardNumber} illustration={illustration} />
       <TechniqueTitle>{title}</TechniqueTitle>
     </TechniqueStyled>
   </Link>
@@ -58,16 +75,22 @@ const CategoryStyled = styled.section.attrs({
   className: '',
 })``
 
-const Category = ({ title, techniques }, index) => {
+const Category = ({ title, techniques, illustration }, index) => {
   const apollo = useApolloClient()
   if (R.isEmpty(techniques)) return null
 
-  const colour = cycleColours(index)
+  const indexedTechniques = techniques.map((tech, cardNumber) => ({
+    cardNumber,
+    ...tech,
+  }))
+
+  const colour = R.join('', R.split(' ', R.toLower(illustration.color)))
   const Techniques = R.pipe(
     R.map(R.assoc('colour', colour)),
+    R.map(R.assoc('illustration', illustration.url)),
     R.map(R.assoc('onClick', updateNavbarColour({ apollo, colour }))),
     R.map(Technique),
-  )(techniques)
+  )(indexedTechniques)
 
   return (
     <CategoryStyled key={`category-${index}`}>
