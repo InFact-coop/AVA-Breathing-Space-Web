@@ -27,6 +27,7 @@
       "rules": {
         "@typescript-eslint/ban-ts-ignore": 0,
         "@typescript-eslint/no-explicit-any": 0,
+        "complexity": ["error", { "max": 20 }],
         "import/no-unresolved": [2, { "ignore": ["^(all|part):"] }]
       },
       "settings": {

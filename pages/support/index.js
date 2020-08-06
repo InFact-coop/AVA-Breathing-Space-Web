@@ -1,11 +1,13 @@
-import styled from 'styled-components'
+import Router from 'next/router'
+const Support = () => null
 
-const SupportStyled = styled.section.attrs({
-  className: '',
-})``
-
-const Support = () => {
-  return <SupportStyled>Support</SupportStyled>
+Support.getInitialProps = ({ req, res }) => {
+  if (req) {
+    res.writeHead(302, { Location: `/` })
+    res.end()
+  } else {
+    Router.push(`/`)
+  }
 }
 
 export default Support

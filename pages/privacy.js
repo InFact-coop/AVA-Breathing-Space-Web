@@ -1,11 +1,10 @@
-import styled from 'styled-components'
+import client from '../client'
+import Information from '../components/Information'
 
-const PrivacyStyled = styled.section.attrs({
-  className: '',
-})``
+const GET_PRIVACY_POLICY = `*[_type == "page" && slug.current == "privacy-policy"][0]`
 
-const Privacy = () => {
-  return <PrivacyStyled>Privacy</PrivacyStyled>
-}
+const Privacy = props => <Information background="" props={props} />
 
 export default Privacy
+
+Privacy.getInitialProps = () => client.fetch(GET_PRIVACY_POLICY)

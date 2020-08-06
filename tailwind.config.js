@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin')
+
 const screens = {
   sm: '640px',
   md: '768px',
@@ -6,7 +8,6 @@ const screens = {
 }
 
 module.exports = {
-  purge: ['./components/**/*.js', './pages/**/*.js'],
   theme: {
     screens,
     media: {
@@ -17,21 +18,27 @@ module.exports = {
     },
     extend: {
       spacing: {
-        '1d5': '0.375rem', // 6px
-        '2d5': '0.625rem', // 10px
-        '3d5': '0.875rem', // 14px
+        '0.125': '0.03125rem', // 0.5px
+        '0.5': '0.125rem', // 2px
+        '1.25': '0.3125rem', // 5px
+        '1.5': '0.375rem', // 6px
+        '2.5': '0.625rem', // 10px
+        '3.5': '0.875rem', // 14px
+        '3.75': '0.9375rem', // 15px
         '4': '1rem', // 16px
-        '4d5': '1.125rem', // 18px
+        '4.5': '1.125rem', // 18px
         '5': '1.25rem', // 20px
-        '5d5': '1.375rem', // 22px
+        '5.5': '1.375rem', // 22px
         '6': '1.5rem', // 24px
+        '7.5': '1.875rem', // 30px
         '9': '2.25rem', // 36px
-        '9d5': '2.375rem', // 38px
+        '9.5': '2.375rem', // 38px
         '10': '2.5rem', // 40px
-        '10d5': '2.625rem', // 42px
+        '10.5': '2.625rem', // 42px
         '11': '2.75rem', // 44px
-        '11d5': '2.875rem', // 46px
-        '12': '3.75rem', // 60px
+        '11.5': '2.875rem', // 46px
+        '12': '3rem', // 48px
+        '15': '3.75rem', // 60px
         '17': '4.25rem', // 68px
         '18': '4.5rem', // 72px
         '20': '5rem', // 80px
@@ -40,12 +47,45 @@ module.exports = {
         '40': '10rem', // 160px
         '43': '10.75rem', // 172px
         '65': '16.25rem', // 260px
+        '75': '18.75rem', // 300px
+      },
+      inset: {
+        '-1.25': '-0.3125rem', // -5px
+        '2.5': '0.625rem', // 10px
+        '4.5': '1.125rem', // 18px
+        '5': '1.25rem', // 20px
+        '10': '2.5rem', // 40px
       },
       width: {
-        '49/100': '49%',
+        '4.5': '1.125rem', // 18px
+        '7.5': '1.875rem', // 30px
+        '36': '9rem', // 144px
+        half: '49%', // 50%
+      },
+      minWidth: {
+        '36': '9rem', // 144px
+      },
+      maxWidth: {
+        '22.5': '5.625rem', // 90px
+        '256': '64rem', //1024px
+      },
+      height: {
+        '7.5': '1.875rem', // 30px
+        '8.75': '2.1875rem', // 35px
+        '25': '6.25rem', // 100px
+        '45': '11.25rem', // 180px
+        '50': '12.5rem', // 200px
+      },
+      minHeight: {
+        content: 'calc(100vh - 200px - 60px)', // screen minus footer minus nav
       },
       borderRadius: {
-        '11': '2.75rem', // 44px
+        '1.5': '0.375rem', // 6px
+        '2.5': '0.625rem', // 10px
+        '25': '6.25rem', // 100px
+      },
+      opacity: {
+        '95': '0.95',
       },
     },
     fontSize: {
@@ -77,6 +117,8 @@ module.exports = {
       lightgray: '#E0E0EB',
       lightestgray: '#FAFAFA',
       white: '#FFFFFF',
+      whiteoverlay: 'rgba(251, 250, 255, 0.3)',
+      blackoverlay: 'rgba(69, 62, 83, 0.8)',
       // gradients
       tealcoral:
         'radial-gradient(115.8% 115.5% at 120.99% -26.5%, rgba(79, 202, 209, 0.5) 0%, rgba(252, 214, 215, 0.5) 100%)',
@@ -86,9 +128,9 @@ module.exports = {
         'radial-gradient(89.16% 86.13% at 75.86% 17.87%, rgba(235, 235, 235, 0.5) 0%, rgba(225, 173, 255, 0.5) 100%)',
       palebluecornflower:
         'radial-gradient(122.94% 120.33% at 80.37% 73.33%, rgba(252, 214, 215, 0.5) 0%, rgba(210, 133, 255, 0.5) 100%)',
-      lightteallightviolet:
+      lighttealgrayviolet:
         'radial-gradient(144.42% 132.5% at -59.01% -59.5%, rgba(79, 202, 209, 0.75) 0%, rgba(218, 209, 238, 0.75) 100%)',
-      cornflowerlightviolet:
+      cornflowergrayviolet:
         'radial-gradient(93.59% 91.2% at 93.59% 91.2%, rgba(127, 162, 255, 0.5) 1.64%, rgba(218, 209, 238, 0.5) 100%)',
       grayteal:
         'radial-gradient(146.37% 136.96% at 90.47% 33.54%, rgba(224, 224, 235, 0.5) 0%, rgba(79, 202, 209, 0.5) 100%)',
@@ -127,5 +169,45 @@ module.exports = {
         '"Noto Color Emoji"',
       ],
     },
+    boxShadow: {
+      default: '0px 0px 4px rgba(154, 150, 171, 0.2)',
+      exit: '0px 0px 10px rgba(154, 150, 171, 0.5)',
+    },
   },
+  plugins: [
+    plugin(({ addUtilities }) => {
+      const linearGradients = {
+        '.bg-tealcoral': {
+          background:
+            'radial-gradient(115.8% 115.5% at 120.99% -26.5%, rgba(79, 202, 209, 0.5) 0%, rgba(252, 214, 215, 0.5) 100%)',
+        },
+        '.bg-teallilac': {
+          background:
+            'radial-gradient(145.19% 158% at 100% 100%, rgba(206, 219, 255, 0.5) 8.85%, rgba(225, 173, 255, 0.5) 100%)',
+        },
+        '.bg-graylilac': {
+          background:
+            'radial-gradient(89.16% 86.13% at 75.86% 17.87%, rgba(235, 235, 235, 0.5) 0%, rgba(225, 173, 255, 0.5) 100%)',
+        },
+        '.bg-palebluecornflower': {
+          background:
+            'radial-gradient(122.94% 120.33% at 80.37% 73.33%, rgba(252, 214, 215, 0.5) 0%, rgba(210, 133, 255, 0.5) 100%)',
+        },
+        '.bg-lighttealgrayviolet': {
+          background:
+            'radial-gradient(144.42% 132.5% at -59.01% -59.5%, rgba(79, 202, 209, 0.75) 0%, rgba(218, 209, 238, 0.75) 100%)',
+        },
+        '.bg-cornflowergrayviolet': {
+          background:
+            'radial-gradient(93.59% 91.2% at 93.59% 91.2%, rgba(127, 162, 255, 0.5) 1.64%, rgba(218, 209, 238, 0.5) 100%)',
+        },
+        '.bg-grayteal': {
+          background:
+            'radial-gradient(146.37% 136.96% at 90.47% 33.54%, rgba(224, 224, 235, 0.5) 0%, rgba(79, 202, 209, 0.5) 100%)',
+        },
+      }
+
+      addUtilities(linearGradients, ['responsive', 'hover'])
+    }),
+  ],
 }

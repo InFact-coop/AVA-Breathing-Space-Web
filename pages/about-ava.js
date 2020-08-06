@@ -1,11 +1,12 @@
-import styled from 'styled-components'
+import client from '../client'
+import Information from '../components/Information'
 
-const AboutAVAStyled = styled.section.attrs({
-  className: '',
-})``
+const GET_ABOUT_AVA_PAGE = `*[_type == "page" && slug.current == "about-ava"][0]`
 
-const AboutAVA = () => {
-  return <AboutAVAStyled>This is all about AVA</AboutAVAStyled>
+const AboutAVA = props => {
+  return <Information background="" props={props} />
 }
 
 export default AboutAVA
+
+AboutAVA.getInitialProps = () => client.fetch(GET_ABOUT_AVA_PAGE)

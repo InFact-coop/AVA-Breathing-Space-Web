@@ -24,7 +24,22 @@
     /* Safari, Android, iOS */
       url('/fonts/caladea-v1-latin-regular.svg#Caladea') format('svg'); /* Legacy iOS */
 }
-
+/* Karla / Sans-Serif */
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/karla-v13-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Karla'), local('Karla-Regular'),
+    url('/fonts/karla-v13-latin-regular.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */ url('/fonts/karla-v13-latin-regular.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('/fonts/karla-v13-latin-regular.woff')
+      format('woff'),
+    /* Modern Browsers */ url('/fonts/karla-v13-latin-regular.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */ url('/fonts/karla-v13-latin-regular.svg#Karla')
+      format('svg'); /* Legacy iOS */
+}
 @font-face {
   font-family: 'Karla';
   font-style: bold;
@@ -42,7 +57,7 @@
 }
 
 /* Set base font family */
-* {
+body {
   font-family: theme('fontFamily.sans');
 }
 

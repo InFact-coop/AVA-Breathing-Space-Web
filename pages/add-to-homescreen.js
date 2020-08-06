@@ -1,11 +1,12 @@
-import styled from 'styled-components'
+import client from '../client'
+import Information from '../components/Information'
 
-const AddToHomescreenStyled = styled.section.attrs({
-  className: '',
-})``
+const GET_HOMESCREEN_PAGE = `*[_type == "page" && slug.current == "add-to-homescreen"][0]`
 
-const AddToHomescreen = () => {
-  return <AddToHomescreenStyled>AddToHomescreen</AddToHomescreenStyled>
+const AddToHomescreen = props => {
+  return <Information background="" props={props} />
 }
 
 export default AddToHomescreen
+
+AddToHomescreen.getInitialProps = () => client.fetch(GET_HOMESCREEN_PAGE)

@@ -1,0 +1,54 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "NODE_ENV=production next build",
+    "start": "NODE_ENV=production node server.js",
+    "==lint&format==": "-----------------------------------------------------------------------------------",
+    "format": "npm run prettier -- --write",
+    "lint": "jest --config ../test/jest.lint.js",
+    "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
+    "validate": "npm run lint && npm run prettier -- --list-different"
+  },
+  "jest-runner-eslint": {
+    "cliOptions": {
+      "fix": true,
+      "ext": [
+        ".js",
+        ".ts"
+      ]
+    }
+  },
+  "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
+    "@sanity/block-content-to-react": "^2.0.7",
+    "@sanity/client": "^1.149.13",
+    "@zeit/next-css": "^1.0.1",
+    "apollo-boost": "^0.4.9",
+    "autoprefixer": "^9.8.0",
+    "graphql": "^15.0.0",
+    "graphql-tag": "^2.10.3",
+    "jest": "^26.0.1",
+    "jest-runner-eslint": "^0.8.0",
+    "next": "^9.4.2",
+    "next-compose-plugins": "^2.2.0",
+    "next-fonts": "^1.1.0",
+    "next-images": "^1.4.0",
+    "next-pwa": "^2.4.1",
+    "next-with-apollo": "^5.0.1",
+    "postcss-preset-env": "^6.7.0",
+    "ramda": "^0.27.0",
+    "react": "^16.13.1",
+    "react-apollo": "^3.1.5",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1",
+    "tailwindcss": "^1.4.6"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.7",
+    "postcss-import": "^12.0.1"
+  }
+}
