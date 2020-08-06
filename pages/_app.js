@@ -3,6 +3,8 @@ import { ApolloProvider } from 'react-apollo'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'use-react-modal'
+import Router from 'next/router'
+import * as gtag from '../lib/gtag'
 
 import withData from '../lib/withData'
 import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
@@ -24,15 +26,30 @@ class BreathingSpace extends App {
     return { pageProps }
   }
 
+  componentDidMount() {
+    const handleRouteChange = url => {
+      gtag.pageview(url)
+    }
+    Router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      Router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }
+
   render() {
     const { Component, apollo, pageProps } = this.props
+
     return (
       <ApolloProvider client={apollo}>
         <ThemeProvider theme={theme}>
           <Meta />
           <Provider background={theme.colors.blackoverlay}>
-            <Page _type={pageProps._type} title={pageProps.title}>
-              <Component {...pageProps} />
+            <Page
+              _type={pageProps._type}
+              title={pageProps.title}
+              pageTitle={pageProps.pageTitle}
+            >
+              <Component theme={theme} {...pageProps} />
             </Page>
           </Provider>
         </ThemeProvider>

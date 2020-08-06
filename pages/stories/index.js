@@ -155,7 +155,7 @@ Stories.getInitialProps = async () => {
     return { ...story, title: `${formatAuthor(story.title)} story` }
   }, stories)
 
-  return { storiesWithTitle, tags }
+  return { pageTitle: 'stories', storiesWithTitle, tags }
 }
 
 export default Stories

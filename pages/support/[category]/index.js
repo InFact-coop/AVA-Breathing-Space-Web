@@ -79,10 +79,10 @@ const Category = ({ supportServices, query: { category } }) => {
 
 export default Category
 Category.getInitialProps = async ctx => {
-  const thing = await client.fetch(GET_CATEGORY_SERVICE_PREVIEW, {
+  const data = await client.fetch(GET_CATEGORY_SERVICE_PREVIEW, {
     slug: ctx.query.category,
     filters: [],
   })
 
-  return thing
+  return { pageTitle: data._type, ...data }
 }

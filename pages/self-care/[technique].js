@@ -81,10 +81,12 @@ const Technique = ({
   )
 }
 
-Technique.getInitialProps = ctx => {
-  return client.fetch(GET_SELF_CARE_TECHNIQUE, {
+Technique.getInitialProps = async ctx => {
+  const data = await client.fetch(GET_SELF_CARE_TECHNIQUE, {
     slug: ctx.query.technique,
   })
+
+  return { pageTitle: data._type, ...data }
 }
 
 export default Technique
