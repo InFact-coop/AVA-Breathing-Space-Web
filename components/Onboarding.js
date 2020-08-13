@@ -25,12 +25,18 @@ const Onboarding = () => {
     }
   }, [])
 
+  const landingToOnboarding = () => {
+    setLanding(false)
+
+    window.setTimeout(() => setOnboarding(false), 5000)
+  }
+
   if (!onboarding) return null
   return landing ? (
     <Landing
       title="Breathing Space"
       subtitle="Helping you find the right support at the right time"
-      buttonClick={() => setLanding(false)}
+      buttonClick={landingToOnboarding}
     />
   ) : (
     <OnboardingStyled onClick={closeOnboarding}>
