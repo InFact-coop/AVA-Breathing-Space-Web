@@ -108,7 +108,18 @@ const ShareStoryForm = ({ inputsFromSanity, confirmationText }) => {
   return (
     <form id="share-story" key="form" onSubmit={handleSubmit}>
       {R.map(passDownInput)(inputsFromSanity)}
+      <p className="text-sm leading-lg mt-5 mb-3">
+        Stories submitted will be moderated by AVA’s team to prevent abusive
+        content from being uploaded.
+      </p>
+      <p className="text-sm font-bold leading-lg mb-5">
+        It may take up to a month for your story to appear on the app.
+      </p>
       <ShareButton {...{ openModal, formCompleted, updateModalAction }} />
+      <p className="font-lg mb-5 mt-7.5 font-serif">
+        Sometimes you just need to let your story go instead. Tap the button
+        below to delete this story forever.
+      </p>
       <DeleteButton {...{ openModal, formCompleted, updateModalAction }} />
       {isOpen && (
         <ModalContainer>
@@ -142,7 +153,7 @@ const ShareStory = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
       <Title>{subtitle}</Title>
       <Block
         body={body}
-        className="font-sm font-normal text-gray"
+        className="font-sm font-normal text-gray min-h-2.5"
         imageOptions={{ w: 320, h: 240, fit: 'max' }}
       />
       <ShareStoryForm {...{ inputsFromSanity, confirmationText }} />

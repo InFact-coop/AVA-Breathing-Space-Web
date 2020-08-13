@@ -137,6 +137,13 @@ const Stories = props => {
   return (
     <StoriesStyled>
       <Tags tags={tags} updateTags={updateTags} />
+      <p className="mb-5 leading-lg">
+        Below are stories from suvivors about their experiences which you can
+        filter using the tags above. These can be empowering by making you know
+        you are not alone. However they could be triggering so please make sure
+        you look after yourself when reading them. You can share yours using the
+        button at the end.
+      </p>
       {selectedStories.map(({ title, slug, preview }) => (
         <Story title={title} slug={slug} preview={preview} key={slug} />
       ))}
