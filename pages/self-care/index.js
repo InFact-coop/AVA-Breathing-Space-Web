@@ -23,11 +23,11 @@ const TechniqueStyled = styled.a.attrs(({ colour }) => ({
 }))``
 
 const TechniqueTitle = styled.h2.attrs({
-  className: 'font-sm font-bold h-15 p-2.5 flex items-end',
+  className: 'font-sm font-bold h-15 p-2.5 flex items-end bg-whiteoverlay',
 })``
 
 const Preview = styled.div.attrs({
-  className: 'h-25 bg-whiteoverlay',
+  className: 'h-25 rounded-2.5',
 })`
   background-image: ${({ illustration }) => `url(${illustration})`};
   background-position: ${({ cardNumber }) =>

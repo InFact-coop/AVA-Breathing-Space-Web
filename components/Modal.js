@@ -63,7 +63,7 @@ const DoubleButtonModal = ({
     <ModalText>{modalText}</ModalText>
     <div className="flex">
       <HalfButton
-        className="rounded-bl-2.5  border-lightgray b"
+        className="rounded-bl-2.5 border-lightgray b"
         onClick={undoButtonAction}
       >
         {undoButtonText}
