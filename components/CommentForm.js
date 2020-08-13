@@ -110,7 +110,7 @@ const CommentForm = ({
 
   return (
     <FormContainer
-      shadow={false}
+      shadow={true}
       bgColour="lightestgray"
       onSubmit={handleSubmit}
     >
