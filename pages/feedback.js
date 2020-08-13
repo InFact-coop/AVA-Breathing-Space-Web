@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import useModal from 'use-react-modal'
 import useForm from '../lib/useForm'
 import toCamelCase from '../lib/toCamelCase'
-import { CONTACT_US_SENT, CONTACT_US_ERROR } from '../lib/constants'
+import { FEEDBACK_SENT, FEEDBACK_ERROR } from '../lib/constants'
 
 import client from '../client'
 
@@ -15,7 +15,7 @@ import { PurpleButton } from '../components/Button'
 import { Input } from '../components/Form'
 import Block from '../components/Block'
 
-const GET_CONTACT_FORM = `*[_type == "form" && slug.current == "contact-us"][0]{
+const GET_FEEDBACK_FORM = `*[_type == "form" && slug.current == "feedback"][0]{
   _type, 
   title, 
   body, 
@@ -25,16 +25,16 @@ const GET_CONTACT_FORM = `*[_type == "form" && slug.current == "contact-us"][0]{
 }`
 
 const onSubmit = onResponse => async (inputs, setInputs, initialState) => {
-  const message = {
+  const feedback = {
     _id: `${uuidv4()}`,
-    _type: 'message',
+    _type: 'feedback',
     from: R.isEmpty(inputs[`yourName(Optional)`])
       ? 'anonymous'
       : inputs[`yourName(Optional)`],
     email: R.isEmpty(inputs[`yourEmail(Optional)`])
       ? 'anonymous'
       : inputs[`yourEmail(Optional)`],
-    message: [
+    feedback: [
       {
         _type: 'block',
         markDefs: [],
@@ -44,12 +44,12 @@ const onSubmit = onResponse => async (inputs, setInputs, initialState) => {
   }
 
   try {
-    await client.create(message)
-    onResponse(CONTACT_US_SENT)
+    await client.create(feedback)
+    onResponse(FEEDBACK_SENT)
     setInputs(initialState)
   } catch (e) {
     console.error('error submitting message', e) //eslint-disable-line
-    onResponse(CONTACT_US_ERROR)
+    onResponse(FEEDBACK_ERROR)
   }
 }
 
@@ -61,11 +61,11 @@ const SubmitButton = styled(PurpleButton).attrs(({ formCompleted }) => ({
 }))``
 
 const FormContainer = styled.form.attrs({
-  id: 'contact-us',
+  id: 'feedback',
   key: 'form',
 })``
 
-const ContactUsForm = ({ inputsFromSanity, confirmationText }) => {
+const FeedbackForm = ({ inputsFromSanity, confirmationText }) => {
   const initialState = R.pipe(
     R.map(input => ({ [toCamelCase(input.title)]: '' })),
     R.mergeAll,
@@ -125,29 +125,29 @@ const Title = styled.h2.attrs({
   className: 'font-serif text-lg leading-base mb-2.5',
 })``
 
-const ContactUsStyled = styled(Container).attrs({
+const FeedbackStyled = styled(Container).attrs({
   className: '',
 })``
 
-const ContactUs = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
+const Feedback = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
   return (
-    <ContactUsStyled>
+    <FeedbackStyled>
       <Title>{subtitle}</Title>
       <Block
         body={body}
         className="font-sm font-normal text-gray"
         imageOptions={{ w: 320, h: 240, fit: 'max' }}
       />
-      <ContactUsForm
+      <FeedbackForm
         {...{
           inputsFromSanity,
           confirmationText,
         }}
       />
-    </ContactUsStyled>
+    </FeedbackStyled>
   )
 }
 
-export default ContactUs
+export default Feedback
 
-ContactUs.getInitialProps = () => client.fetch(GET_CONTACT_FORM)
+Feedback.getInitialProps = () => client.fetch(GET_FEEDBACK_FORM)
