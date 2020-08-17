@@ -97,7 +97,9 @@ const Support = ({ categories, theme }) => {
   return (
     <SupportStyled>
       <Link href="/am-i-in-an-abusive-relationship">
-        <OutlineButton>Am I in an abusive relationship?</OutlineButton>
+        <OutlineButton className="shadow-button">
+          Am I in an abusive relationship?
+        </OutlineButton>
       </Link>
       <Categories>
         {R.addIndex(R.map)(Category)(categoriesWithTheme)}

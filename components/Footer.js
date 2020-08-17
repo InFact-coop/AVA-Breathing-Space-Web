@@ -26,6 +26,9 @@ const Footer = () => (
       </Link>
     </div>
     <div className="flex flex-col w-1/2 pl-5">
+      <Link href="/feedback" passHref>
+        <StyledLink>Give feedback</StyledLink>
+      </Link>{' '}
       <Link href="/privacy" passHref>
         <StyledLink>Privacy</StyledLink>
       </Link>

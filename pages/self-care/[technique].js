@@ -5,6 +5,8 @@ import Comments from '../../components/Comment'
 import CommentForm from '../../components/CommentForm'
 import Block from '../../components/Block'
 
+import web from '../../public/icons/web.svg'
+
 import client from '../../client'
 
 const GET_SELF_CARE_TECHNIQUE = `*[_type == "selfcareTechnique" && slug.current == $slug][0]{
@@ -66,6 +68,13 @@ const Technique = ({
           className="font-sm font-normal"
           imageOptions={{ w: 320, h: 240, fit: 'max' }}
         />
+        <div className="border-t border-lightgray py-5">
+          <p className="font-bold mb-4">More techniques like this: </p>
+          <p className="inline-block">
+            <img className="inline mr-3.5" alt="web icon" src={web} />
+            {technique.link}
+          </p>
+        </div>
       </TechniqueStyled>
       <CommentForm
         {...{

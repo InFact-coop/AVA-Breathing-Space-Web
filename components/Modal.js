@@ -11,6 +11,8 @@ import {
   SERVICE_COMMENT_ERROR,
   CONTACT_US_SENT,
   CONTACT_US_ERROR,
+  FEEDBACK_SENT,
+  FEEDBACK_ERROR,
 } from '../lib/constants'
 
 const ModalContainer = styled.div.attrs({
@@ -63,7 +65,7 @@ const DoubleButtonModal = ({
     <ModalText>{modalText}</ModalText>
     <div className="flex">
       <HalfButton
-        className="rounded-bl-2.5  border-lightgray b"
+        className="rounded-bl-2.5 border-lightgray b"
         onClick={undoButtonAction}
       >
         {undoButtonText}
@@ -136,6 +138,13 @@ const getModalProps = ({
         confirmButtonText: 'OK',
         confirmButtonAction: resetForm,
       }
+    case FEEDBACK_SENT:
+      return {
+        modalLayout: SINGLE,
+        modalText: confirmationText,
+        confirmButtonText: 'OK',
+        confirmButtonAction: resetForm,
+      }
     case SERVICE_COMMENT_SHARED:
       return {
         modalText: confirmationText,
@@ -160,6 +169,14 @@ const getModalProps = ({
         confirmButtonAction: closeAndResetModal,
       }
     case CONTACT_US_ERROR:
+      return {
+        modalLayout: SINGLE,
+        modalText:
+          "Something went wrong, your message hasn't been sent yet. Please close this window and try again.",
+        confirmButtonText: 'OK',
+        confirmButtonAction: closeAndResetModal,
+      }
+    case FEEDBACK_ERROR:
       return {
         modalLayout: SINGLE,
         modalText:

@@ -78,6 +78,7 @@ module.exports = {
       },
       minHeight: {
         content: 'calc(100vh - 200px - 60px)', // screen minus footer minus nav
+        '2.5': '0.625rem', // 10px
       },
       borderRadius: {
         '1.5': '0.375rem', // 6px
@@ -172,6 +173,7 @@ module.exports = {
     boxShadow: {
       default: '0px 0px 4px rgba(154, 150, 171, 0.2)',
       exit: '0px 0px 10px rgba(154, 150, 171, 0.5)',
+      button: '0px 0px 6px #DAD1EE',
     },
   },
   plugins: [

@@ -1,7 +1,10 @@
 /* eslint-disable react/display-name */
-
 import styled from 'styled-components'
+import resolveConfig from 'tailwindcss/resolveConfig'
+import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 import infoIcon from '../public/icons/infoWhite.svg'
+
+const { theme } = resolveConfig(tailwindConfig)
 
 const StyledList = styled.ul.attrs({
   className: 'pt-2.5 mb-5',
@@ -25,7 +28,12 @@ const StyledListItem = styled.li.attrs({
 
 const StyledParagraph = styled.p.attrs({
   className: 'mb-5',
-})``
+})`
+  a {
+    color: ${theme.colors.teal};
+    text-decoration: underline;
+  }
+`
 
 const StyledSubheading = styled.h2.attrs({
   className: 'font-bold font-base mb-5',
@@ -33,7 +41,12 @@ const StyledSubheading = styled.h2.attrs({
 
 const StandoutParagraph = styled.h4.attrs({
   className: 'font-xl mb-5 font-serif',
-})``
+})`
+  a {
+    color: ${theme.colors.teal};
+    text-decoration: underline;
+  }
+`
 
 const Background = styled.div.attrs({
   className: 'bg-teal flex items-start text-white rounded-1.5 p-2.5 mt-1 mb-5',
