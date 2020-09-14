@@ -37,8 +37,16 @@ const onSubmit = onResponse => async (inputs, setInputs, initialState) => {
     message: [
       {
         _type: 'block',
+        _key: `${uuidv4()}`,
         markDefs: [],
-        children: [{ _type: 'span', text: inputs.yourMessage, marks: [] }],
+        children: [
+          {
+            _type: 'span',
+            _key: `${uuidv4()}`,
+            text: inputs.yourMessage,
+            marks: [],
+          },
+        ],
       },
     ],
   }
