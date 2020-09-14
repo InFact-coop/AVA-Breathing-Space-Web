@@ -30,14 +30,23 @@ const GET_SHARE_STORY_FORM = `*[_type == "form" && slug.current == "share-your-s
 const onSubmit = onResponse => async (inputs, setInputs, initialState) => {
   const story = {
     _id: `drafts.${uuidv4()}`,
+
     _type: 'story',
     author: R.isEmpty(inputs.yourName) ? 'anonymous' : inputs.yourName,
     email: R.isEmpty(inputs.yourEmail) ? 'anonymous' : inputs.yourEmail,
     body: [
       {
         _type: 'block',
+        _key: `${uuidv4()}`,
         markDefs: [],
-        children: [{ _type: 'span', text: inputs.yourStory, marks: [] }],
+        children: [
+          {
+            _type: 'span',
+            _key: `${uuidv4()}`,
+            text: inputs.yourStory,
+            marks: [],
+          },
+        ],
       },
     ],
   }
