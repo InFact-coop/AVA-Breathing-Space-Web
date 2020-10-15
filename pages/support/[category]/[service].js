@@ -65,7 +65,7 @@ const Service = ({
       {phonelines && R.map(Contact)(phonelines)}
       {link && <Contact link={link} className="py-7.5" />}
       {email && <Contact email={email} className="py-7.5" />}
-      <CommentForm
+      {/* <CommentForm
         {...{
           inputsFromSanity,
           title: formTitle,
@@ -74,7 +74,7 @@ const Service = ({
           parentID,
         }}
       />
-      <Comments {...{ slug, _type: 'supportService' }} />
+      <Comments {...{ slug, _type: 'supportService' }} /> */}
     </>
   )
 }
