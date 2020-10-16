@@ -24,6 +24,7 @@ const GET_SERVICE_DETAILS = `*[_type == "supportService" && slug.current == $slu
     publishedAt,
     phonelines,
     likes,
+    commentsToggle,
   },
   "form": *[_type == "form" && slug.current == "service-comment"][0]{
     "formTitle": title, 
@@ -53,6 +54,7 @@ const Service = ({
     phonelines,
     summary,
     parentID,
+    commentsToggle,
   },
   form: { formTitle, subtitle, inputsFromSanity, confirmationText },
 }) => {
@@ -65,16 +67,20 @@ const Service = ({
       {phonelines && R.map(Contact)(phonelines)}
       {link && <Contact link={link} className="py-7.5" />}
       {email && <Contact email={email} className="py-7.5" />}
-      {/* <CommentForm
-        {...{
-          inputsFromSanity,
-          title: formTitle,
-          subtitle,
-          confirmationText,
-          parentID,
-        }}
-      />
-      <Comments {...{ slug, _type: 'supportService' }} /> */}
+      {commentsToggle && (
+        <>
+          <CommentForm
+            {...{
+              inputsFromSanity,
+              title: formTitle,
+              subtitle,
+              confirmationText,
+              parentID,
+            }}
+          />
+          <Comments {...{ slug, _type: 'supportService' }} />{' '}
+        </>
+      )}
     </>
   )
 }
