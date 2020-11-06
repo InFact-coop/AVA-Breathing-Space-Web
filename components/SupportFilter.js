@@ -10,7 +10,7 @@ import { PurpleButton } from './Button'
 const GET_FILTER_TYPES = `*[_type == "supportFilterType"].title`
 
 const FilterContainer = styled(Container).attrs({
-  className: 'w-screen bg-white',
+  className: 'w-screen bg-white overflow-scroll',
 })`
   height: 100vh;
   padding: 0;
@@ -22,6 +22,7 @@ const Contents = styled(Container).attrs({
 
 const ApplyButton = styled(PurpleButton).attrs({
   children: 'Apply',
+  className: 'my-5',
 })``
 
 const FilterTitle = styled.div.attrs({

@@ -29,11 +29,11 @@ const Footer = () => (
       <Link href="/feedback" passHref>
         <StyledLink>Give feedback</StyledLink>
       </Link>{' '}
-      <Link href="/privacy" passHref>
-        <StyledLink>Privacy</StyledLink>
+      <Link href="/privacy-and-cookies" passHref>
+        <StyledLink>Privacy and Cookies</StyledLink>
       </Link>
-      <Link href="/cookies" passHref>
-        <StyledLink>Cookies</StyledLink>
+      <Link href="/online-safety" passHref>
+        <StyledLink>Online Safety</StyledLink>
       </Link>
     </div>
   </FooterStyled>
