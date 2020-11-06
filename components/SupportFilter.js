@@ -17,12 +17,19 @@ const FilterContainer = styled(Container).attrs({
 `
 const Contents = styled(Container).attrs({
   as: 'form',
-  className: '',
-})``
+  id: 'filterForm',
+  className: 'overflow-scroll',
+})`
+  height: calc(100vh - 116px);
+`
 
 const ApplyButton = styled(PurpleButton).attrs({
   children: 'Apply',
-})``
+  className: 'my-5 h-full',
+})`
+  margin: 0;
+  border-radius: 0px;
+`
 
 const FilterTitle = styled.div.attrs({
   className: 'text-gray font-bold font-sm mb-2.5',
@@ -80,8 +87,11 @@ const SupportFilter = ({ applyFilters }) => {
             />
           )
         })(filterTypes)}
-        <ApplyButton onClick={() => applyFilters(checkedFilters)} />
       </Contents>
+      <ApplyButton
+        form="filterForm"
+        onClick={() => applyFilters(checkedFilters)}
+      />
     </FilterContainer>
   )
 }
