@@ -2,33 +2,34 @@ import { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import useModal from 'use-react-modal'
+import { LIKES, NAME, RECENT } from '../../../lib/constants'
 import { ModalContext } from '../../../components/Modal'
 import Container from '../../../components/Container'
 import { ServicePreview } from '../../../components/Service'
 import SupportFilter from '../../../components/SupportFilter'
 import client from '../../../client'
 
-const GET_SERVICES_BY_FILTER = `*[_type == "supportService" && references(^._id) && references(*[_type=="supportFilterType" && title in $filters]._id)] { 
+const getServicesByFilter = sortBy => `*[_type == "supportService" && references(^._id) && references(*[_type=="supportFilterType" && title in $filters]._id)] | order(${sortBy}) { 
   name, 
   "logo": logo.asset->url,
   "tags": tags[]->title,
   "slug": "support/" + $slug + "/" + slug.current
 }`
 
-const GET_SERVICES_WITHOUT_FILTER = `*[_type == "supportService" && references(^._id)] { 
+const getServicesWithoutFilter = sortBy => `*[_type == "supportService" && references(^._id)] | order(${sortBy}) { 
   name, 
   "logo": logo.asset->url,
   "tags": tags[]->title,
   "slug": "support/" + $slug + "/" + slug.current
 }`
 
-const GET_CATEGORY_SERVICE_PREVIEW = `*[_type == "supportCategory" && slug.current == $slug][0] {
+const getCategoryServicePreview = sortBy => `*[_type == "supportCategory" && slug.current == $slug][0] {
   title,
   _type,
   "slug": slug.current,
   "supportServices": select(
-      defined($filters) => ${GET_SERVICES_BY_FILTER},
-    ${GET_SERVICES_WITHOUT_FILTER}
+      defined($filters) => ${getServicesByFilter(sortBy)},
+    ${getServicesWithoutFilter(sortBy)}
     )
 }`
 
@@ -42,6 +43,8 @@ const CategoryStyled = styled(Container).attrs({
 
 const Category = ({ supportServices, query: { category } }) => {
   const [services, setServices] = useState(supportServices)
+  const [filters, setFilters] = useState([])
+  const [sort, setSort] = useState('')
   const { setModal } = useContext(ModalContext)
   const { targetRef, isOpen, openModal, closeModal, Modal } = useModal()
 
@@ -50,16 +53,38 @@ const Category = ({ supportServices, query: { category } }) => {
     return () => ({})
   }, [])
 
-  const applyFilters = async filters => {
+  const applyFiltersAndSort = async ({
+    checkedFilters: filters = [],
+    sortType: sort = '',
+  }) => {
+    let sortBy = ''
+
+    switch (sort) {
+      case LIKES:
+        sortBy = 'likes desc'
+        break
+      case NAME:
+        sortBy = 'name'
+        break
+      case RECENT:
+        sortBy = 'publishedAt desc'
+        break
+      default:
+        sortBy = ''
+    }
+
     const { supportServices: byFilter } = await client.fetch(
-      GET_CATEGORY_SERVICE_PREVIEW,
+      getCategoryServicePreview(sortBy),
       {
         slug: category,
         filters,
+        sortBy,
       },
     )
 
     setServices(byFilter)
+    setFilters(filters)
+    setSort(sort)
     closeModal()
   }
 
@@ -70,7 +95,11 @@ const Category = ({ supportServices, query: { category } }) => {
       </CategoryStyled>
       {isOpen && (
         <Modal>
-          <SupportFilter applyFilters={applyFilters} />
+          <SupportFilter
+            filters={filters}
+            sort={sort}
+            applyFiltersAndSort={applyFiltersAndSort}
+          />
         </Modal>
       )}
     </>
@@ -79,9 +108,10 @@ const Category = ({ supportServices, query: { category } }) => {
 
 export default Category
 Category.getInitialProps = async ctx => {
-  const data = await client.fetch(GET_CATEGORY_SERVICE_PREVIEW, {
+  const data = await client.fetch(getCategoryServicePreview(''), {
     slug: ctx.query.category,
     filters: [],
+    sortBy: '',
   })
 
   return { pageTitle: data._type, ...data }
