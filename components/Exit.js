@@ -30,7 +30,7 @@ const ContainerStyled = styled.div.attrs({
 `
 
 const ExitButton = ({ onboarding }) => (
-  <ExitStyled href="https://www.bbc.co.uk/" onboarding={onboarding}>
+  <ExitStyled href="https://www.google.co.uk/" onboarding={onboarding}>
     <Icon src={ExitIcon} alt="Exit icon" />
     Close app
   </ExitStyled>
