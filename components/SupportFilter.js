@@ -52,13 +52,22 @@ const getNewFilters = ({ checked, name, checkedFilters }) => {
 }
 
 const SortButton = styled.div.attrs(({ sortTypeSelected }) => ({
-  className: `py-1.75 px-6 w-1/3 text-center border border-solid border-lightgray rounded-2.5 ${
+  className: `py-1.75 px-6 w-1/3 text-center border-r last:border-none border-solid border-midgray ${
     sortTypeSelected ? 'bg-white' : 'bg-none'
   }`,
-}))``
+}))`
+  &:first-of-type {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  &:last-of-type {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+`
 
 const SortToggle = ({ sortType, setSortType }) => (
-  <div className="mt-2.5 mb-10 flex justify-between bg-lightgray rounded-2.5">
+  <div className="mt-2.5 mb-10 flex justify-between bg-lightgray rounded-2.5 border border-midgray">
     {[LIKES, NAME, RECENT].map(sort => (
       <SortButton
         sortTypeSelected={sortType === sort}
@@ -173,16 +182,14 @@ const FilterCategory = (
   )
 }
 
-const Filter = ({ filter, checkedFilters, handleChange }, index) => {
-  return (
-    <Checkbox
-      key={`${filter}-${index}`}
-      label={filter}
-      name={filter}
-      checked={R.includes(filter)(checkedFilters) || false}
-      onChange={handleChange}
-    />
-  )
-}
+const Filter = ({ filter, checkedFilters, handleChange }, index) => (
+  <Checkbox
+    key={`${filter}-${index}`}
+    label={filter}
+    name={filter}
+    checked={R.includes(filter)(checkedFilters) || false}
+    onChange={handleChange}
+  />
+)
 
 export default SupportFilter
