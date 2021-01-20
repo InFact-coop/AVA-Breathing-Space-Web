@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import client from '../client'
+import { LIKES, NAME, RECENT } from '../lib/constants'
 import Navbar, { getNavbarOptions } from './Navbar'
 import Container from './Container'
 import Checkbox from './Checkbox'
@@ -46,7 +47,32 @@ const getNewFilters = ({ checked, name, checkedFilters }) => {
   }
 }
 
-const SupportFilter = ({ applyFilters }) => {
+const SortButton = styled.div.attrs(({ sortTypeSelected }) => ({
+  className: `py-1.75 px-6 w-1/3 text-center border border-solid border-lightgray rounded-2.5 ${
+    sortTypeSelected ? 'bg-white' : 'bg-none'
+  }`,
+}))``
+
+const SortToggle = ({ sortType, setSortType }) => (
+  <div className="mt-2.5 mb-10 flex justify-between bg-lightgray rounded-2.5">
+    {[LIKES, NAME, RECENT].map(sort => (
+      <SortButton
+        sortTypeSelected={sortType === sort}
+        onClick={() => setSortType(sort)}
+        key={sort}
+      >
+        {R.compose(
+          R.join(''),
+          R.over(R.lensIndex(0), R.toUpper),
+          R.toLower,
+        )(sort.toString())}
+      </SortButton>
+    ))}
+  </div>
+)
+
+const SupportFilter = ({ filters, sort, applyFiltersAndSort }) => {
+  const [sortType, setSortType] = useState('')
   const [filterTypes, setFilterTypes] = useState([])
   const [checkedFilters, setCheckedFilters] = useState([])
 
@@ -57,6 +83,8 @@ const SupportFilter = ({ applyFilters }) => {
     }
 
     getFilterTypes()
+    setCheckedFilters(filters)
+    setSortType(sort)
   }, [])
 
   const handleChange = ({ target: { checked, name } }) => {
@@ -64,7 +92,10 @@ const SupportFilter = ({ applyFilters }) => {
     setCheckedFilters(newFilters)
   }
 
-  const clearFilters = () => setCheckedFilters([])
+  const clearFilters = () => {
+    setCheckedFilters([])
+    setSortType()
+  }
 
   return (
     <FilterContainer>
@@ -75,6 +106,8 @@ const SupportFilter = ({ applyFilters }) => {
         })}
       />
       <Contents>
+        <FilterTitle>Sort by</FilterTitle>
+        <SortToggle sortType={sortType} setSortType={setSortType} />
         <FilterTitle>Filter by Service Type</FilterTitle>
         {R.addIndex(R.map)((label, index) => {
           return (
@@ -90,7 +123,9 @@ const SupportFilter = ({ applyFilters }) => {
       </Contents>
       <ApplyButton
         form="filterForm"
-        onClick={() => applyFilters(checkedFilters)}
+        onClick={() => {
+          applyFiltersAndSort({ checkedFilters, sortType })
+        }}
       />
     </FilterContainer>
   )
