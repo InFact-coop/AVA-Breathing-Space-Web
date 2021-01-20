@@ -91,6 +91,12 @@ const Category = ({ supportServices, query: { category } }) => {
   return (
     <>
       <CategoryStyled>
+        <button
+          className="flex items-center justify-center rounded-2.5 w-full py-4 border border-midgray mb-4"
+          onClick={openModal}
+        >
+          Filters ({filters.length})
+        </button>
         <Services>{R.addIndex(R.map)(ServicePreview)(services)}</Services>
       </CategoryStyled>
       {isOpen && (

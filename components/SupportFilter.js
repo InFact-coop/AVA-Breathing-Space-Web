@@ -153,7 +153,9 @@ const FilterCategory = (
   { title, filters, handleChange, checkedFilters },
   index,
 ) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(
+    R.any(f => R.includes(f)(filters))(checkedFilters),
+  )
 
   const toggleCategory = e => {
     e.preventDefault()
