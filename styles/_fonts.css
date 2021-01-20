@@ -59,6 +59,7 @@
 /* Set base font family */
 body {
   font-family: theme('fontFamily.sans');
+  color: theme('colors.black');
 }
 
 /* Create font classes */
@@ -71,6 +72,11 @@ body {
 
   .font-base {
     font-size: theme('fontSize.base');
+    line-height: theme('lineHeight.lg');
+  }
+
+  .font-med {
+    font-size: theme('fontSize.med');
     line-height: theme('lineHeight.lg');
   }
 
@@ -106,6 +112,11 @@ body {
 
   .font-base {
     font-size: theme('fontSize.base');
+    line-height: theme('lineHeight.lg');
+  }
+
+  .font-med {
+    font-size: theme('fontSize.med');
     line-height: theme('lineHeight.lg');
   }
 
