@@ -3,16 +3,8 @@ import styled from 'styled-components'
 
 const CheckboxContainer = styled.label.attrs({
   className:
-    'block flex justify-between px-2.5 py-2.5 border-b border-lightgray v-middle',
-})`
-  &:first-of-type {
-    border-top-width: 1px;
-  }
-
-  &:last-of-type {
-    border-bottom-width: 0px;
-  }
-`
+    'block flex justify-between px-2.5 py-2.5 border-b border-midgray v-middle bg-lightgray',
+})``
 
 const Icon = styled.svg`
   fill: none;

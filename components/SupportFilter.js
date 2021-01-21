@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import client from '../client'
@@ -8,7 +8,10 @@ import Container from './Container'
 import Checkbox from './Checkbox'
 import { PurpleButton } from './Button'
 
-const GET_FILTER_TYPES = `*[_type == "supportFilterType"].title`
+const GET_FILTER_TYPES = `*[_type == "supportFilterCategory"] {
+  title,
+  "filters": *[ _type == "supportFilterType" && references(^._id)].title
+}`
 
 const FilterContainer = styled(Container).attrs({
   className: 'w-screen bg-white',
@@ -16,6 +19,7 @@ const FilterContainer = styled(Container).attrs({
   height: 100vh;
   padding: 0;
 `
+
 const Contents = styled(Container).attrs({
   as: 'form',
   id: 'filterForm',
@@ -33,7 +37,7 @@ const ApplyButton = styled(PurpleButton).attrs({
 `
 
 const FilterTitle = styled.div.attrs({
-  className: 'text-gray font-bold font-sm mb-2.5',
+  className: 'text-gray font-med font-bold mb-2.5',
 })``
 
 const getNewFilters = ({ checked, name, checkedFilters }) => {
@@ -48,13 +52,22 @@ const getNewFilters = ({ checked, name, checkedFilters }) => {
 }
 
 const SortButton = styled.div.attrs(({ sortTypeSelected }) => ({
-  className: `py-1.75 px-6 w-1/3 text-center border border-solid border-lightgray rounded-2.5 ${
+  className: `py-1.75 px-6 w-1/3 text-center border-r last:border-none border-solid border-midgray ${
     sortTypeSelected ? 'bg-white' : 'bg-none'
   }`,
-}))``
+}))`
+  &:first-of-type {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  &:last-of-type {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+`
 
 const SortToggle = ({ sortType, setSortType }) => (
-  <div className="mt-2.5 mb-10 flex justify-between bg-lightgray rounded-2.5">
+  <div className="mt-2.5 mb-10 flex justify-between bg-lightgray rounded-2.5 border border-midgray">
     {[LIKES, NAME, RECENT].map(sort => (
       <SortButton
         sortTypeSelected={sortType === sort}
@@ -108,18 +121,14 @@ const SupportFilter = ({ filters, sort, applyFiltersAndSort }) => {
       <Contents>
         <FilterTitle>Sort by</FilterTitle>
         <SortToggle sortType={sortType} setSortType={setSortType} />
-        <FilterTitle>Filter by Service Type</FilterTitle>
-        {R.addIndex(R.map)((label, index) => {
-          return (
-            <Checkbox
-              key={`${label}-${index}`}
-              label={label}
-              name={label}
-              checked={R.includes(label)(checkedFilters) || false}
-              onChange={handleChange}
-            />
-          )
-        })(filterTypes)}
+        <FilterTitle>Filter by</FilterTitle>
+        {R.addIndex(R.map)(props => (
+          <FilterCategory
+            handleChange={handleChange}
+            checkedFilters={checkedFilters}
+            {...props}
+          />
+        ))(filterTypes)}
       </Contents>
       <ApplyButton
         form="filterForm"
@@ -130,5 +139,59 @@ const SupportFilter = ({ filters, sort, applyFiltersAndSort }) => {
     </FilterContainer>
   )
 }
+
+const CategoryButton = styled.button.attrs({
+  className:
+    'flex items-center justify-between p-2.5 border-midgray border-b w-full',
+})`
+  &:first-of-type {
+    border-top-width: 1px;
+  }
+`
+
+const FilterCategory = (
+  { title, filters, handleChange, checkedFilters },
+  index,
+) => {
+  const [isOpen, setIsOpen] = useState(
+    R.any(f => R.includes(f)(filters))(checkedFilters),
+  )
+
+  const toggleCategory = e => {
+    e.preventDefault()
+    setIsOpen(!isOpen)
+  }
+
+  return (
+    <Fragment key={`filter-cat-${index}`}>
+      <CategoryButton onClick={toggleCategory}>
+        <div>{title}</div>
+        <img
+          src="/icons/drawer.svg"
+          alt="Drawer closed"
+          className={isOpen ? 'transform rotate-180' : ''}
+        />
+      </CategoryButton>
+      {isOpen &&
+        R.addIndex(R.map)(filter => (
+          <Filter
+            handleChange={handleChange}
+            checkedFilters={checkedFilters}
+            filter={filter}
+          />
+        ))(filters)}
+    </Fragment>
+  )
+}
+
+const Filter = ({ filter, checkedFilters, handleChange }, index) => (
+  <Checkbox
+    key={`${filter}-${index}`}
+    label={filter}
+    name={filter}
+    checked={R.includes(filter)(checkedFilters) || false}
+    onChange={handleChange}
+  />
+)
 
 export default SupportFilter
