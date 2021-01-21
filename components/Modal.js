@@ -13,6 +13,7 @@ import {
   CONTACT_US_ERROR,
   FEEDBACK_SENT,
   FEEDBACK_ERROR,
+  QUICK_EXIT_UPDATED,
 } from '../lib/constants'
 
 const ModalContainer = styled.div.attrs({
@@ -184,6 +185,14 @@ const getModalProps = ({
         confirmButtonText: 'OK',
         confirmButtonAction: closeAndResetModal,
       }
+    case QUICK_EXIT_UPDATED:
+      return {
+        modalText: confirmationText,
+        modalLayout: SINGLE,
+        confirmButtonText: 'OK',
+        confirmButtonAction: closeAndResetModal,
+      }
+
     default:
       return { modalLayout: null }
   }

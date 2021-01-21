@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, cloneElement } from 'react'
 import Head from 'next/head'
 
 import fromCamelCase from '../lib/fromCamelCase'
@@ -23,6 +23,7 @@ const Page = ({ _type, title, pageTitle, children }) => {
     Modal: undefined,
   })
 
+  const [quickExitPage, setQuickExitPage] = useState('www.google.com')
   const [windowHeight, setWindowHeight] = useState('100vh')
   const navbarOptions = getNavbarOptions({ _type, title })
 
@@ -57,9 +58,9 @@ const Page = ({ _type, title, pageTitle, children }) => {
       <Onboarding />
       <ModalContext.Provider value={{ modal, setModal }}>
         <Navbar {...navbarOptions} />
-        <Exit />
+        <Exit quickExitPage={quickExitPage} />
         <PageStyled style={{ minHeight: `${windowHeight}` }}>
-          {children}
+          {cloneElement(children, { setQuickExitPage })}
         </PageStyled>
       </ModalContext.Provider>
       <Footer />

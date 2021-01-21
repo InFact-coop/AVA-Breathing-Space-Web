@@ -29,8 +29,8 @@ const ContainerStyled = styled.div.attrs({
   z-index: 5;
 `
 
-const ExitButton = ({ onboarding }) => (
-  <ExitStyled href="https://www.google.co.uk/" onboarding={onboarding}>
+const ExitButton = ({ onboarding, quickExitPage }) => (
+  <ExitStyled href={`https://${quickExitPage}`} onboarding={onboarding}>
     <Icon src={ExitIcon} alt="Exit icon" />
     Close app
   </ExitStyled>
@@ -43,10 +43,10 @@ const ExitTutorial = () => (
   </ExitTutorialStyled>
 )
 
-const Exit = ({ onboarding }) => {
+const Exit = ({ quickExitPage, onboarding }) => {
   return (
     <ContainerStyled>
-      <ExitButton onboarding={onboarding} />
+      <ExitButton quickExitPage={quickExitPage} onboarding={onboarding} />
       {onboarding ? <ExitTutorial /> : null}
     </ContainerStyled>
   )
