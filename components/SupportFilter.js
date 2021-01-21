@@ -169,7 +169,7 @@ const FilterCategory = (
         <img
           src="/icons/drawer.svg"
           alt="Drawer closed"
-          className={isOpen ? '' : 'transform rotate-180'}
+          className={isOpen ? 'transform rotate-180' : ''}
         />
       </CategoryButton>
       {isOpen &&
