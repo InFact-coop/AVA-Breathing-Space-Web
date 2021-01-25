@@ -2,36 +2,12 @@ import { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import useModal from 'use-react-modal'
-import { LIKES, NAME, RECENT } from '../../../lib/constants'
+import { getCategoryServicePreview, getSortBy } from '../../../lib/filter'
 import { ModalContext } from '../../../components/Modal'
 import Container from '../../../components/Container'
 import { ServicePreview } from '../../../components/Service'
 import SupportFilter from '../../../components/SupportFilter'
 import client from '../../../client'
-
-const getServicesByFilter = sortBy => `*[_type == "supportService" && references(^._id) && references(*[_type=="supportFilterType" && title in $filters]._id)] | order(${sortBy}) { 
-  name, 
-  "logo": logo.asset->url,
-  "tags": tags[]->title,
-  "slug": "support/" + $slug + "/" + slug.current
-}`
-
-const getServicesWithoutFilter = sortBy => `*[_type == "supportService" && references(^._id)] | order(${sortBy}) { 
-  name, 
-  "logo": logo.asset->url,
-  "tags": tags[]->title,
-  "slug": "support/" + $slug + "/" + slug.current
-}`
-
-const getCategoryServicePreview = sortBy => `*[_type == "supportCategory" && slug.current == $slug][0] {
-  title,
-  _type,
-  "slug": slug.current,
-  "supportServices": select(
-      defined($filters) => ${getServicesByFilter(sortBy)},
-    ${getServicesWithoutFilter(sortBy)}
-    )
-}`
 
 const Services = styled.section.attrs({
   className: '',
@@ -43,6 +19,7 @@ const CategoryStyled = styled(Container).attrs({
 
 const Category = ({ supportServices, query: { category } }) => {
   const [services, setServices] = useState(supportServices)
+  const [region, setRegion] = useState(null)
   const [filters, setFilters] = useState([])
   const [sort, setSort] = useState('')
   const { setModal } = useContext(ModalContext)
@@ -54,37 +31,27 @@ const Category = ({ supportServices, query: { category } }) => {
   }, [])
 
   const applyFiltersAndSort = async ({
-    checkedFilters: filters = [],
-    sortType: sort = '',
+    checkedFilters,
+    sortType,
+    selectedRegion,
   }) => {
-    let sortBy = ''
+    const sortBy = getSortBy(sortType)
 
-    switch (sort) {
-      case LIKES:
-        sortBy = 'likes desc'
-        break
-      case NAME:
-        sortBy = 'name'
-        break
-      case RECENT:
-        sortBy = 'publishedAt desc'
-        break
-      default:
-        sortBy = ''
-    }
+    setFilters(checkedFilters)
+    setRegion(selectedRegion)
+    setSort(sortType)
 
     const { supportServices: byFilter } = await client.fetch(
       getCategoryServicePreview(sortBy),
       {
         slug: category,
-        filters,
+        filters: checkedFilters,
+        chosenRegion: selectedRegion ? selectedRegion.value : null,
         sortBy,
       },
     )
 
     setServices(byFilter)
-    setFilters(filters)
-    setSort(sort)
     closeModal()
   }
 
@@ -95,7 +62,7 @@ const Category = ({ supportServices, query: { category } }) => {
           className="flex items-center justify-center rounded-2.5 w-full py-4 border border-midgray mb-4"
           onClick={openModal}
         >
-          Filters ({filters.length})
+          Filters ({filters.length + (region ? 1 : 0) + (sort ? 1 : 0)})
         </button>
         <Services>{R.addIndex(R.map)(ServicePreview)(services)}</Services>
       </CategoryStyled>
@@ -104,6 +71,7 @@ const Category = ({ supportServices, query: { category } }) => {
           <SupportFilter
             filters={filters}
             sort={sort}
+            region={region}
             applyFiltersAndSort={applyFiltersAndSort}
           />
         </Modal>
@@ -118,6 +86,7 @@ Category.getInitialProps = async ctx => {
     slug: ctx.query.category,
     filters: [],
     sortBy: '',
+    chosenRegion: null,
   })
 
   return { pageTitle: data._type, ...data }
