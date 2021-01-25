@@ -2,12 +2,12 @@ import { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import useModal from 'use-react-modal'
-import { getCategoryServicePreview, getSortBy } from '../../../lib/filter'
+import useLocalStorage from '../../../lib/useLocalStorage'
+import { getSortBy, fetchServices } from '../../../lib/filter'
 import { ModalContext } from '../../../components/Modal'
 import Container from '../../../components/Container'
 import { ServicePreview } from '../../../components/Service'
 import SupportFilter from '../../../components/SupportFilter'
-import client from '../../../client'
 
 const Services = styled.section.attrs({
   className: '',
@@ -19,13 +19,21 @@ const CategoryStyled = styled(Container).attrs({
 
 const Category = ({ supportServices, query: { category } }) => {
   const [services, setServices] = useState(supportServices)
-  const [region, setRegion] = useState(null)
+  const [region, setRegion] = useLocalStorage('region', null)
   const [filters, setFilters] = useState([])
   const [sort, setSort] = useState('')
   const { setModal } = useContext(ModalContext)
   const { targetRef, isOpen, openModal, closeModal, Modal } = useModal()
 
-  useEffect(() => {
+  useEffect(async () => {
+    const { supportServices: byFilter } = await fetchServices({
+      slug: category,
+      filters: [],
+      chosenRegion: region?.value || null,
+      sortBy: '',
+    })
+
+    setServices(byFilter)
     setModal({ targetRef, isOpen, openModal, closeModal, Modal })
     return () => ({})
   }, [])
@@ -41,15 +49,12 @@ const Category = ({ supportServices, query: { category } }) => {
     setRegion(selectedRegion)
     setSort(sortType)
 
-    const { supportServices: byFilter } = await client.fetch(
-      getCategoryServicePreview(sortBy),
-      {
-        slug: category,
-        filters: checkedFilters,
-        chosenRegion: selectedRegion ? selectedRegion.value : null,
-        sortBy,
-      },
-    )
+    const { supportServices: byFilter } = await fetchServices({
+      slug: category,
+      filters,
+      chosenRegion: region?.value || null,
+      sortBy,
+    })
 
     setServices(byFilter)
     closeModal()
@@ -82,7 +87,7 @@ const Category = ({ supportServices, query: { category } }) => {
 
 export default Category
 Category.getInitialProps = async ctx => {
-  const data = await client.fetch(getCategoryServicePreview(''), {
+  const data = await fetchServices({
     slug: ctx.query.category,
     filters: [],
     sortBy: '',
