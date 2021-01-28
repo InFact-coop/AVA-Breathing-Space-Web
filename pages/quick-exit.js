@@ -44,7 +44,9 @@ const QuickExitForm = ({
             className="mr-2.5 mb-4"
             checked={input.title === quickExitPage}
           />
-          <label htmlFor={input.title}>{input.title}</label>
+          <label className="font-med" htmlFor={input.title}>
+            {input.title}
+          </label>
         </div>
       ))(inputsFromSanity)}
     </FormContainer>
