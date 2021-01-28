@@ -59,10 +59,10 @@ const Clear = styled.div.attrs({
   children: 'Clear',
 })``
 
-const Filter = styled.div.attrs({
-  className: 'rounded-full border border-gray text-gray font-sm px-2.5 py-1.5',
-  children: 'Filter',
-})``
+// const Filter = styled.div.attrs({
+//   className: 'rounded-full border border-gray text-gray font-sm px-2.5 py-1.5',
+//   children: 'Filter',
+// })``
 
 const Title = styled.h1.attrs(({ font = 'sans' }) => ({
   className: `py-5 font-${font} text-center`,
@@ -112,7 +112,6 @@ const Navbar = ({
   clear,
   empty,
   fallbackColour,
-  filter,
   font,
   heart,
   lines,
@@ -120,7 +119,7 @@ const Navbar = ({
   title,
 }) => {
   const {
-    modal: { openModal, closeModal },
+    modal: { closeModal },
   } = useContext(ModalContext)
 
   const { loading, error, data } = useQuery(GET_NAVBAR_COLOUR)
@@ -138,14 +137,13 @@ const Navbar = ({
   return (
     <NavbarStyled
       left={back}
-      right={heart || filter || empty}
+      right={heart || empty}
       colour={colour || navbarColour || fallbackColour}
       border={border}
       lines={lines}
     >
       {back && <Back back={back} lines={lines} closeModal={closeModal} />}
       {title && <Title font={font}>{title}</Title>}
-      {filter && <Filter onClick={openModal} />}
       {clear && <Clear onClick={clear} />}
       {(empty || heart) && <div />}
     </NavbarStyled>
@@ -175,7 +173,7 @@ export const getNavbarOptions = ({ _type, title, clear }) => {
       return {
         back: RELATIVE,
         border: true,
-        filter: true,
+        empty: true,
         font: 'serif font-xl',
         fallbackColour: 'tealcoral',
         lines: 2,

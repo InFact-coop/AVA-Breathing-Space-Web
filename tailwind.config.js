@@ -93,6 +93,7 @@ module.exports = {
     fontSize: {
       sm: '0.875rem', // 14px
       base: '1rem', // 16px
+      med: '1.125rem', // 18px
       lg: '1.25rem', // 20px
       xl: '1.5rem', // 24px
       xxl: '1.875rem', // 30px
@@ -115,8 +116,10 @@ module.exports = {
       coral: '#FCD6D7',
       // tones
       black: '#453E53',
-      gray: '#9A96AB',
-      lightgray: '#E0E0EB',
+      // gray: '#9A96AB',
+      gray: '#706C7F',
+      midgray: '#A8A8B7',
+      lightgray: '#F2F2F7',
       lightestgray: '#FAFAFA',
       white: '#FFFFFF',
       whiteoverlay: 'rgba(251, 250, 255, 0.3)',
@@ -213,4 +216,9 @@ module.exports = {
       addUtilities(linearGradients, ['responsive', 'hover'])
     }),
   ],
+
+  variants: {
+    borderStyle: ['responsive', 'first', 'last'],
+    borderWidth: ['responsive', 'first', 'last'],
+  },
 }
