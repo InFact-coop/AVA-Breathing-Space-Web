@@ -32,7 +32,7 @@ const ContainerStyled = styled.div.attrs({
 const ExitButton = ({ onboarding, quickExitPage }) => (
   <ExitStyled href={`https://${quickExitPage}`} onboarding={onboarding}>
     <Icon src={ExitIcon} alt="Exit icon" />
-    Close app
+    Quick Exit
   </ExitStyled>
 )
 
