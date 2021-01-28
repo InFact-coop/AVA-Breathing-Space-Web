@@ -180,6 +180,7 @@ export const getNavbarOptions = ({ _type, title, clear }) => {
         title,
       }
     case 'supportFilterType':
+    case 'locationFilterType':
       return {
         border: true,
         back: DISCARD,

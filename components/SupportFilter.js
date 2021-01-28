@@ -1,10 +1,9 @@
 import { useState, useEffect, Fragment } from 'react'
-import Select from 'react-select'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import client from '../client'
 import { LIKES, NAME, RECENT } from '../lib/constants'
-import { GET_FILTER_TYPES, GET_REGIONS } from '../lib/filter'
+import { GET_FILTER_TYPES } from '../lib/filter'
 import Navbar, { getNavbarOptions } from './Navbar'
 import Container from './Container'
 import Checkbox from './Checkbox'
@@ -81,25 +80,17 @@ const SortToggle = ({ sortType, setSortType }) => (
   </div>
 )
 
-const SupportFilter = ({ filters, sort, region, applyFiltersAndSort }) => {
+const SupportFilter = ({ filters, sort, applyFilters }) => {
   const [filterTypes, setFilterTypes] = useState([])
-  const [regions, setRegions] = useState([])
   const [checkedFilters, setCheckedFilters] = useState(filters)
   const [sortType, setSortType] = useState(sort)
-  const [selectedRegion, setSelectedRegion] = useState(region)
 
   useEffect(() => {
     const getFilterTypes = async () => {
       const newFilterTypes = await client.fetch(GET_FILTER_TYPES)
       setFilterTypes(newFilterTypes)
     }
-    const getRegions = async () => {
-      const newRegions = await client.fetch(GET_REGIONS)
-      setRegions(newRegions)
-    }
-
     getFilterTypes()
-    getRegions()
   }, [])
 
   const handleChange = ({ target: { checked, name } }) => {
@@ -110,7 +101,6 @@ const SupportFilter = ({ filters, sort, region, applyFiltersAndSort }) => {
   const clearFilters = () => {
     setCheckedFilters([])
     setSortType()
-    setSelectedRegion(null)
   }
 
   return (
@@ -128,27 +118,18 @@ const SupportFilter = ({ filters, sort, region, applyFiltersAndSort }) => {
         {R.addIndex(R.map)(props => (
           <FilterCategory
             handleChange={handleChange}
+            key={`category-${props.title}`}
             checkedFilters={checkedFilters}
             {...props}
           />
         ))(filterTypes)}
-        <div className="mt-10">
-          <FilterTitle>Customise location</FilterTitle>
-          <Select
-            value={selectedRegion}
-            defaultValue={selectedRegion}
-            onChange={setSelectedRegion}
-            options={regions}
-          />
-        </div>
       </Contents>
       <ApplyButton
         form="filterForm"
         onClick={() => {
-          applyFiltersAndSort({
+          applyFilters({
             checkedFilters,
             sortType,
-            selectedRegion,
           })
         }}
       />
