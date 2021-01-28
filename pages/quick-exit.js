@@ -1,104 +1,52 @@
-import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import * as R from 'ramda'
-import useModal from 'use-react-modal'
-import useForm from '../lib/useForm'
-import toCamelCase from '../lib/toCamelCase'
 
 import client from '../client'
 
-import Modal from '../components/Modal'
 import Container from '../components/Container'
-import { PurpleButton } from '../components/Button'
-import { Input } from '../components/Form'
 import Block from '../components/Block'
-import { QUICK_EXIT_UPDATED } from '../lib/constants'
 
 const GET_QUICK_EXIT_FORM = `*[_type == "form" && slug.current == "quick-exit"][0]{
   _type, 
   title, 
   body, 
   subtitle, 
-  "inputsFromSanity": inputs[]->{ title, required, type, placeholder },
-  confirmationText
+  "inputsFromSanity": inputs[]->{ title, required, type },
 }`
-
-const onSubmit = onResponse => (inputs, setInputs, initialState) => {
-  setInputs(initialState)
-  onResponse(QUICK_EXIT_UPDATED)
-}
-
-const SubmitButton = styled(PurpleButton).attrs(({ formCompleted }) => ({
-  as: 'button',
-  className: `mb-2.5 mt-1 w-full ${formCompleted ? '' : 'opacity-50'}`,
-  type: 'Sent message',
-  children: 'Submit',
-}))``
 
 const FormContainer = styled.form.attrs({
   id: 'quick-exit',
   key: 'form',
+  className: 'flex flex-col',
 })``
 
 const QuickExitForm = ({
   inputsFromSanity,
-  confirmationText,
   setQuickExitPage,
+  quickExitPage,
 }) => {
-  const initialState = R.pipe(
-    R.map(input => ({ [toCamelCase(input.title)]: '' })),
-    R.mergeAll,
-  )(inputsFromSanity)
-
-  const {
-    targetRef: ref,
-    isOpen,
-    openModal,
-    closeModal,
-    Modal: ModalContainer,
-  } = useModal()
-  const [modalAction, updateModalAction] = useState('')
-  const [formCompleted, updateFormCompleted] = useState(false)
-
-  const openAndUpdateModal = action => {
-    setQuickExitPage(inputs[`customiseExitPage(Optional)`])
-    updateModalAction(action)
-    openModal()
-  }
-
-  const [inputs, setInputs, handleInputChange, handleSubmit] = useForm(
-    initialState,
-    onSubmit(openAndUpdateModal),
-  )
-
-  useEffect(
-    () => updateFormCompleted(!!inputs[`customiseExitPage(Optional)`]),
-    [inputs[`customiseExitPage(Optional)`]],
-  )
-
-  const passDownInput = props => (
-    <Input {...props} {...{ handleInputChange, inputs, label: true }} />
-  )
-
   return (
-    <FormContainer onSubmit={handleSubmit}>
-      {R.map(passDownInput)(inputsFromSanity)}
-      <SubmitButton {...{ formCompleted, ref }} />
-      {isOpen && (
-        <ModalContainer>
-          <Modal
-            {...{
-              modalAction,
-              updateModalAction,
-              closeModal,
-              setInputs,
-              initialState,
-              confirmationText,
-              setQuickExitPage,
-            }}
+    <FormContainer>
+      <h2 className="font-bold text-med mb-4">
+        Customise exit page (optional)
+      </h2>
+      {R.map(input => (
+        <div
+          onClick={() => setQuickExitPage(input.title)}
+          onKeyDown={() => setQuickExitPage(input.title)}
+          key={input.title}
+        >
+          <input
+            type="radio"
+            id={input.title}
+            value={input.title}
+            name="quick-exit-site"
+            className="mr-2.5 mb-4"
+            checked={input.title === quickExitPage}
           />
-        </ModalContainer>
-      )}
+          <label htmlFor={input.title}>{input.title}</label>
+        </div>
+      ))(inputsFromSanity)}
     </FormContainer>
   )
 }
@@ -117,6 +65,7 @@ const QuickExit = ({
   subtitle,
   confirmationText,
   setQuickExitPage,
+  quickExitPage,
 }) => {
   return (
     <QuickExitStyled>
@@ -131,6 +80,7 @@ const QuickExit = ({
           inputsFromSanity,
           confirmationText,
           setQuickExitPage,
+          quickExitPage,
         }}
       />
     </QuickExitStyled>

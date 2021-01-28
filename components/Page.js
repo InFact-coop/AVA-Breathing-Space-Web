@@ -23,7 +23,7 @@ const Page = ({ _type, title, pageTitle, children }) => {
     Modal: undefined,
   })
 
-  const [quickExitPage, setQuickExitPage] = useState('www.google.com')
+  const [quickExitPage, setQuickExitPage] = useState('google.com')
   const [windowHeight, setWindowHeight] = useState('100vh')
   const navbarOptions = getNavbarOptions({ _type, title })
 
@@ -60,7 +60,7 @@ const Page = ({ _type, title, pageTitle, children }) => {
         <Navbar {...navbarOptions} />
         <Exit quickExitPage={quickExitPage} />
         <PageStyled style={{ minHeight: `${windowHeight}` }}>
-          {cloneElement(children, { setQuickExitPage })}
+          {cloneElement(children, { quickExitPage, setQuickExitPage })}
         </PageStyled>
       </ModalContext.Provider>
       <Footer />
