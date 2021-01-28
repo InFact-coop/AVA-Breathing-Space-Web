@@ -23,7 +23,7 @@ const ContactDetailStyled = styled.div.attrs({
 const ContactDetailText = styled.div.attrs(({ underline }) => ({
   className: `${
     underline ? 'underline ' : ''
-  }font-sm text-black whitespace-pre-line`,
+  }font-med text-black whitespace-pre-line`,
 }))`
   word-break: break-word;
 `

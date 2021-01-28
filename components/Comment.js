@@ -23,11 +23,11 @@ const CommentStyled = styled.div.attrs({
 `
 
 const CommentDate = styled.div.attrs({
-  className: 'font-sm text-gray font-bold mb-2.5',
+  className: 'font-med text-gray font-bold mb-2.5',
 })``
 
 const CommentBody = styled.div.attrs({
-  className: 'font-sm text-black',
+  className: 'font-med text-black',
 })``
 
 const Comment = ({ comment, publishedAt }) => (

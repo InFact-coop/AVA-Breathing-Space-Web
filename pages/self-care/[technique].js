@@ -65,7 +65,7 @@ const Technique = ({
         <TechniqueTitle>{technique.title}</TechniqueTitle>
         <Block
           body={technique.body}
-          className="font-sm font-normal"
+          className="font-med font-normal"
           imageOptions={{ w: 320, h: 240, fit: 'max' }}
         />
         <div className="border-t border-lightgray py-5">
