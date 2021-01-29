@@ -39,7 +39,7 @@ const Story = ({ title, slug, preview }) => (
     <StoryStyled>
       <StoryTitle>{title}</StoryTitle>
       <Preview>{preview}</Preview>
-      <p className="font-sm">
+      <p className="font-med">
         Read more <img className="inline-block" alt="arrow" src={Arrow} />
       </p>
     </StoryStyled>
@@ -63,7 +63,7 @@ const StoriesStyled = styled(Container).attrs({
 })``
 
 const Tag = styled.button.attrs(({ selected }) => ({
-  className: `rounded-full whitespace-no-wrap text-sm mr-1.5 border border-solid py-1.5 px-2.5 text-${
+  className: `rounded-full whitespace-no-wrap text-med mr-1.5 border border-solid py-1.5 px-2.5 text-${
     selected ? 'black' : 'gray'
   } bg-${selected ? 'lightgray' : 'lightestgray'} border-${
     selected ? 'black' : 'gray'

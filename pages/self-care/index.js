@@ -23,7 +23,7 @@ const TechniqueStyled = styled.a.attrs(({ colour }) => ({
 }))``
 
 const TechniqueTitle = styled.h2.attrs({
-  className: 'font-sm font-bold h-15 p-2.5 flex items-end bg-whiteoverlay',
+  className: 'font-med font-bold h-15 p-2.5 flex items-end bg-whiteoverlay',
 })``
 
 const Preview = styled.div.attrs({

@@ -11,7 +11,7 @@ const ExitTutorialCopy = styled.div.attrs({
 })``
 
 const ExitStyled = styled.a.attrs(({ onboarding }) => ({
-  className: `bg-teal text-white font-sm p-3 pr-5 rounded-r-25 rounded-l-25 flex items-center text-bold font-bold shadow-exit
+  className: `bg-teal text-white font-med p-3 pr-5 rounded-r-25 rounded-l-25 flex items-center text-bold font-bold shadow-exit
     ${onboarding ? 'mr-4' : 'mr-0'}`,
 }))`
   z-index: 5;

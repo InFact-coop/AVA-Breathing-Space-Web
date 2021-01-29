@@ -92,7 +92,8 @@ module.exports = {
     },
     fontSize: {
       sm: '0.875rem', // 14px
-      base: '1rem', // 16px
+      // base: '1rem', // 16px increased to 18px January 2021
+      base: '1.125rem', // 18px
       med: '1.125rem', // 18px
       lg: '1.25rem', // 20px
       xl: '1.5rem', // 24px
@@ -108,7 +109,8 @@ module.exports = {
     colors: {
       // full tint colours
       darkpurple: '#7C64B2',
-      teal: '#2B8393',
+      // teal: '#2B8393', removed Jan 2021 to meet accessibility guidelines
+      teal: '#297F8E',
       softred: '#F57479',
       // pastel colours
       lightviolet: '#DAD1EE',
@@ -116,7 +118,7 @@ module.exports = {
       coral: '#FCD6D7',
       // tones
       black: '#453E53',
-      // gray: '#9A96AB',
+      // gray: '#9A96AB', removed Jan 2021 to meet accessibility guidelines
       gray: '#706C7F',
       midgray: '#A8A8B7',
       lightgray: '#F2F2F7',
