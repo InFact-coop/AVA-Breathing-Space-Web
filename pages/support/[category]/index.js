@@ -2,36 +2,14 @@ import { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import useModal from 'use-react-modal'
-import { LIKES, NAME, RECENT } from '../../../lib/constants'
+import { SUPPORT_FILTER, LOCATION_FILTER } from '../../../lib/constants'
+import useLocalStorage from '../../../lib/useLocalStorage'
+import { getSortBy, fetchServices } from '../../../lib/filter'
 import { ModalContext } from '../../../components/Modal'
 import Container from '../../../components/Container'
 import { ServicePreview } from '../../../components/Service'
 import SupportFilter from '../../../components/SupportFilter'
-import client from '../../../client'
-
-const getServicesByFilter = sortBy => `*[_type == "supportService" && references(^._id) && references(*[_type=="supportFilterType" && title in $filters]._id)] | order(${sortBy}) { 
-  name, 
-  "logo": logo.asset->url,
-  "tags": tags[]->title,
-  "slug": "support/" + $slug + "/" + slug.current
-}`
-
-const getServicesWithoutFilter = sortBy => `*[_type == "supportService" && references(^._id)] | order(${sortBy}) { 
-  name, 
-  "logo": logo.asset->url,
-  "tags": tags[]->title,
-  "slug": "support/" + $slug + "/" + slug.current
-}`
-
-const getCategoryServicePreview = sortBy => `*[_type == "supportCategory" && slug.current == $slug][0] {
-  title,
-  _type,
-  "slug": slug.current,
-  "supportServices": select(
-      defined($filters) => ${getServicesByFilter(sortBy)},
-    ${getServicesWithoutFilter(sortBy)}
-    )
-}`
+import LocationFilter from '../../../components/LocationFilter'
 
 const Services = styled.section.attrs({
   className: '',
@@ -41,83 +19,117 @@ const CategoryStyled = styled(Container).attrs({
   className: '',
 })``
 
-const Category = ({ supportServices, query: { category } }) => {
-  const [services, setServices] = useState(supportServices)
+const Category = ({ query: { category } }) => {
+  const [services, setServices] = useState([])
+  const [region, setRegion] = useLocalStorage('region', null)
   const [filters, setFilters] = useState([])
+  const [modalType, setModalType] = useState(null)
   const [sort, setSort] = useState('')
   const { setModal } = useContext(ModalContext)
   const { targetRef, isOpen, openModal, closeModal, Modal } = useModal()
 
   useEffect(() => {
-    setModal({ targetRef, isOpen, openModal, closeModal, Modal })
-    return () => ({})
-  }, [])
-
-  const applyFiltersAndSort = async ({
-    checkedFilters: filters = [],
-    sortType: sort = '',
-  }) => {
-    let sortBy = ''
-
-    switch (sort) {
-      case LIKES:
-        sortBy = 'likes desc'
-        break
-      case NAME:
-        sortBy = 'name'
-        break
-      case RECENT:
-        sortBy = 'publishedAt desc'
-        break
-      default:
-        sortBy = ''
+    const setFilteredServices = async () => {
+      const { supportServices: filteredServices } = await fetchServices({
+        slug: category,
+        filters: [],
+        chosenRegion: region?.value || null,
+        sortBy: '',
+      })
+      setServices(filteredServices)
     }
 
-    const { supportServices: byFilter } = await client.fetch(
-      getCategoryServicePreview(sortBy),
-      {
-        slug: category,
-        filters,
-        sortBy,
-      },
-    )
+    setFilteredServices()
+    setModal({ targetRef, isOpen, openModal, closeModal, Modal })
+    return () => ({})
+  }, [region])
+
+  const openAndSetModal = newModalType => ref => {
+    setModalType(newModalType)
+    openModal(ref)
+  }
+
+  const applyFilters = async ({
+    checkedFilters = filters,
+    sortType = sort,
+    selectedRegion = region,
+  }) => {
+    setFilters(checkedFilters)
+    setRegion(selectedRegion)
+    setSort(sortType)
+
+    const sortBy = getSortBy(sortType)
+
+    const { supportServices: byFilter } = await fetchServices({
+      slug: category,
+      filters: checkedFilters,
+      chosenRegion: selectedRegion?.value || null,
+      sortBy,
+    })
 
     setServices(byFilter)
-    setFilters(filters)
-    setSort(sort)
     closeModal()
   }
 
   return (
     <>
-      <CategoryStyled>
-        <button
-          className="flex items-center justify-center rounded-2.5 w-full py-4 border border-midgray mb-4"
-          onClick={openModal}
+      <div className="flex flex-col">
+        <FilterButton
+          className={filters.length > 0 && 'font-bold'}
+          imgSrc="/icons/filter.svg"
+          onClick={openAndSetModal(SUPPORT_FILTER)}
         >
-          Filters ({filters.length})
-        </button>
+          Filters
+          {filters.length > 0 ? ` (${filters.length + (sort ? 1 : 0)})` : null}
+        </FilterButton>
+        <FilterButton
+          className={region && region.label ? 'font-bold' : null}
+          imgSrc="/icons/location.svg"
+          onClick={openAndSetModal(LOCATION_FILTER)}
+        >
+          Location
+          {region ? `: ${region.label}` : null}
+        </FilterButton>
+      </div>
+      <CategoryStyled>
         <Services>{R.addIndex(R.map)(ServicePreview)(services)}</Services>
       </CategoryStyled>
       {isOpen && (
         <Modal>
-          <SupportFilter
-            filters={filters}
-            sort={sort}
-            applyFiltersAndSort={applyFiltersAndSort}
-          />
+          {modalType === SUPPORT_FILTER ? (
+            <SupportFilter
+              filters={filters}
+              sort={sort}
+              applyFilters={applyFilters}
+            />
+          ) : modalType === LOCATION_FILTER ? (
+            <LocationFilter region={region} applyFilters={applyFilters} />
+          ) : null}
         </Modal>
       )}
     </>
   )
 }
 
+const FilterButton = ({ children, imgSrc, className, onClick }) => (
+  <StyledFilterButton className={className} onClick={onClick}>
+    <span>{children}</span>
+    <img src={imgSrc} alt="Filter button icon" />
+  </StyledFilterButton>
+)
+
+const StyledFilterButton = styled.button.attrs({
+  className:
+    'flex items-center justify-between w-full px-4 py-3 border-b border-lightgray last:mb-4 bg-white tl',
+})``
+
 export default Category
 Category.getInitialProps = async ctx => {
-  const data = await client.fetch(getCategoryServicePreview(''), {
+  const data = await fetchServices({
     slug: ctx.query.category,
     filters: [],
     sortBy: '',
+    chosenRegion: null,
   })
 
   return { pageTitle: data._type, ...data }

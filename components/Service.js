@@ -54,7 +54,7 @@ const DetailsStyled = styled.div.attrs({
 })``
 
 export const ServicePreview = ({ name, logo, tags, slug }, index) => (
-  <Link href={`/${slug}`}>
+  <Link href={`/${slug}`} key={`service-preview-${index}`}>
     <PreviewStyled key={`ServicePreview-${index}`}>
       <Left>
         <Name>{name}</Name>
