@@ -16,9 +16,9 @@ const GET_SELF_CARE_TECHNIQUE = `*[_type == "selfcareTechnique" && slug.current 
     "parentID": _id,
     title,
     "videoUrl": videoFile.asset->url,
+    "audioUrl": audio.asset->url, 
     videoLink,
     body,
-    audio, 
     link, 
     likes,
     mainImage,
@@ -55,6 +55,13 @@ const Technique = ({
 }) => {
   return (
     <OuterContainer className="h-full bg-white">
+      {technique.audioUrl && (
+        <div className="px-5 py-4">
+          <audio controls className="w-full">
+            <source src={technique.audioUrl} />
+          </audio>
+        </div>
+      )}
       {technique.videoUrl && (
         <TechniqueVideo src={technique.videoUrl} controls />
       )}
@@ -68,13 +75,15 @@ const Technique = ({
           className="font-sm font-normal"
           imageOptions={{ w: 320, h: 240, fit: 'max' }}
         />
-        <div className="border-t border-lightgray py-5">
-          <p className="font-bold mb-4">More techniques like this: </p>
-          <p className="inline-block">
-            <img className="inline mr-3.5" alt="web icon" src={web} />
-            {technique.link}
-          </p>
-        </div>
+        {technique.link && (
+          <div className="border-t border-lightgray py-5">
+            <p className="font-bold mb-4">More techniques like this: </p>
+            <p className="inline-block">
+              <img className="inline mr-3.5" alt="web icon" src={web} />
+              {technique.link}
+            </p>
+          </div>
+        )}
       </TechniqueStyled>
       <CommentForm
         {...{
