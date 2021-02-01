@@ -3,15 +3,11 @@ import styled from 'styled-components'
 import * as R from 'ramda'
 import client from '../client'
 import { LIKES, NAME, RECENT } from '../lib/constants'
+import { GET_FILTER_TYPES } from '../lib/filter'
 import Navbar, { getNavbarOptions } from './Navbar'
 import Container from './Container'
 import Checkbox from './Checkbox'
 import { PurpleButton } from './Button'
-
-const GET_FILTER_TYPES = `*[_type == "supportFilterCategory"] {
-  title,
-  "filters": *[ _type == "supportFilterType" && references(^._id)].title
-}`
 
 const FilterContainer = styled(Container).attrs({
   className: 'w-screen bg-white',
@@ -84,20 +80,17 @@ const SortToggle = ({ sortType, setSortType }) => (
   </div>
 )
 
-const SupportFilter = ({ filters, sort, applyFiltersAndSort }) => {
-  const [sortType, setSortType] = useState('')
+const SupportFilter = ({ filters, sort, applyFilters }) => {
   const [filterTypes, setFilterTypes] = useState([])
-  const [checkedFilters, setCheckedFilters] = useState([])
+  const [checkedFilters, setCheckedFilters] = useState(filters)
+  const [sortType, setSortType] = useState(sort)
 
   useEffect(() => {
     const getFilterTypes = async () => {
       const newFilterTypes = await client.fetch(GET_FILTER_TYPES)
       setFilterTypes(newFilterTypes)
     }
-
     getFilterTypes()
-    setCheckedFilters(filters)
-    setSortType(sort)
   }, [])
 
   const handleChange = ({ target: { checked, name } }) => {
@@ -125,6 +118,7 @@ const SupportFilter = ({ filters, sort, applyFiltersAndSort }) => {
         {R.addIndex(R.map)(props => (
           <FilterCategory
             handleChange={handleChange}
+            key={`category-${props.title}`}
             checkedFilters={checkedFilters}
             {...props}
           />
@@ -133,7 +127,10 @@ const SupportFilter = ({ filters, sort, applyFiltersAndSort }) => {
       <ApplyButton
         form="filterForm"
         onClick={() => {
-          applyFiltersAndSort({ checkedFilters, sortType })
+          applyFilters({
+            checkedFilters,
+            sortType,
+          })
         }}
       />
     </FilterContainer>

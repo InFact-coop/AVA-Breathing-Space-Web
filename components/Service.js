@@ -20,7 +20,7 @@ const Right = styled.div.attrs({
   className: 'w-1/4 flex flex-col items-end',
 })``
 const Link = styled.a.attrs({
-  className: 'font-sm flex',
+  className: 'font-med flex',
 })``
 
 const Arrow = styled.img.attrs({
@@ -30,7 +30,7 @@ const Arrow = styled.img.attrs({
 })``
 
 const TagStyled = styled.span.attrs({
-  className: 'font-sm relative -left-1.25',
+  className: 'font-med relative -left-1.25',
 })``
 
 const Tag = (tag, index) => (
@@ -54,7 +54,7 @@ const DetailsStyled = styled.div.attrs({
 })``
 
 export const ServicePreview = ({ name, logo, tags, slug }, index) => (
-  <Link href={`/${slug}`}>
+  <Link href={`/${slug}`} key={`service-preview-${index}`}>
     <PreviewStyled key={`ServicePreview-${index}`}>
       <Left>
         <Name>{name}</Name>

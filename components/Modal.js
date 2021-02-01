@@ -19,7 +19,7 @@ const ModalContainer = styled.div.attrs({
 })``
 
 const ModalText = styled.p.attrs({
-  className: 'font-sm p-5',
+  className: 'font-med p-5',
 })``
 
 const PurpleButton = styled.div.attrs({

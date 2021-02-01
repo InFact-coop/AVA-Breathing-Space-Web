@@ -61,7 +61,7 @@ const FormFieldWithLabel = ({
   placeholder,
 }) => {
   return (
-    <div className="flex flex-col mb-5 font-sm">
+    <div className="flex flex-col mb-5 font-med">
       <Label>{title}</Label>
       <Field
         title={title}

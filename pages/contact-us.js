@@ -143,7 +143,7 @@ const ContactUs = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
       <Title>{subtitle}</Title>
       <Block
         body={body}
-        className="font-sm font-normal text-gray"
+        className="font-med font-normal text-gray"
         imageOptions={{ w: 320, h: 240, fit: 'max' }}
       />
       <ContactUsForm

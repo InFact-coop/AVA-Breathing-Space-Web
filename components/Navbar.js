@@ -64,12 +64,12 @@ const Next = ({ onClick }) => (
 // })``
 
 const Clear = styled.div.attrs({
-  className: 'text-gray pr-4.5 font-sm',
+  className: 'text-gray pr-4.5 font-med',
   children: 'Clear',
 })``
 
 // const Filter = styled.div.attrs({
-//   className: 'rounded-full border border-gray text-gray font-sm px-2.5 py-1.5',
+//   className: 'rounded-full border border-gray text-gray font-med px-2.5 py-1.5',
 //   children: 'Filter',
 // })``
 
@@ -78,7 +78,7 @@ const Title = styled.h1.attrs(({ font = 'sans' }) => ({
 }))``
 
 const TabStyled = styled.a.attrs(({ selected }) => ({
-  className: `text-sm font-bold py-5 text-center border-b
+  className: `text-med font-bold py-5 text-center border-b
   ${selected ? 'text-black border-black' : 'text-gray border-lightgray'}`,
 }))`
   flex: 1;
@@ -201,6 +201,7 @@ export const getNavbarOptions = ({ _type, title, clear, next }) => {
         title,
       }
     case 'supportFilterType':
+    case 'locationFilterType':
       return {
         border: true,
         back: DISCARD,
