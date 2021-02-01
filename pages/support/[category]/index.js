@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import * as R from 'ramda'
 import useModal from 'use-react-modal'
 import { LIKES, NAME, RECENT } from '../../../lib/constants'
-import { ModalContext } from '../../../components/Modal'
+import AppContext from '../../../lib/AppContext'
 import Container from '../../../components/Container'
 import { ServicePreview } from '../../../components/Service'
 import SupportFilter from '../../../components/SupportFilter'
@@ -45,7 +45,7 @@ const Category = ({ supportServices, query: { category } }) => {
   const [services, setServices] = useState(supportServices)
   const [filters, setFilters] = useState([])
   const [sort, setSort] = useState('')
-  const { setModal } = useContext(ModalContext)
+  const { setModal } = useContext(AppContext)
   const { targetRef, isOpen, openModal, closeModal, Modal } = useModal()
 
   useEffect(() => {

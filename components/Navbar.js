@@ -8,13 +8,13 @@ import Link from 'next/link'
 import gql from 'graphql-tag'
 import Router, { useRouter } from 'next/router'
 
+import AppContext from '../lib/AppContext'
 import getParentPath from '../lib/getParentPath'
 
 import BackIcon from '../public/icons/back-black.svg'
 import CrossIcon from '../public/icons/cross-black.svg'
 // import HeartIcon from '../public/icons/heart-black.svg'
 import { HOME, RELATIVE, DISCARD } from '../lib/constants'
-import { ModalContext } from './Modal'
 
 const GET_NAVBAR_COLOUR = gql`
   query {
@@ -47,6 +47,15 @@ const Back = ({ back, lines, closeModal }) => {
     </BackContainer>
   )
 }
+const NextButton = styled.button.attrs({
+  className: '',
+})``
+
+const Next = ({ onClick }) => (
+  <NextButton onClick={onClick}>
+    <img src="/icons/next.svg" alt="Next button" />
+  </NextButton>
+)
 
 // const Heart = styled.img.attrs({
 //   className: '',
@@ -110,8 +119,10 @@ const Navbar = ({
   border,
   colour,
   clear,
-  empty,
+  emptyLeft,
+  emptyRight,
   fallbackColour,
+  next,
   font,
   heart,
   lines,
@@ -120,7 +131,7 @@ const Navbar = ({
 }) => {
   const {
     modal: { closeModal },
-  } = useContext(ModalContext)
+  } = useContext(AppContext)
 
   const { loading, error, data } = useQuery(GET_NAVBAR_COLOUR)
   const { navbarColour } = data && data.state
@@ -136,22 +147,32 @@ const Navbar = ({
 
   return (
     <NavbarStyled
-      left={back}
-      right={heart || empty}
+      left={back || emptyLeft}
+      right={next || heart || emptyRight}
       colour={colour || navbarColour || fallbackColour}
       border={border}
       lines={lines}
     >
       {back && <Back back={back} lines={lines} closeModal={closeModal} />}
+      {emptyLeft && <div />}
       {title && <Title font={font}>{title}</Title>}
+      {next && <Next onClick={next} />}
       {clear && <Clear onClick={clear} />}
-      {(empty || heart) && <div />}
+      {(emptyRight || heart) && <div />}
     </NavbarStyled>
   )
 }
 
-export const getNavbarOptions = ({ _type, title, clear }) => {
+export const getNavbarOptions = ({ _type, title, clear, next }) => {
   switch (_type) {
+    case 'onboarding':
+      return {
+        border: true,
+        colour: 'white',
+        emptyLeft: true,
+        next,
+        title,
+      }
     case 'selfcareTechnique':
       return {
         back: RELATIVE,
