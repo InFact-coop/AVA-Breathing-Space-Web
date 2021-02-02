@@ -28,6 +28,9 @@ const Page = ({ _type, title, pageTitle, children }) => {
     'quickExit',
     'google.com',
   )
+
+  const [region, setRegion] = useLocalStorage('region', null)
+
   const [windowHeight, setWindowHeight] = useState('100vh')
   const navbarOptions = getNavbarOptions({ _type, title })
 
@@ -64,7 +67,14 @@ const Page = ({ _type, title, pageTitle, children }) => {
         <title>{headTitleContent()}</title>
       </Head>
       <AppContext.Provider
-        value={{ modal, setModal, quickExitPage, setQuickExitPage }}
+        value={{
+          modal,
+          setModal,
+          quickExitPage,
+          setQuickExitPage,
+          region,
+          setRegion,
+        }}
       >
         <Onboarding
           quickExitPage={quickExitPage}

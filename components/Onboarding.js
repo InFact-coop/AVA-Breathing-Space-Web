@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import clsx from 'clsx'
+import AppContext from '../lib/AppContext'
 import useLocalStorage from '../lib/useLocalStorage'
+import { RegionSelect } from './LocationFilter'
 import Navbar, { getNavbarOptions } from './Navbar'
 import QuickExitStep from './QuickExitStep'
 import Exit from './Exit'
@@ -9,7 +11,7 @@ import Landing from './Landing'
 
 const OnboardingStyled = styled.section.attrs({
   className:
-    'w-screen h-screen left-0 top-0 fixed bg-white opacity-95 z-10 overflow-scroll',
+    'w-screen h-screen left-0 top-0 fixed bg-white z-10 overflow-scroll',
 })``
 
 const Content = styled.div.attrs({ className: 'grid pt-5' })`
@@ -69,7 +71,7 @@ const Onboarding = () => {
     <OnboardingStyled>
       <Navbar {...navBarOptions} />
       <Content>
-        <CurrentModule />
+        <CurrentModule closeOnboarding={closeOnboarding} />
       </Content>
     </OnboardingStyled>
   )
@@ -185,16 +187,37 @@ const OnlineSafety = () => {
   )
 }
 
-const CustomiseLocation = () => (
-  <>
-    <Title>Customise Location</Title>
-    <Copy>
-      Help us give the best advice possible by selecting your location.
-    </Copy>
-    <Copy>We won’t save this or share it with anyone.</Copy>
-    <Exit />
-  </>
-)
+const CustomiseLocation = ({ closeOnboarding }) => {
+  const { setRegion } = useContext(AppContext)
+  const [selectedRegion, setSelectedRegion] = useState(null)
+  return (
+    <>
+      <Title>Customise Location</Title>
+      <Copy>
+        Help us give the best advice possible by selecting your location.
+      </Copy>
+      <Copy>We won’t save this or share it with anyone.</Copy>
+
+      <h2 className="font-bold text-med mb-4">Select your region (optional)</h2>
+      <div className="flex items-center justify-between">
+        <RegionSelect
+          selectedRegion={selectedRegion}
+          setSelectedRegion={setSelectedRegion}
+        />
+        <button
+          onClick={() => {
+            setRegion(selectedRegion)
+            closeOnboarding()
+          }}
+          className="uppercase bg-lightviolet rounded-2.5 py-4 px-4 ml-2.5"
+        >
+          OK
+        </button>
+      </div>
+      <Exit />
+    </>
+  )
+}
 
 const ShowMoreButton = ({ children, bold, onClick }) => (
   <button

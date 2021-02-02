@@ -8,3 +8,7 @@ body {
   max-width: theme('maxWidth.256');
   margin: 0 auto;
 }
+
+.locationselect__control {
+  height: 100%;
+}
