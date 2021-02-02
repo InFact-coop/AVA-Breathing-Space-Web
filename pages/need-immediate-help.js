@@ -1,12 +1,12 @@
 import client from '../client'
 import Information from '../components/Information'
 
-const GET_QUESTIONNAIRE = `*[_type == "page" && slug.current == "need-immediate-help"][0]`
+const GET_IMMEDIATE_HELP = `*[_type == "page" && slug.current == "need-immediate-help"][0]`
 
-const Questionnaire = props => {
+const ImmediateHelp = props => {
   return <Information background="bg-white" props={props} />
 }
 
-export default Questionnaire
+export default ImmediateHelp
 
-Questionnaire.getInitialProps = () => client.fetch(GET_QUESTIONNAIRE)
+ImmediateHelp.getInitialProps = () => client.fetch(GET_IMMEDIATE_HELP)

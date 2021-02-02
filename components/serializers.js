@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 import infoIcon from '../public/icons/infoWhite.svg'
+import Contact from '../components/Contact'
 
 const { theme } = resolveConfig(tailwindConfig)
 
@@ -33,10 +34,18 @@ const StyledParagraph = styled.p.attrs({
     color: ${theme.colors.teal};
     text-decoration: underline;
   }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 `
 
 const StyledSubheading = styled.h2.attrs({
   className: 'font-bold font-base mb-5',
+})``
+
+const KarlaHeading = styled.h1.attrs({
+  className: 'font-karla font-xl mb-2.5',
 })``
 
 const StandoutParagraph = styled.h4.attrs({
@@ -48,9 +57,19 @@ const StandoutParagraph = styled.h4.attrs({
   }
 `
 
+const Linebreak = styled.hr.attrs({
+  className: 'text-midgray left-0 w-100 my-7.5',
+})``
+
 const Background = styled.div.attrs({
   className: 'bg-teal flex items-start text-white rounded-1.5 p-2.5 mt-1 mb-5',
 })``
+
+const RestyledContact = styled(Contact).attrs({})`
+  padding: 0;
+  border: none;
+  box-shadow: none;
+`
 
 const serializers = {
   list: ({ children }) => {
@@ -66,6 +85,8 @@ const serializers = {
   types: {
     block(props) {
       switch (props.node.style) {
+        case 'h1':
+          return <KarlaHeading>{props.children}</KarlaHeading>
         case 'h2':
           return <StyledSubheading>{props.children}</StyledSubheading>
         case 'h4':
@@ -77,9 +98,23 @@ const serializers = {
               <p className="ml-2.5">{props.children}</p>
             </Background>
           )
+        case 'hr':
+          return <Linebreak />
         default:
           return <StyledParagraph>{props.children}</StyledParagraph>
       }
+    },
+    supportPhoneline(props) {
+      const { title, phoneNumber, openingHours, additionalInfo } = props.node
+
+      return (
+        <RestyledContact
+          title={title}
+          phoneNumber={phoneNumber}
+          openingHours={openingHours}
+          additionalInfo={additionalInfo}
+        />
+      )
     },
   },
 
