@@ -58,9 +58,14 @@ const Contact = ({
   link,
   additionalInfo,
   className,
+  padding,
 }) => {
   return (
-    <ContactStyled className={className} key={`contact-${title}`}>
+    <ContactStyled
+      padding={padding}
+      className={className}
+      key={`contact-${title}`}
+    >
       {title && <ContactTitle>{title}</ContactTitle>}
       {phoneNumber && (
         <ContactDetail
