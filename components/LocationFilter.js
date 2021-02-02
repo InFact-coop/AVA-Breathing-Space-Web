@@ -68,7 +68,12 @@ const LocationFilter = ({ region, applyFilters }) => {
   )
 }
 
-export const RegionSelect = ({ selectedRegion, setSelectedRegion }) => {
+export const RegionSelect = ({
+  selectedRegion,
+  setSelectedRegion,
+  className,
+  classNamePrefix,
+}) => {
   const [regions, setRegions] = useState([])
 
   useEffect(() => {
@@ -82,13 +87,8 @@ export const RegionSelect = ({ selectedRegion, setSelectedRegion }) => {
 
   return (
     <Select
-      className="w-full h-full"
-      classNamePrefix="locationselect"
-      style={{
-        control: () => ({
-          height: '100%',
-        }),
-      }}
+      className={className}
+      classNamePrefix={classNamePrefix}
       value={selectedRegion}
       defaultValue={selectedRegion}
       onChange={setSelectedRegion}

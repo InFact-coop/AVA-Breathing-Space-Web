@@ -203,6 +203,8 @@ const CustomiseLocation = ({ closeOnboarding }) => {
         <RegionSelect
           selectedRegion={selectedRegion}
           setSelectedRegion={setSelectedRegion}
+          className="w-full h-full"
+          classNamePrefix="onboarding_location"
         />
         <button
           onClick={() => {
