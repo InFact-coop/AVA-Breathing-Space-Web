@@ -15,7 +15,15 @@ const Label = styled.label.attrs({
   className: 'mb-1.25',
 })``
 
-const Field = ({ type, title, value, onChange, required, name }) => {
+const Field = ({
+  type,
+  title,
+  value,
+  placeholder,
+  onChange,
+  required,
+  name,
+}) => {
   switch (type) {
     case 'input':
       return (
@@ -24,6 +32,7 @@ const Field = ({ type, title, value, onChange, required, name }) => {
           value={value}
           type={R.isEmpty(R.match(/email/, title)) ? 'text' : 'email'}
           onChange={onChange}
+          placeholder={placeholder}
           required={required}
         />
       )
@@ -32,6 +41,7 @@ const Field = ({ type, title, value, onChange, required, name }) => {
         <StyledTextArea
           name={name}
           value={value}
+          placeholder={placeholder}
           onChange={onChange}
           required={required}
         />
@@ -48,6 +58,7 @@ const FormFieldWithLabel = ({
   onChange,
   name,
   value,
+  placeholder,
 }) => {
   return (
     <div className="flex flex-col mb-5 font-med">
@@ -58,6 +69,7 @@ const FormFieldWithLabel = ({
         required={required}
         name={name}
         value={value}
+        placeholder={placeholder}
         onChange={onChange}
       />
     </div>
@@ -68,6 +80,7 @@ const Input = ({
   title,
   required,
   type: [type],
+  placeholder = '',
   inputs,
   handleInputChange,
   label,
@@ -81,6 +94,7 @@ const Input = ({
     required,
     title,
     type,
+    placeholder,
   }
   if (!label) return <Field {...props} />
   return <FormFieldWithLabel {...props} />

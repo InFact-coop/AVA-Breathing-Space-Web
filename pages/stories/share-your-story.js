@@ -23,7 +23,7 @@ const GET_SHARE_STORY_FORM = `*[_type == "form" && slug.current == "share-your-s
   title, 
   body, 
   subtitle, 
-  "inputsFromSanity": inputs[]->{ title, required, type },
+  "inputsFromSanity": inputs[]->{ title, required, type, placeholder},
   confirmationText
 }`
 

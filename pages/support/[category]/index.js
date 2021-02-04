@@ -3,9 +3,8 @@ import styled from 'styled-components'
 import * as R from 'ramda'
 import useModal from 'use-react-modal'
 import { SUPPORT_FILTER, LOCATION_FILTER } from '../../../lib/constants'
-import useLocalStorage from '../../../lib/useLocalStorage'
 import { getSortBy, fetchServices } from '../../../lib/filter'
-import { ModalContext } from '../../../components/Modal'
+import AppContext from '../../../lib/AppContext'
 import Container from '../../../components/Container'
 import { ServicePreview } from '../../../components/Service'
 import SupportFilter from '../../../components/SupportFilter'
@@ -21,11 +20,10 @@ const CategoryStyled = styled(Container).attrs({
 
 const Category = ({ query: { category } }) => {
   const [services, setServices] = useState([])
-  const [region, setRegion] = useLocalStorage('region', null)
   const [filters, setFilters] = useState([])
   const [modalType, setModalType] = useState(null)
   const [sort, setSort] = useState('')
-  const { setModal } = useContext(ModalContext)
+  const { setModal, region, setRegion } = useContext(AppContext)
   const { targetRef, isOpen, openModal, closeModal, Modal } = useModal()
 
   useEffect(() => {
@@ -120,7 +118,7 @@ const FilterButton = ({ children, imgSrc, className, onClick }) => (
 
 const StyledFilterButton = styled.button.attrs({
   className:
-    'flex items-center justify-between w-full px-4 py-3 border-b border-lightgray last:mb-4 bg-white tl',
+    'flex items-center justify-between w-full px-4 py-3 border-b border-lightgray last:mb-4 bg-white text-left',
 })``
 
 export default Category

@@ -16,7 +16,7 @@ const FilterContainer = styled(Container).attrs({
 
 const Contents = styled(Container).attrs({
   as: 'form',
-  id: 'filterForm',
+  id: 'locationForm',
   className: 'overflow-scroll',
 })`
   height: calc(100vh - 116px);
@@ -35,17 +35,7 @@ const FilterTitle = styled.div.attrs({
 })``
 
 const LocationFilter = ({ region, applyFilters }) => {
-  const [regions, setRegions] = useState([])
   const [selectedRegion, setSelectedRegion] = useState(region)
-
-  useEffect(() => {
-    const getRegions = async () => {
-      const newRegions = await client.fetch(GET_REGIONS)
-      setRegions(newRegions)
-    }
-
-    getRegions()
-  }, [])
 
   const clearFilters = () => {
     setSelectedRegion(null)
@@ -61,15 +51,13 @@ const LocationFilter = ({ region, applyFilters }) => {
       />
       <Contents>
         <FilterTitle>Customise location</FilterTitle>
-        <Select
-          value={selectedRegion}
-          defaultValue={selectedRegion}
-          onChange={setSelectedRegion}
-          options={regions}
+        <RegionSelect
+          selectedRegion={selectedRegion}
+          setSelectedRegion={setSelectedRegion}
         />
       </Contents>
       <ApplyButton
-        form="filterForm"
+        form="locationForm"
         onClick={() => {
           applyFilters({
             selectedRegion,
@@ -77,6 +65,36 @@ const LocationFilter = ({ region, applyFilters }) => {
         }}
       />
     </FilterContainer>
+  )
+}
+
+export const RegionSelect = ({
+  selectedRegion,
+  setSelectedRegion,
+  className,
+  classNamePrefix,
+}) => {
+  const [regions, setRegions] = useState([])
+
+  useEffect(() => {
+    const getRegions = async () => {
+      const newRegions = await client.fetch(GET_REGIONS)
+      setRegions(newRegions)
+    }
+
+    getRegions()
+  }, [])
+
+  return (
+    <Select
+      className={className}
+      classNamePrefix={classNamePrefix}
+      value={selectedRegion}
+      defaultValue={selectedRegion}
+      onChange={setSelectedRegion}
+      options={regions}
+      placeholder="Search and select region"
+    />
   )
 }
 

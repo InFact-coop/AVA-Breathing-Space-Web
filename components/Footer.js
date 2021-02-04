@@ -33,6 +33,9 @@ const Footer = () => (
       <Link href="/online-safety" passHref>
         <StyledLink>Online Safety</StyledLink>
       </Link>
+      <Link href="/quick-exit" passHref>
+        <StyledLink>Quick Exit</StyledLink>
+      </Link>
     </div>
   </FooterStyled>
 )

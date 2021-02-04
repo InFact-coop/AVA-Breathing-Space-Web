@@ -20,7 +20,7 @@ const GET_CONTACT_FORM = `*[_type == "form" && slug.current == "contact-us"][0]{
   title, 
   body, 
   subtitle, 
-  "inputsFromSanity": inputs[]->{ title, required, type },
+  "inputsFromSanity": inputs[]->{ title, required, type, placeholder },
   confirmationText
 }`
 
