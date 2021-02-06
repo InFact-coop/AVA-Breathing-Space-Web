@@ -218,7 +218,13 @@ export const getNavbarOptions = ({ _type, title, clear, next }) => {
       }
     case 'page':
     case 'form':
-      return { back: HOME, border: true, empty: true, title, colour: 'white' }
+      return {
+        back: HOME,
+        border: true,
+        emptyRight: true,
+        title,
+        colour: 'white',
+      }
     default:
       return { links: true, colour: 'white' }
   }
