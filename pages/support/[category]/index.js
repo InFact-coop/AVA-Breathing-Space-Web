@@ -9,6 +9,7 @@ import Container from '../../../components/Container'
 import { ServicePreview } from '../../../components/Service'
 import SupportFilter from '../../../components/SupportFilter'
 import LocationFilter from '../../../components/LocationFilter'
+import infoWhite from '../../../public/icons/infoWhite.svg'
 
 const Services = styled.section.attrs({
   className: '',
@@ -16,6 +17,10 @@ const Services = styled.section.attrs({
 
 const CategoryStyled = styled(Container).attrs({
   className: '',
+})``
+
+const CrisisInfo = styled.div.attrs({
+  className: 'bg-darkpurple w-screen text-white px-5 py-2.5 mt-5 leading-lg',
 })``
 
 const Category = ({ query: { category } }) => {
@@ -89,6 +94,31 @@ const Category = ({ query: { category } }) => {
           {region ? `: ${region.label}` : null}
         </FilterButton>
       </div>
+      {category === 'crisis-relief' && (
+        <CrisisInfo>
+          <p className="mb-2.5">
+            If you need urgent help, contact the National Domestic Violence
+            Helpline on{' '}
+            <a className="underline" href="tel:0808-2000-247">
+              0808 2000 247
+            </a>
+          </p>
+          <div className="flex items-start">
+            <img
+              alt="white info icon"
+              className="inline-block mr-2"
+              src={infoWhite}
+            />
+            <p className="font-bold">
+              If you don&apos;t feel safe, you can always call{' '}
+              <a className="underline" href="tel:999">
+                999
+              </a>
+              .
+            </p>
+          </div>
+        </CrisisInfo>
+      )}
       <CategoryStyled>
         <Services>{R.addIndex(R.map)(ServicePreview)(services)}</Services>
       </CategoryStyled>
