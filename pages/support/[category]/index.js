@@ -9,7 +9,6 @@ import Container from '../../../components/Container'
 import { ServicePreview } from '../../../components/Service'
 import SupportFilter from '../../../components/SupportFilter'
 import LocationFilter from '../../../components/LocationFilter'
-import infoWhite from '../../../public/icons/infoWhite.svg'
 
 const Services = styled.section.attrs({
   className: '',
@@ -20,8 +19,14 @@ const CategoryStyled = styled(Container).attrs({
 })``
 
 const CrisisInfo = styled.div.attrs({
-  className: 'bg-darkpurple w-screen text-white px-5 py-2.5 mt-5 leading-lg',
+  className: 'bg-darkpurple w-screen text-white px-5 py-2.5 mt-5 font-base',
 })``
+
+const EmergencyCopy = styled.p.attrs({
+  className: 'font-bold pt-2.5 col-span-full flex',
+})`
+  grid-column: 1 / -1;
+`
 
 const Category = ({ query: { category } }) => {
   const [services, setServices] = useState([])
@@ -98,25 +103,17 @@ const Category = ({ query: { category } }) => {
         <CrisisInfo>
           <p className="mb-2.5">
             If you need urgent help, contact the National Domestic Violence
-            Helpline on{' '}
+            Htelpline on{' '}
             <a className="underline" href="tel:0808-2000-247">
               0808 2000 247
             </a>
           </p>
-          <div className="flex items-start">
-            <img
-              alt="white info icon"
-              className="inline-block mr-2"
-              src={infoWhite}
-            />
-            <p className="font-bold">
-              If you don&apos;t feel safe, you can always call{' '}
-              <a className="underline" href="tel:999">
-                999
-              </a>
-              .
-            </p>
-          </div>
+          <EmergencyCopy>
+            <img src="/icons/info.svg" className="w-5 h-5" alt="Info icon" />
+            <span className="pl-2.5">
+              If you don&apos;t feel safe, call 999.
+            </span>
+          </EmergencyCopy>
         </CrisisInfo>
       )}
       <CategoryStyled>
