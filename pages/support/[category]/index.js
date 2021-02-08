@@ -18,6 +18,16 @@ const CategoryStyled = styled(Container).attrs({
   className: '',
 })``
 
+const CrisisInfo = styled.div.attrs({
+  className: 'bg-darkpurple w-screen text-white px-5 py-2.5 mt-5 font-base',
+})``
+
+const EmergencyCopy = styled.p.attrs({
+  className: 'font-bold pt-2.5 col-span-full flex',
+})`
+  grid-column: 1 / -1;
+`
+
 const Category = ({ query: { category } }) => {
   const [services, setServices] = useState([])
   const [filters, setFilters] = useState([])
@@ -89,6 +99,23 @@ const Category = ({ query: { category } }) => {
           {region ? `: ${region.label}` : null}
         </FilterButton>
       </div>
+      {category === 'crisis-relief' && (
+        <CrisisInfo>
+          <p className="mb-2.5">
+            If you need urgent help, contact the National Domestic Violence
+            Htelpline on{' '}
+            <a className="underline" href="tel:0808-2000-247">
+              0808 2000 247
+            </a>
+          </p>
+          <EmergencyCopy>
+            <img src="/icons/info.svg" className="w-5 h-5" alt="Info icon" />
+            <span className="pl-2.5">
+              If you don&apos;t feel safe, call 999.
+            </span>
+          </EmergencyCopy>
+        </CrisisInfo>
+      )}
       <CategoryStyled>
         <Services>{R.addIndex(R.map)(ServicePreview)(services)}</Services>
       </CategoryStyled>

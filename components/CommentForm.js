@@ -48,7 +48,7 @@ const onSubmit = (onResponse, parentID) => async (
 }
 
 const Title = styled.h2.attrs({
-  className: 'font-sans text-base mt-5 font-bold leading-base mb-1.25',
+  className: 'font-sans font-base mt-5 font-bold mb-1.25',
 })``
 
 const Subtitle = styled.h3.attrs({

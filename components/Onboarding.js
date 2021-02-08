@@ -14,7 +14,7 @@ const OnboardingStyled = styled.section.attrs({
     'w-screen h-screen left-0 top-0 fixed bg-white z-10 overflow-scroll',
 })``
 
-const Content = styled.div.attrs({ className: 'grid pt-5' })`
+const Content = styled.div.attrs({ className: 'grid pt-5 font-base' })`
   grid-template-columns: 1.25rem 1fr 1.25rem;
 
   & > * {
@@ -28,7 +28,7 @@ const EmergencyCopy = styled.p.attrs({
 })`
   grid-column: 1 / -1;
 `
-const Call = styled.a.attrs({ className: 'border-b' })``
+const Call = styled.a.attrs({ className: 'underline' })``
 
 const Onboarding = () => {
   const [onboarding, setOnboarding] = useLocalStorage('onboarding', null)

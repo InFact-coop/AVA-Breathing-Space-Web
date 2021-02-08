@@ -7,7 +7,7 @@ import Arrow from '../public/icons/arrow.svg'
 
 const ExitStyled = styled.a.attrs({
   className:
-    'bg-teal text-white font-sm p-3 pr-5 rounded-r-25 rounded-l-25 flex items-center text-bold font-bold shadow-exit',
+    'bg-teal text-white font-base py-4 px-5 rounded-r-25 rounded-l-25 flex items-center text-bold font-bold shadow-exit',
 })`
   z-index: 5;
   height: fit-content;
@@ -15,7 +15,7 @@ const ExitStyled = styled.a.attrs({
 `
 
 const Icon = styled(motion.img).attrs({
-  className: 'h-7.5 mr-3',
+  className: 'h-7.5 mr-2.5',
 })``
 
 const ContainerStyled = styled.div.attrs({

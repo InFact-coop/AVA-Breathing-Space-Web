@@ -2,7 +2,7 @@ import { useState, useEffect, Fragment } from 'react'
 import styled from 'styled-components'
 import * as R from 'ramda'
 import client from '../client'
-import { LIKES, NAME, RECENT } from '../lib/constants'
+import { LIKES, NAME } from '../lib/constants'
 import { GET_FILTER_TYPES } from '../lib/filter'
 import Navbar, { getNavbarOptions } from './Navbar'
 import Container from './Container'
@@ -48,7 +48,7 @@ const getNewFilters = ({ checked, name, checkedFilters }) => {
 }
 
 const SortButton = styled.div.attrs(({ sortTypeSelected }) => ({
-  className: `py-1.75 px-6 w-1/3 text-center border-r last:border-none border-solid border-midgray ${
+  className: `py-1.75 px-6 w-1/2 text-center border-r last:border-none border-solid border-midgray ${
     sortTypeSelected ? 'bg-white' : 'bg-none'
   }`,
 }))`
@@ -64,17 +64,13 @@ const SortButton = styled.div.attrs(({ sortTypeSelected }) => ({
 
 const SortToggle = ({ sortType, setSortType }) => (
   <div className="mt-2.5 mb-10 flex justify-between bg-lightgray rounded-2.5 border border-midgray">
-    {[LIKES, NAME, RECENT].map(sort => (
+    {[NAME, LIKES].map(sort => (
       <SortButton
         sortTypeSelected={sortType === sort}
         onClick={() => setSortType(sort)}
         key={sort}
       >
-        {R.compose(
-          R.join(''),
-          R.over(R.lensIndex(0), R.toUpper),
-          R.toLower,
-        )(sort.toString())}
+        {sort === LIKES ? 'Likes' : 'A-Z'}
       </SortButton>
     ))}
   </div>
