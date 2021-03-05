@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
+import AppContext from '../lib/AppContext'
+import useLocalStorage from '../lib/useLocalStorage'
 
 import fromCamelCase from '../lib/fromCamelCase'
 
 import Navbar, { getNavbarOptions } from './Navbar'
-import { ModalContext } from './Modal'
 import Exit from './Exit'
 import Onboarding from './Onboarding'
 import Footer from './Footer'
@@ -22,6 +23,13 @@ const Page = ({ _type, title, pageTitle, children }) => {
     closeModal: undefined,
     Modal: undefined,
   })
+
+  const [quickExitPage, setQuickExitPage] = useLocalStorage(
+    'quickExit',
+    'google.com',
+  )
+
+  const [region, setRegion] = useLocalStorage('region', null)
 
   const [windowHeight, setWindowHeight] = useState('100vh')
   const navbarOptions = getNavbarOptions({ _type, title })
@@ -47,21 +55,37 @@ const Page = ({ _type, title, pageTitle, children }) => {
       <Head>
         <title>{headTitleContent()}</title>
       </Head>
-      <PageStyled>{children}</PageStyled>
+      <AppContext.Provider
+        value={{ modal, setModal, quickExitPage, setQuickExitPage }}
+      >
+        <PageStyled>{children}</PageStyled>
+      </AppContext.Provider>
     </>
   ) : (
     <>
       <Head>
         <title>{headTitleContent()}</title>
       </Head>
-      <Onboarding />
-      <ModalContext.Provider value={{ modal, setModal }}>
+      <AppContext.Provider
+        value={{
+          modal,
+          setModal,
+          quickExitPage,
+          setQuickExitPage,
+          region,
+          setRegion,
+        }}
+      >
+        <Onboarding
+          quickExitPage={quickExitPage}
+          setQuickExitPage={setQuickExitPage}
+        />
         <Navbar {...navbarOptions} />
-        <Exit />
+        <Exit quickExitPage={quickExitPage} />
         <PageStyled style={{ minHeight: `${windowHeight}` }}>
           {children}
         </PageStyled>
-      </ModalContext.Provider>
+      </AppContext.Provider>
       <Footer />
     </>
   )

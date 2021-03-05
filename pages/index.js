@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import styled from 'styled-components'
 import cycleColours from '../lib/cycleColours'
 import Container from '../components/Container'
-import { OutlineButton } from '../components/Button'
+import { OutlineButton, Button } from '../components/Button'
 import client from '../client'
 import { updateNavbarColour } from '../components/Navbar'
 
@@ -96,9 +96,14 @@ const Support = ({ categories, theme }) => {
 
   return (
     <SupportStyled>
-      <Link href="/am-i-in-an-abusive-relationship">
+      <Link href="/need-immediate-help">
+        <Button className="bg-darkpurple text-white mb-2.5">
+          Need immediate help?
+        </Button>
+      </Link>
+      <Link href="/relationship-questionnaire">
         <OutlineButton className="shadow-button">
-          Am I in an abusive relationship?
+          Relationship Questionnaire
         </OutlineButton>
       </Link>
       <Categories>

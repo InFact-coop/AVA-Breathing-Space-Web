@@ -8,3 +8,7 @@ body {
   max-width: theme('maxWidth.256');
   margin: 0 auto;
 }
+
+.onboarding_location__control {
+  height: 100%;
+}

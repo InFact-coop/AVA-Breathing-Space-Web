@@ -1,4 +1,3 @@
-import { createContext } from 'react'
 import styled from 'styled-components'
 import {
   SHARE_STORY,
@@ -20,7 +19,7 @@ const ModalContainer = styled.div.attrs({
 })``
 
 const ModalText = styled.p.attrs({
-  className: 'font-sm p-5',
+  className: 'font-med p-5',
 })``
 
 const PurpleButton = styled.div.attrs({
@@ -196,10 +195,5 @@ const Modal = props => {
   if (modalLayout === SINGLE) return <SingleButtonModal {...modalProps} />
   if (modalLayout === DOUBLE) return <DoubleButtonModal {...modalProps} />
 }
-
-export const ModalContext = createContext({
-  modal: undefined,
-  setModal: undefined,
-})
 
 export default Modal

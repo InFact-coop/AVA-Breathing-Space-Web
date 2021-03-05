@@ -20,7 +20,7 @@ const GET_CONTACT_FORM = `*[_type == "form" && slug.current == "contact-us"][0]{
   title, 
   body, 
   subtitle, 
-  "inputsFromSanity": inputs[]->{ title, required, type },
+  "inputsFromSanity": inputs[]->{ title, required, type, placeholder },
   confirmationText
 }`
 
@@ -143,7 +143,7 @@ const ContactUs = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
       <Title>{subtitle}</Title>
       <Block
         body={body}
-        className="font-sm font-normal text-gray"
+        className="font-med font-normal text-gray"
         imageOptions={{ w: 320, h: 240, fit: 'max' }}
       />
       <ContactUsForm

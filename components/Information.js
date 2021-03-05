@@ -7,7 +7,11 @@ const InformationStyled = styled.section.attrs({
 })``
 
 const InformationTitle = styled.h2.attrs({
-  className: 'font-serif font-lg',
+  className: 'font-serif font-xl',
+})``
+
+const InformationSubtitle = styled.p.attrs({
+  className: 'font-sans font-base mt-2.5 mb-5',
 })``
 
 const Information = ({ background, props }) => {
@@ -20,10 +24,7 @@ const Information = ({ background, props }) => {
           {information.pageTitle || information.title}
         </InformationTitle>
         {information.subtitle && (
-          <Block
-            body={information.subtitle}
-            className="text-gray font-base pt-5"
-          />
+          <InformationSubtitle>{information.subtitle}</InformationSubtitle>
         )}
       </InformationStyled>
       <Block
