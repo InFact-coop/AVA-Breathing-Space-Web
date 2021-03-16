@@ -1,3 +1,4 @@
+import { useEffect, useContext } from 'react'
 import styled from 'styled-components'
 
 import Container from '../../components/Container'
@@ -8,6 +9,7 @@ import Block from '../../components/Block'
 import web from '../../public/icons/web.svg'
 
 import client from '../../client'
+import AppContext from '../../lib/AppContext'
 
 const GET_SELF_CARE_TECHNIQUE = `*[_type == "selfcareTechnique" && slug.current == $slug][0]{
   _type,
@@ -53,6 +55,8 @@ const Technique = ({
   technique,
   form: { formTitle, subtitle, inputsFromSanity, confirmationText },
 }) => {
+  const { setPageID } = useContext(AppContext)
+  useEffect(() => setPageID(technique.parentID), [])
   return (
     <OuterContainer className="h-full bg-white">
       {technique.audioUrl && (

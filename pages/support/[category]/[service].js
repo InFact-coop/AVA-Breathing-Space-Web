@@ -1,3 +1,4 @@
+import { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import * as R from 'ramda'
 
@@ -7,6 +8,7 @@ import Comments from '../../../components/Comment'
 import CommentForm from '../../../components/CommentForm'
 import { ServiceDetails } from '../../../components/Service'
 
+import AppContext from '../../../lib/AppContext'
 import client from '../../../client'
 
 const GET_SERVICE_DETAILS = `*[_type == "supportService" && slug.current == $slug][0] {
@@ -58,6 +60,9 @@ const Service = ({
   },
   form: { formTitle, subtitle, inputsFromSanity, confirmationText },
 }) => {
+  const { setPageID } = useContext(AppContext)
+  useEffect(() => setPageID(parentID), [])
+
   return (
     <>
       <ServiceStyled>
