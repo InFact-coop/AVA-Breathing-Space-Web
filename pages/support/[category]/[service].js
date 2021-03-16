@@ -89,7 +89,10 @@ const Service = ({
           <Comments {...{ slug, _type: 'supportService' }} />{' '}
         </>
       ) : (
-        <Likes likes={likes} className="mt-6" />
+        <Likes
+          likes={likes}
+          className="bg-white py-7.5 border-b border-lightgray shadow"
+        />
       )}
     </>
   )
