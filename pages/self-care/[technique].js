@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Container from '../../components/Container'
 import Comments from '../../components/Comment'
 import CommentForm from '../../components/CommentForm'
+import Likes from '../../components/Likes'
 import Block from '../../components/Block'
 
 import web from '../../public/icons/web.svg'
@@ -98,6 +99,7 @@ const Technique = ({
           parentID: technique.parentID,
         }}
       />
+      <Likes likes={technique.likes} />
       <Comments {...{ slug, _type: 'selfcareTechnique' }} />
     </OuterContainer>
   )

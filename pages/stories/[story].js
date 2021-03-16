@@ -6,6 +6,7 @@ import formatAuthor from '../../lib/formatAuthor'
 
 import Block from '../../components/Block'
 import Container from '../../components/Container'
+import Likes from '../../components/Likes'
 import { PurpleButton } from '../../components/Button'
 
 import AppContext from '../../lib/AppContext'
@@ -42,6 +43,7 @@ const Story = props => {
           className="font-base font-normal leading-large"
         />{' '}
       </StoryStyled>
+      <Likes likes={story.likes} className="mt-6" />
       <PurpleButton href="/stories/share-your-story" className="mx-5 mt-7.5">
         Share your story
       </PurpleButton>

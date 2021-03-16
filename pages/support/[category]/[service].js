@@ -5,6 +5,7 @@ import * as R from 'ramda'
 import Container from '../../../components/Container'
 import Contact from '../../../components/Contact'
 import Comments from '../../../components/Comment'
+import Likes from '../../../components/Likes'
 import CommentForm from '../../../components/CommentForm'
 import { ServiceDetails } from '../../../components/Service'
 
@@ -52,6 +53,7 @@ const Service = ({
     logo,
     tags,
     link,
+    likes,
     email,
     phonelines,
     summary,
@@ -72,7 +74,7 @@ const Service = ({
       {phonelines && R.map(Contact)(phonelines)}
       {link && <Contact link={link} className="py-7.5" />}
       {email && <Contact email={email} className="py-7.5" />}
-      {commentsToggle && (
+      {commentsToggle ? (
         <>
           <CommentForm
             {...{
@@ -83,8 +85,11 @@ const Service = ({
               parentID,
             }}
           />
+          <Likes likes={likes} />
           <Comments {...{ slug, _type: 'supportService' }} />{' '}
         </>
+      ) : (
+        <Likes likes={likes} className="mt-6" />
       )}
     </>
   )
