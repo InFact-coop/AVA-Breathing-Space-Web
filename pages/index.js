@@ -15,6 +15,7 @@ import housing from '../public/illustrations/support/housing.svg'
 import legalSupport from '../public/illustrations/support/legalSupport.svg'
 import mentalAndPhysical from '../public/illustrations/support/mentalAndPhysical.svg'
 import substanceUse from '../public/illustrations/support/substanceUse.svg'
+import bmeMigrant from '../public/illustrations/support/bmeMigrant.svg'
 
 const GET_SUPPORT_CATEGORIES =
   '*[ _type == "supportCategory" ] {title, "slug": slug.current}'
@@ -62,6 +63,8 @@ const Category = ({ title, slug, theme }, index) => {
         return mentalAndPhysical
       case 'Substance Use':
         return substanceUse
+      case 'BME & Migrant':
+        return bmeMigrant
       default:
         return crisisRelief
     }

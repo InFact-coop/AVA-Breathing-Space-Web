@@ -110,7 +110,7 @@ const NavbarStyled = styled.nav.attrs(
       lines > 1 ? 'flex-wrap' : 'flex-no-wrap'
     } items-center justify-between bg-${colour}${
       border ? ' border-b border-lightgray' : ''
-    }${left ? ' pl-4.5' : ''}${right ? ' pr-5.5' : ''}`,
+    }${left ? ' pl-5' : ''}${right ? ' pr-5.5' : ''}`,
   }),
 )``
 
