@@ -56,6 +56,7 @@ const Carousel = styled(Flickity).attrs({
   className: 'mb-5',
 })`
   margin-left: -20px;
+  margin-right: -20px;
 `
 
 const StoriesStyled = styled(Container).attrs({
