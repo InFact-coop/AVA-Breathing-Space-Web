@@ -6,6 +6,7 @@ import Flickity from 'react-flickity-component'
 import formatAuthor from '../../lib/formatAuthor'
 
 import Arrow from '../../public/icons/forwardArrow.svg'
+import Sound from '../../public/icons/sound.svg'
 
 import client from '../../client'
 import Container from '../../components/Container'
@@ -16,6 +17,7 @@ const GET_STORIES = `*[ _type == "story" && !(_id in path('drafts.**'))]{
   "title": author,
   "tags": tags[]->title,
   preview,
+  "media": defined(audio) || defined(video), 
   "slug": slug.current
 }
 `
@@ -29,15 +31,24 @@ const StoryStyled = styled.div.attrs({
 })``
 
 const StoryTitle = styled.h2.attrs({
-  className: 'font-base flex items-end text-darkpurple font-bold mb-2.5',
+  className: 'font-base flex items-end text-darkpurple font-bold',
 })``
 
 const Preview = styled.div.attrs({ className: 'font-lg font-serif mb-4' })``
 
-const Story = ({ title, slug, preview }) => (
+const Story = ({ title, slug, preview, media }) => (
   <a href={`/stories/${slug}`} key={slug}>
     <StoryStyled>
-      <StoryTitle>{title}</StoryTitle>
+      <div className="flex justify-between items-start mb-2.5">
+        <StoryTitle>{title}</StoryTitle>
+        {media && (
+          <img
+            className="mr-2.5 mb-2.5"
+            alt="Volume icon signifying that this story has media content"
+            src={Sound}
+          />
+        )}
+      </div>
       <Preview>{preview}</Preview>
       <p className="font-med">
         Read more <img className="inline-block" alt="arrow" src={Arrow} />
@@ -55,8 +66,10 @@ const Carousel = styled(Flickity).attrs({
   },
   className: 'mb-5',
 })`
-  margin-left: -20px;
-  margin-right: -20px;
+  @media (max-width: 64rem) {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
 `
 
 const StoriesStyled = styled(Container).attrs({
@@ -145,8 +158,14 @@ const Stories = props => {
         you look after yourself when reading them. You can share yours using the
         button at the end.
       </p>
-      {selectedStories.map(({ title, slug, preview }) => (
-        <Story title={title} slug={slug} preview={preview} key={slug} />
+      {selectedStories.map(({ title, slug, preview, media }) => (
+        <Story
+          title={title}
+          slug={slug}
+          preview={preview}
+          key={slug}
+          media={media}
+        />
       ))}
       <PurpleButton href="/stories/share-your-story">
         Share your story
