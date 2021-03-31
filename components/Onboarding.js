@@ -55,6 +55,8 @@ const Onboarding = () => {
       setOnboarding(true)
       document.body.style.overflow = 'hidden'
     }
+
+    return () => (document.body.style.overflow = 'auto')
   }, [])
 
   const landingToOnboarding = () => {
