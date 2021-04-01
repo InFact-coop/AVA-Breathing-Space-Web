@@ -19,7 +19,7 @@ const CategoryStyled = styled(Container).attrs({
 })``
 
 const CrisisInfo = styled.div.attrs({
-  className: 'bg-darkpurple w-screen text-white px-5 py-2.5 mt-5 font-base',
+  className: 'bg-darkpurple w-100 text-white px-5 py-2.5 my-5 font-base',
 })``
 
 const EmergencyCopy = styled.p.attrs({
@@ -103,7 +103,7 @@ const Category = ({ query: { category } }) => {
         <CrisisInfo>
           <p className="mb-2.5">
             If you need urgent help, contact the National Domestic Violence
-            Htelpline on{' '}
+            Helpline on{' '}
             <a className="underline" href="tel:0808-2000-247">
               0808 2000 247
             </a>
@@ -114,6 +114,16 @@ const Category = ({ query: { category } }) => {
               If you don&apos;t feel safe, call 999.
             </span>
           </EmergencyCopy>
+        </CrisisInfo>
+      )}
+      {category === 'bme-and-migrant' && (
+        <CrisisInfo>
+          <p className="mb-2.5">
+            This section includes culturally sensitive support for Black and
+            minoritised survivors and migrant women, or women with insecure
+            immigration status. Breathing Space is an inclusive app for all
+            survivors.
+          </p>
         </CrisisInfo>
       )}
       <CategoryStyled>
@@ -145,7 +155,7 @@ const FilterButton = ({ children, imgSrc, className, onClick }) => (
 
 const StyledFilterButton = styled.button.attrs({
   className:
-    'flex items-center justify-between w-full px-4 py-3 border-b border-lightgray last:mb-4 bg-white text-left',
+    'flex items-center justify-between w-full px-5 py-3 border-b border-lightgray last:mb-4 bg-white text-left',
 })``
 
 export default Category

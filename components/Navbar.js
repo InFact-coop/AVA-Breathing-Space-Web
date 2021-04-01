@@ -8,12 +8,14 @@ import Link from 'next/link'
 import gql from 'graphql-tag'
 import Router, { useRouter } from 'next/router'
 
+import client from '../client'
 import AppContext from '../lib/AppContext'
 import getParentPath from '../lib/getParentPath'
 
 import BackIcon from '../public/icons/back-black.svg'
 import CrossIcon from '../public/icons/cross-black.svg'
-// import HeartIcon from '../public/icons/heart-black.svg'
+import HeartIcon from '../public/icons/heart-black.svg'
+import HeartFilledIcon from '../public/icons/heart-black-filled.svg'
 import { HOME, RELATIVE, DISCARD } from '../lib/constants'
 
 const GET_NAVBAR_COLOUR = gql`
@@ -57,11 +59,25 @@ const Next = ({ onClick }) => (
   </NextButton>
 )
 
-// const Heart = styled.img.attrs({
-//   className: '',
-//   onClick: () => ({}), // TODO: Write plus-one function
-//   src: HeartIcon,
-// })``
+const Heart = ({ pageID, likedPageIDs, setLikedPageIDs }) => {
+  const isLiked = R.includes(pageID, likedPageIDs)
+  return (
+    <button
+      onClick={async () => {
+        if (isLiked) {
+          setLikedPageIDs(R.without([pageID], likedPageIDs))
+          await client.patch(pageID).dec({ likes: 1 }).commit()
+        }
+        if (!isLiked) {
+          setLikedPageIDs(R.append(pageID, likedPageIDs))
+          await client.patch(pageID).inc({ likes: 1 }).commit()
+        }
+      }}
+    >
+      <img src={isLiked ? HeartFilledIcon : HeartIcon} alt="Heart icon" />
+    </button>
+  )
+}
 
 const Clear = styled.div.attrs({
   className: 'text-gray pr-4.5 font-med',
@@ -110,7 +126,7 @@ const NavbarStyled = styled.nav.attrs(
       lines > 1 ? 'flex-wrap' : 'flex-no-wrap'
     } items-center justify-between bg-${colour}${
       border ? ' border-b border-lightgray' : ''
-    }${left ? ' pl-4.5' : ''}${right ? ' pr-5.5' : ''}`,
+    }${left ? ' pl-5' : ''}${right ? ' pr-5.5' : ''}`,
   }),
 )``
 
@@ -131,6 +147,9 @@ const Navbar = ({
 }) => {
   const {
     modal: { closeModal },
+    pageID,
+    likedPageIDs,
+    setLikedPageIDs,
   } = useContext(AppContext)
 
   const { loading, error, data } = useQuery(GET_NAVBAR_COLOUR)
@@ -158,7 +177,14 @@ const Navbar = ({
       {title && <Title font={font}>{title}</Title>}
       {next && <Next onClick={next} />}
       {clear && <Clear onClick={clear} />}
-      {(emptyRight || heart) && <div />}
+      {heart && (
+        <Heart
+          pageID={pageID}
+          likedPageIDs={likedPageIDs}
+          setLikedPageIDs={setLikedPageIDs}
+        />
+      )}
+      {emptyRight && <div />}
     </NavbarStyled>
   )
 }
@@ -186,7 +212,6 @@ export const getNavbarOptions = ({ _type, title, clear, next }) => {
         back: RELATIVE,
         border: true,
         heart: true,
-        empty: true,
         fallbackColour: 'tealcoral',
         title,
       }
@@ -194,7 +219,7 @@ export const getNavbarOptions = ({ _type, title, clear, next }) => {
       return {
         back: RELATIVE,
         border: true,
-        empty: true,
+        emptyRight: true,
         font: 'serif font-xl',
         fallbackColour: 'tealcoral',
         lines: 2,

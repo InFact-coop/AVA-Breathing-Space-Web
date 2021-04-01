@@ -53,11 +53,15 @@ const Onboarding = () => {
   useEffect(() => {
     if (onboarding === null) {
       setOnboarding(true)
+      document.body.style.overflow = 'hidden'
     }
+
+    return () => (document.body.style.overflow = 'auto')
   }, [])
 
   const landingToOnboarding = () => {
     setLanding(false)
+    document.body.style.overflow = 'auto'
   }
 
   if (!onboarding) return null
