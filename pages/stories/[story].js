@@ -1,15 +1,19 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
 
 import client from '../../client'
 import formatAuthor from '../../lib/formatAuthor'
 
 import Block from '../../components/Block'
 import Container from '../../components/Container'
+import Likes from '../../components/Likes'
 import { PurpleButton } from '../../components/Button'
+
+import AppContext from '../../lib/AppContext'
 
 const GET_STORY = `*[_type == "story" && slug.current == $slug][0]{
   _type,
+  "parentID": _id,
   "title": author,
   tags, 
   body,
@@ -60,6 +64,9 @@ const StoryTranscript = ({ transcript }) => {
 const Story = props => {
   const [story] = useState(props)
   const { title, body, audio, video, transcript, likes } = story
+  const { setPageID } = useContext(AppContext)
+
+  useEffect(() => setPageID(story.parentID), [])
 
   return (
     <>
@@ -71,6 +78,7 @@ const Story = props => {
         <StoryMedia audio={audio} video={video} />
       </StoryStyled>
       <StoryTranscript transcript={transcript} />
+      <Likes likes={likes} className="mt-6" />
       <PurpleButton href="/stories/share-your-story" className="mx-5 mt-7.5">
         Share your story
       </PurpleButton>
