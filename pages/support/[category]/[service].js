@@ -1,12 +1,15 @@
+import { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import * as R from 'ramda'
 
 import Container from '../../../components/Container'
 import Contact from '../../../components/Contact'
 import Comments from '../../../components/Comment'
+import Likes from '../../../components/Likes'
 import CommentForm from '../../../components/CommentForm'
 import { ServiceDetails } from '../../../components/Service'
 
+import AppContext from '../../../lib/AppContext'
 import client from '../../../client'
 
 const GET_SERVICE_DETAILS = `*[_type == "supportService" && slug.current == $slug][0] {
@@ -50,6 +53,7 @@ const Service = ({
     logo,
     tags,
     link,
+    likes,
     email,
     phonelines,
     summary,
@@ -58,6 +62,9 @@ const Service = ({
   },
   form: { formTitle, subtitle, inputsFromSanity, confirmationText },
 }) => {
+  const { setPageID } = useContext(AppContext)
+  useEffect(() => setPageID(parentID), [])
+
   return (
     <>
       <ServiceStyled>
@@ -67,7 +74,7 @@ const Service = ({
       {phonelines && R.map(Contact)(phonelines)}
       {link && <Contact link={link} className="py-7.5" />}
       {email && <Contact email={email} className="py-7.5" />}
-      {commentsToggle && (
+      {commentsToggle ? (
         <>
           <CommentForm
             {...{
@@ -78,8 +85,14 @@ const Service = ({
               parentID,
             }}
           />
+          <Likes likes={likes} />
           <Comments {...{ slug, _type: 'supportService' }} />{' '}
         </>
+      ) : (
+        <Likes
+          likes={likes}
+          className="bg-white py-7.5 border-b border-lightgray shadow"
+        />
       )}
     </>
   )

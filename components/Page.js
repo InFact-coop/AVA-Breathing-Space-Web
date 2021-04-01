@@ -24,6 +24,9 @@ const Page = ({ _type, title, pageTitle, children }) => {
     Modal: undefined,
   })
 
+  const [pageID, setPageID] = useState(undefined)
+  const [likedPageIDs, setLikedPageIDs] = useLocalStorage('likedPageIDs', [])
+
   const [quickExitPage, setQuickExitPage] = useLocalStorage(
     'quickExit',
     'google.com',
@@ -74,6 +77,10 @@ const Page = ({ _type, title, pageTitle, children }) => {
           setQuickExitPage,
           region,
           setRegion,
+          pageID,
+          setPageID,
+          likedPageIDs,
+          setLikedPageIDs,
         }}
       >
         <Onboarding
