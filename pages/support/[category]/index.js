@@ -118,7 +118,12 @@ const Category = ({ query: { category } }) => {
       )}
       {category === 'bme-and-migrant' && (
         <CrisisInfo>
-          <p className="mb-2.5">Copy to go here</p>
+          <p className="mb-2.5">
+            This section includes culturally sensitive support for Black and
+            minoritised survivors and migrant women, or women with insecure
+            immigration status. Breathing Space is an inclusive app for all
+            survivors.
+          </p>
         </CrisisInfo>
       )}
       <CategoryStyled>
