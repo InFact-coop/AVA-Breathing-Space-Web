@@ -5,7 +5,6 @@ import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 import infoIcon from '../public/icons/infoWhite.svg'
 import Contact from '../components/Contact'
 import toggleInfo from '../public/icons/toggleInfo.svg'
-require('details-polyfill')
 
 const { theme } = resolveConfig(tailwindConfig)
 
