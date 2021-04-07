@@ -13,8 +13,6 @@ import '../styles/index.css' //eslint-disable-line
 import Page from '../components/Page'
 import Meta from '../components/Meta'
 
-require('details-polyfill')
-
 const { theme } = resolveConfig(tailwindConfig)
 
 class BreathingSpace extends App {
