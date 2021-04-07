@@ -134,7 +134,7 @@ const Title = styled.h2.attrs({
 })``
 
 const FeedbackStyled = styled(Container).attrs({
-  className: '',
+  className: 'px-5 py-5',
 })``
 
 const Feedback = ({ body, inputsFromSanity, subtitle, confirmationText }) => {

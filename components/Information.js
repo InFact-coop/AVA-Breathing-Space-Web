@@ -29,7 +29,7 @@ const Information = ({ background, props }) => {
       </InformationStyled>
       <Block
         body={information.body}
-        className={`font-base p-5 h-full max-w-256 font-normal ${background} ${
+        className={`font-base px-5 pt-5 h-full max-w-256 font-normal ${background} ${
           background === 'bg-white' && 'shadow'
         }`}
         imageOptions={{ w: 320, h: 240, fit: 'max' }}
