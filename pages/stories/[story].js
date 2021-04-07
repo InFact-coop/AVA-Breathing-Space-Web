@@ -34,9 +34,11 @@ const StoryStyled = styled(Container).attrs({
 const StoryMedia = ({ audio, video }) => {
   if (audio) {
     return (
-      <audio controls className="w-full">
-        <source src={audio} />
-      </audio>
+      <div className="">
+        <audio controls className="w-full">
+          <source src={audio} />
+        </audio>
+      </div>
     )
   }
 
@@ -49,8 +51,9 @@ const StoryTranscript = ({ transcript }) => {
   return (
     transcript && (
       <div className="border-t border-midgray border-solid bg-white shadow">
+        <p className="px-5 font-bold mt-5 mb-2.5">Transcript</p>
         <Block
-          className="p-5 font-base font-normal leading-large"
+          className="px-5 pb-5 font-base font-normal leading-large"
           body={transcript}
         />
       </div>

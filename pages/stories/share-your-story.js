@@ -153,7 +153,7 @@ const Title = styled.h2.attrs({
 })``
 
 const ShareStoryStyled = styled(Container).attrs({
-  className: 'px-5 py-5',
+  className: '',
 })``
 
 const ShareStory = ({ body, inputsFromSanity, subtitle, confirmationText }) => {

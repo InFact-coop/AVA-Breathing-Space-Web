@@ -15,8 +15,8 @@ const StyledLink = styled.a``
 const Footer = () => (
   <FooterStyled>
     <div className="flex flex-col">
-      <Link href="/about-us" passHref>
-        <StyledLink>About Us</StyledLink>
+      <Link href="/about-ava" passHref>
+        <StyledLink>About AVA</StyledLink>
       </Link>
       <Link href="/contact-us" passHref>
         <StyledLink>Contact us</StyledLink>

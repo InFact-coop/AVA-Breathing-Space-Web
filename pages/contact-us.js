@@ -134,7 +134,7 @@ const Title = styled.h2.attrs({
 })``
 
 const ContactUsStyled = styled(Container).attrs({
-  className: 'px-5 py-5',
+  className: '',
 })``
 
 const ContactUs = ({ body, inputsFromSanity, subtitle, confirmationText }) => {
