@@ -59,6 +59,7 @@ const Category = ({ query: { category } }) => {
 
   const applyFilters = async ({
     checkedFilters = filters,
+    filterTypes,
     sortType = sort,
     selectedRegion = region,
   }) => {
@@ -68,9 +69,23 @@ const Category = ({ query: { category } }) => {
 
     const sortBy = getSortBy(sortType)
 
+    const checkedFilterCategories = R.reduce(
+      (acc, filterType) => {
+        const checked = R.filter(checkedFilter =>
+          filterType.filters.includes(checkedFilter),
+        )(checkedFilters)
+
+        if (checked) return { ...acc, [filterType.title]: checked }
+        return acc
+      },
+      {},
+      filterTypes,
+    )
+
     const { supportServices: byFilter } = await fetchServices({
       slug: category,
       filters: checkedFilters,
+      checkedFilterCategories,
       chosenRegion: selectedRegion?.value || null,
       sortBy,
     })
