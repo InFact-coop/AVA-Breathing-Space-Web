@@ -4094,6 +4094,11 @@ destroy@~1.0.4:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
+details-polyfill@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/details-polyfill/-/details-polyfill-1.2.0.tgz#daa3e84d3842fee2555118ee1a521fa53bb1392f"
+  integrity sha512-jnozpT1eo4c61PGY14Hv1zzqRW+jbrYt8kvd2QwLO9wec0yD0o+3U+CE8SDS4zCRYjZmSedi6Wln5y91VFrZEg==
+
 detect-newline@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-2.1.0.tgz#f41f1c10be4b00e87b5f13da680759f2c5bfd3e2"
