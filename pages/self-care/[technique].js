@@ -36,7 +36,7 @@ const GET_SELF_CARE_TECHNIQUE = `*[_type == "selfcareTechnique" && slug.current 
 }`
 
 const TechniqueStyled = styled(Container).attrs({
-  className: 'bg-white',
+  className: 'bg-white py-5 px-5',
 })``
 
 const TechniqueTitle = styled.h2.attrs({
@@ -81,8 +81,8 @@ const Technique = ({
           imageOptions={{ w: 320, h: 240, fit: 'max' }}
         />
         {technique.link && (
-          <div className="border-t border-lightgray py-5">
-            <p className="font-bold mb-4">More techniques like this: </p>
+          <div className="mt-5 border-t border-lightgray py-5">
+            <p className="font-bold mb-4">More like this: </p>
             <p className="inline-block">
               <img className="inline mr-3.5" alt="web icon" src={web} />
               {technique.link}

@@ -4,6 +4,7 @@ import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 import infoIcon from '../public/icons/infoWhite.svg'
 import Contact from '../components/Contact'
+import toggleInfo from '../public/icons/toggleInfo.svg'
 
 const { theme } = resolveConfig(tailwindConfig)
 
@@ -48,6 +49,10 @@ const KarlaHeading = styled.h1.attrs({
   className: 'font-karla font-xl mb-2.5',
 })``
 
+const PurpleHeading = styled.h3.attrs({
+  className: 'font-serif font-xl pb-5 mt-10 text-darkpurple',
+})``
+
 const StandoutParagraph = styled.h4.attrs({
   className: 'font-xl mb-5 font-serif',
 })`
@@ -71,6 +76,48 @@ const RestyledContact = styled(Contact).attrs({})`
   box-shadow: none;
 `
 
+const TranscriptContainer = styled.div.attrs({
+  className: 'flex justify-between',
+})`
+  details {
+    display: inline;
+  }
+
+  summary {
+    list-style-type: none;
+    width: calc(100vw - 40px);
+  }
+
+  [open] summary {
+    img {
+      transform: rotate(180deg);
+    }
+  }
+
+  position: relative;
+`
+
+const Transcript = ({ props }) => {
+  const textArray = props.node.content
+
+  const textContent = textArray.map(({ children }, index) => {
+    const [{ text }] = children
+    return <StyledParagraph key={index}>{text}</StyledParagraph>
+  })
+
+  return (
+    <TranscriptContainer>
+      <details>
+        <summary className="mb-4.5 underline font-bold flex justify-between">
+          <span>Transcript</span>
+          <img alt="arrow icon" src={toggleInfo} />
+        </summary>
+        {textContent}
+      </details>
+    </TranscriptContainer>
+  )
+}
+
 const serializers = {
   list: ({ children }) => {
     return <StyledList>{children}</StyledList>
@@ -89,6 +136,8 @@ const serializers = {
           return <KarlaHeading>{props.children}</KarlaHeading>
         case 'h2':
           return <StyledSubheading>{props.children}</StyledSubheading>
+        case 'h3':
+          return <PurpleHeading>{props.children}</PurpleHeading>
         case 'h4':
           return <StandoutParagraph>{props.children}</StandoutParagraph>
         case 'blockquote':
@@ -116,23 +165,34 @@ const serializers = {
         />
       )
     },
-  },
-
-  marks: {
-    internalLink: ({ mark, children }) => {
-      const { slug = {} } = mark
-      const href = `/${slug.current}`
-      return <a href={href}>{children}</a>
-    },
-    link: ({ mark, children }) => {
-      const { blank, href } = mark
-      return blank ? (
-        <a href={href} target="_blank" rel="noopener noreferrer">
-          {children}
-        </a>
-      ) : (
-        <a href={href}>{children}</a>
+    audio(props) {
+      const { audioURL } = props.node
+      return (
+        <audio controls className="mb-2.5 -mt-2.5 w-full">
+          <source src={audioURL} />
+        </audio>
       )
+    },
+    transcript(props) {
+      return <Transcript props={props} />
+    },
+
+    marks: {
+      internalLink: ({ mark, children }) => {
+        const { slug = {} } = mark
+        const href = `/${slug.current}`
+        return <a href={href}>{children}</a>
+      },
+      link: ({ mark, children }) => {
+        const { blank, href } = mark
+        return blank ? (
+          <a href={href} target="_blank" rel="noopener noreferrer">
+            {children}
+          </a>
+        ) : (
+          <a href={href}>{children}</a>
+        )
+      },
     },
   },
 }
