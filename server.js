@@ -11,6 +11,7 @@ app.prepare().then(() => {
   const server = express()
 
   if (!dev) {
+    console.log('not dev') // eslint-disable-line
     server.use(enforce.HTTPS({ trustProtoHeader: true })) // eslint-disable-line
   }
 
