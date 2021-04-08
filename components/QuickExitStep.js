@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import client from '../client'
 import AppContext from '../lib/AppContext'
 
-import Block from './Block'
+import { Block } from './BlockSerializers'
 import Exit from './Exit'
 
 const GET_QUICK_EXIT_FORM = `*[_type == "form" && slug.current == "quick-exit"][0]{

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import Block from './Block'
+import { Block } from './BlockSerializers'
 
 const InformationStyled = styled.section.attrs({
   className: 'pt-5 px-5 h-full max-w-256',

@@ -5,7 +5,7 @@ import Container from '../../components/Container'
 import Comments from '../../components/Comment'
 import CommentForm from '../../components/CommentForm'
 import Likes from '../../components/Likes'
-import Block from '../../components/Block'
+import { Block } from '../../components/BlockSerializers'
 
 import web from '../../public/icons/web.svg'
 

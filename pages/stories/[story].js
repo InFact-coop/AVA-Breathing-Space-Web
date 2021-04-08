@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from 'react'
 import client from '../../client'
 import formatAuthor from '../../lib/formatAuthor'
 
-import Block from '../../components/Block'
+import { Block } from '../../components/BlockSerializers'
 import Container from '../../components/Container'
 import Likes from '../../components/Likes'
 import { PurpleButton } from '../../components/Button'

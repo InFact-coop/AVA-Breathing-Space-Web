@@ -13,7 +13,7 @@ import Modal from '../components/Modal'
 import Container from '../components/Container'
 import { PurpleButton } from '../components/Button'
 import { Input } from '../components/Form'
-import Block from '../components/Block'
+import { Block } from '../components/BlockSerializers'
 
 const GET_FEEDBACK_FORM = `*[_type == "form" && slug.current == "feedback"][0]{
   _type, 

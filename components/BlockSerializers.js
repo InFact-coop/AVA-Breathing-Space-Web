@@ -1,12 +1,27 @@
 /* eslint-disable react/display-name */
+import BlockContent from '@sanity/block-content-to-react'
 import styled from 'styled-components'
 import resolveConfig from 'tailwindcss/resolveConfig'
+import client from '../client'
 import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 import infoIcon from '../public/icons/infoWhite.svg'
-import Contact from '../components/Contact'
 import toggleInfo from '../public/icons/toggleInfo.svg'
+import Contact from './Contact'
 
 const { theme } = resolveConfig(tailwindConfig)
+
+const Block = ({ className, body, imageOptions }) => (
+  <BlockContent
+    blocks={body}
+    className={className}
+    renderContainerOnSingleChild={true}
+    imageOptions={imageOptions}
+    serializers={serializers}
+    projectId="is8j72h6"
+    dataset={process.env.SANITY_DATASET}
+    {...client.config()}
+  />
+)
 
 const StyledList = styled.ul.attrs({
   className: 'pt-2.5 mb-5',
@@ -76,7 +91,7 @@ const RestyledContact = styled(Contact).attrs({})`
   box-shadow: none;
 `
 
-const TranscriptContainer = styled.div.attrs({
+const ToggleContainer = styled.div.attrs({
   className: 'flex justify-between',
 })`
   details {
@@ -97,24 +112,19 @@ const TranscriptContainer = styled.div.attrs({
   position: relative;
 `
 
-const Transcript = ({ props }) => {
-  const textArray = props.node.content
-
-  const textContent = textArray.map(({ children }, index) => {
-    const [{ text }] = children
-    return <StyledParagraph key={index}>{text}</StyledParagraph>
-  })
+const Toggle = ({ props }) => {
+  const { title, content } = props.node
 
   return (
-    <TranscriptContainer>
+    <ToggleContainer>
       <details>
         <summary className="mb-4.5 underline font-bold flex justify-between">
-          <span>Transcript</span>
+          <span>{title}</span>
           <img alt="arrow icon" src={toggleInfo} />
         </summary>
-        {textContent}
+        <Block body={content} />
       </details>
-    </TranscriptContainer>
+    </ToggleContainer>
   )
 }
 
@@ -173,8 +183,8 @@ const serializers = {
         </audio>
       )
     },
-    transcript(props) {
-      return <Transcript props={props} />
+    toggle(props) {
+      return <Toggle props={props} />
     },
 
     marks: {
@@ -197,4 +207,4 @@ const serializers = {
   },
 }
 
-export default serializers
+export { serializers, Block }
