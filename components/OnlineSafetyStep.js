@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import client from '../client'
 import { Block } from './BlockSerializers'
 
-const GET_ONLINE_SAFETY_STEP = `*[_type == "page" && title == "Online Safety"][0]`
+const GET_ONLINE_SAFETY_STEP = `*[_type == "page" && slug.current == "online-safety"][0]`
 
 const OnlineSafetyStep = () => {
   const [props, updateProps] = useState()

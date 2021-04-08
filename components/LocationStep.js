@@ -6,7 +6,7 @@ import { RegionSelect } from './LocationFilter'
 import { Block } from './BlockSerializers'
 import Exit from './Exit'
 
-const GET_LOCATION_STEP = `*[_type == "page" && title == "Customise Location"][0]`
+const GET_LOCATION_STEP = `*[_type == "page" && slug.current == "customise-location"][0]`
 
 const LocationStep = ({ closeOnboarding }) => {
   const { setRegion } = useContext(AppContext)

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import client from '../client'
 import { Block } from './BlockSerializers'
 
-const GET_WELCOME_STEP = `*[_type == "page" && title == "Welcome"][0]`
+const GET_WELCOME_STEP = `*[_type == "page" && slug.current == "welcome"][0]`
 
 const WelcomeStep = () => {
   const [props, updateProps] = useState()
