@@ -13,7 +13,7 @@ import { SHARE_STORY, DELETE_STORY, STORY_SHARED } from '../../lib/constants'
 import Modal from '../../components/Modal'
 import Container from '../../components/Container'
 import { PurpleButton, CoralButton } from '../../components/Button'
-import Block from '../../components/Block'
+import { Block } from '../../components/BlockSerializers'
 import { Input } from '../../components/Form'
 
 import client from '../../client'

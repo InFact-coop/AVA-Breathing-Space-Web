@@ -5,7 +5,7 @@ import * as R from 'ramda'
 import client from '../client'
 import AppContext from '../lib/AppContext'
 
-import Block from './Block'
+import { Block } from './BlockSerializers'
 import Exit from './Exit'
 
 const GET_QUICK_EXIT_FORM = `*[_type == "form" && slug.current == "quick-exit"][0]{
@@ -42,7 +42,7 @@ const QuickExitForm = ({ inputsFromSanity }) => {
             value={input.title}
             name="quick-exit-site"
             className="mr-2.5 mb-4"
-            checked={input.title === quickExitPage}
+            defaultChecked={input.title === quickExitPage}
           />
           <label className="font-med" htmlFor={input.title}>
             {input.title}
