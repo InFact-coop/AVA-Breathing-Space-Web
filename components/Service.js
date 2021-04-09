@@ -2,10 +2,6 @@ import styled from 'styled-components'
 import * as R from 'ramda'
 import rightArrow from '../public/icons/right-arrow.svg'
 
-const Name = styled.div.attrs({
-  className: 'font-lg mb-3.75',
-})``
-
 const Logo = styled.img.attrs({
   className: 'max-w-22.5 w-full',
 })`
@@ -38,31 +34,30 @@ const Tag = ({ title, icon = '' }, index) => {
     </div>
   )
 }
-const Tags = styled.ul.attrs({
-  className: 'mb-3.75 list-disc list-outside text-gray',
+const Tags = styled.div.attrs({
+  className: 'mb-4 text-gray',
 })``
 
 const PreviewStyled = styled.div.attrs({
-  className:
-    'px-2.5 py-4 shadow mb-2 bg-white rounded flex justify-between w-full',
+  className: 'px-2.5 py-4 shadow mb-2 bg-white rounded w-full',
 })``
 
 const DetailsStyled = styled.div.attrs({
-  className: 'flex justify-between',
+  className: 'w-full',
 })``
 
 export const ServicePreview = ({ name, logo, tags, slug }, index) => (
   <Link href={`/${slug}`} key={`service-preview-${index}`}>
     <PreviewStyled key={`ServicePreview-${index}`}>
       <div className="flex justify-between">
-        <Name>{name}</Name>
+        <p className="font-lg mb-4">{name}</p>
         <LogoContainer>
           {logo && <Logo src={logo} alt={`${name} logo`} />}
         </LogoContainer>
       </div>
       {tags && <Tags>{R.addIndex(R.map)(Tag)(tags)}</Tags>}
       <div className="flex">
-        More details <Arrow />
+        View details <Arrow />
       </div>
     </PreviewStyled>
   </Link>
@@ -71,13 +66,13 @@ export const ServicePreview = ({ name, logo, tags, slug }, index) => (
 export const ServiceDetails = ({ title, logo, tags }) => {
   return (
     <DetailsStyled>
-      <div>
-        <Name>{title}</Name>
-        {tags && <Tags>{R.addIndex(R.map)(Tag)(tags)}</Tags>}
+      <div className="flex justify-between">
+        <p className="font-xl mb-3">{title}</p>
+        <LogoContainer>
+          {logo && <Logo src={logo} alt={`${title} logo`} />}
+        </LogoContainer>
       </div>
-      <LogoContainer>
-        {logo && <Logo src={logo} alt={`${title} logo`} />}
-      </LogoContainer>
+      {tags && <Tags>{R.addIndex(R.map)(Tag)(tags)}</Tags>}
     </DetailsStyled>
   )
 }
