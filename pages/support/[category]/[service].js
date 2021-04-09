@@ -20,7 +20,7 @@ const GET_SERVICE_DETAILS = `*[_type == "supportService" && slug.current == $slu
     "title": name,
     shortName,
     "logo": logo.asset->url,
-    "tags": tags[]->title,
+    "tags": tags[]->{title, icon},
     summary,
     link,
     email,

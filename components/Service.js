@@ -12,13 +12,10 @@ const Logo = styled.img.attrs({
   filter: grayscale(100%);
 `
 
-const Left = styled.div.attrs({
-  className: 'w-3/4',
-})``
-
-const Right = styled.div.attrs({
+const LogoContainer = styled.div.attrs({
   className: 'w-1/4 flex flex-col items-end',
 })``
+
 const Link = styled.a.attrs({
   className: 'font-med flex',
 })``
@@ -30,19 +27,20 @@ const Arrow = styled.img.attrs({
 })``
 
 const TagStyled = styled.span.attrs({
-  className: 'font-med relative -left-1.25',
+  className: 'font-med ml-3',
 })``
 
-const Tag = (tag, index) => (
-  <li key={`tag-${index}`}>
-    <TagStyled>{tag}</TagStyled>
-  </li>
-)
+const Tag = ({ title, icon = '' }, index) => {
+  return (
+    <div className="flex items-center mb-2" key={`tag-${index}`}>
+      <span className="lightgrey" dangerouslySetInnerHTML={{ __html: icon }} />
+      <TagStyled>{title}</TagStyled>
+    </div>
+  )
+}
 const Tags = styled.ul.attrs({
   className: 'mb-3.75 list-disc list-outside text-gray',
-})`
-  margin-left: 1.1rem;
-`
+})``
 
 const PreviewStyled = styled.div.attrs({
   className:
@@ -56,14 +54,16 @@ const DetailsStyled = styled.div.attrs({
 export const ServicePreview = ({ name, logo, tags, slug }, index) => (
   <Link href={`/${slug}`} key={`service-preview-${index}`}>
     <PreviewStyled key={`ServicePreview-${index}`}>
-      <Left>
+      <div className="flex justify-between">
         <Name>{name}</Name>
-        {tags && <Tags>{R.addIndex(R.map)(Tag)(tags)}</Tags>}
-        <div className="flex">
-          More details <Arrow />
-        </div>
-      </Left>
-      <Right>{logo && <Logo src={logo} alt={`${name} logo`} />}</Right>
+        <LogoContainer>
+          {logo && <Logo src={logo} alt={`${name} logo`} />}
+        </LogoContainer>
+      </div>
+      {tags && <Tags>{R.addIndex(R.map)(Tag)(tags)}</Tags>}
+      <div className="flex">
+        More details <Arrow />
+      </div>
     </PreviewStyled>
   </Link>
 )
@@ -71,11 +71,13 @@ export const ServicePreview = ({ name, logo, tags, slug }, index) => (
 export const ServiceDetails = ({ title, logo, tags }) => {
   return (
     <DetailsStyled>
-      <Left>
+      <div>
         <Name>{title}</Name>
         {tags && <Tags>{R.addIndex(R.map)(Tag)(tags)}</Tags>}
-      </Left>
-      <Right>{logo && <Logo src={logo} alt={`${title} logo`} />}</Right>
+      </div>
+      <LogoContainer>
+        {logo && <Logo src={logo} alt={`${title} logo`} />}
+      </LogoContainer>
     </DetailsStyled>
   )
 }
