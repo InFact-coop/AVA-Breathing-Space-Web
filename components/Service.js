@@ -26,14 +26,13 @@ const TagStyled = styled.span.attrs({
   className: 'font-med ml-3',
 })``
 
-const Tag = ({ title, icon = '' }, index) => {
-  return (
-    <div className="flex items-center mb-2" key={`tag-${index}`}>
-      <span className="lightgrey" dangerouslySetInnerHTML={{ __html: icon }} />
-      <TagStyled>{title}</TagStyled>
-    </div>
-  )
-}
+const Tag = ({ title, icon = '' }, index) => (
+  <div className="flex items-center mb-2" key={`tag-${index}`}>
+    <span className="lightgrey" dangerouslySetInnerHTML={{ __html: icon }} />
+    <TagStyled>{title}</TagStyled>
+  </div>
+)
+
 const Tags = styled.div.attrs({
   className: 'mb-4 text-gray',
 })``
