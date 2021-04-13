@@ -59,6 +59,7 @@ module.exports = {
       },
       width: {
         4.5: '1.125rem', // 18px
+        6: '1.5rem', //24px
         7.5: '1.875rem', // 30px
         36: '9rem', // 144px
         half: '49%', // 50%
@@ -73,6 +74,7 @@ module.exports = {
       height: {
         7.5: '1.875rem', // 30px
         8.75: '2.1875rem', // 35px
+        13.5: '3.375rem', // 54px
         25: '6.25rem', // 100px
         45: '11.25rem', // 180px
         50: '12.5rem', // 200px
