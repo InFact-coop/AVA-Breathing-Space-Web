@@ -3,11 +3,11 @@ import * as R from 'ramda'
 import toCamelCase from '../lib/toCamelCase'
 
 const StyledInput = styled.input.attrs({
-  className: 'border border-lightgray h-8.75 p-2.5 rounded-2.5',
+  className: 'border border-midgray h-13.5 py-4 px-2.5 rounded-2.5',
 })``
 
 const StyledTextArea = styled.textarea.attrs({
-  className: 'border border-lightgray rounded-2.5 p-2.5 w-full',
+  className: 'border border-midgray rounded-2.5 py-4 p-2.5 w-full',
   rows: '9',
 })``
 

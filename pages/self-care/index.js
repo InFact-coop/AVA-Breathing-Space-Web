@@ -101,7 +101,7 @@ const Category = ({ title, techniques, illustration }, index) => {
 }
 
 const SelfCareStyled = styled(Container).attrs({
-  className: '',
+  className: 'px-5 py-5',
 })``
 
 const SelfCare = ({ categories }) => {

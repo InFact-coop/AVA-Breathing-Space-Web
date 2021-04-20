@@ -20,7 +20,7 @@ const GET_SERVICE_DETAILS = `*[_type == "supportService" && slug.current == $slu
     "title": name,
     shortName,
     "logo": logo.asset->url,
-    "tags": tags[]->title,
+    "tags": tags[]->{title, icon},
     summary,
     link,
     email,
@@ -43,7 +43,7 @@ const ServiceSummary = styled.div.attrs({
 })``
 
 const ServiceStyled = styled(Container).attrs({
-  className: 'bg-white border-b border-lightgray',
+  className: 'bg-white px-5 py-5 border-b border-lightgray',
 })``
 
 const Service = ({

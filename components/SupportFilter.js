@@ -124,6 +124,7 @@ const SupportFilter = ({ filters, sort, applyFilters }) => {
         form="filterForm"
         onClick={() => {
           applyFilters({
+            filterTypes,
             checkedFilters,
             sortType,
           })

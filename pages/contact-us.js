@@ -13,7 +13,7 @@ import Modal from '../components/Modal'
 import Container from '../components/Container'
 import { PurpleButton } from '../components/Button'
 import { Input } from '../components/Form'
-import Block from '../components/Block'
+import { Block } from '../components/BlockSerializers'
 
 const GET_CONTACT_FORM = `*[_type == "form" && slug.current == "contact-us"][0]{
   _type, 
@@ -134,7 +134,7 @@ const Title = styled.h2.attrs({
 })``
 
 const ContactUsStyled = styled(Container).attrs({
-  className: '',
+  className: 'px-5 py-5',
 })``
 
 const ContactUs = ({ body, inputsFromSanity, subtitle, confirmationText }) => {

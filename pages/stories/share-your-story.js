@@ -13,8 +13,11 @@ import { SHARE_STORY, DELETE_STORY, STORY_SHARED } from '../../lib/constants'
 import Modal from '../../components/Modal'
 import Container from '../../components/Container'
 import { PurpleButton, CoralButton } from '../../components/Button'
-import Block from '../../components/Block'
+import { Block } from '../../components/BlockSerializers'
 import { Input } from '../../components/Form'
+
+import checkbox from '../../public/icons/checkbox.svg'
+import checkboxFilled from '../../public/icons/checkboxFilled.svg'
 
 import client from '../../client'
 
@@ -63,7 +66,7 @@ const onSubmit = onResponse => async (inputs, setInputs, initialState) => {
 const ShareButton = styled(PurpleButton).attrs(
   ({ formCompleted, openModal, updateModalAction }) => ({
     className: `mb-2.5 cursor-pointer w-full ${
-      formCompleted ? '' : 'opacity-50'
+      formCompleted ? 'pointer-events-auto' : 'opacity-50 pointer-events-none'
     }`,
     children: 'Share your story',
     onClick: e => {
@@ -102,6 +105,7 @@ const ShareStoryForm = ({ inputsFromSanity, confirmationText }) => {
   const { isOpen, openModal, closeModal, Modal: ModalContainer } = useModal()
   const [modalAction, updateModalAction] = useState('')
   const [formCompleted, updateFormCompleted] = useState(false)
+  const [permission, updatePermission] = useState(false)
 
   const [inputs, setInputs, handleInputChange, handleSubmit] = useForm(
     initialState,
@@ -117,17 +121,33 @@ const ShareStoryForm = ({ inputsFromSanity, confirmationText }) => {
   return (
     <form id="share-story" key="form" onSubmit={handleSubmit}>
       {R.map(passDownInput)(inputsFromSanity)}
-      <p className="text-med leading-lg mt-5 mb-3">
+      <p className="text-med leading-lg my-5">
         Stories submitted will be moderated by AVA’s team to prevent abusive
         content from being uploaded.
       </p>
       <p className="text-med font-bold leading-lg mb-5">
         It may take up to a month for your story to appear on the app.
       </p>
-      <ShareButton {...{ openModal, formCompleted, updateModalAction }} />
-      <p className="font-lg mb-5 mt-7.5 font-serif">
-        Sometimes you just need to let your story go instead. Tap the button
-        below to delete this story forever.
+      <div
+        className="w-100 m-w-[200] flex justify-start items-start mb-5"
+        onClick={() => updatePermission(!permission)}
+        onKeyDown={() => updatePermission(!permission)}
+      >
+        <img
+          alt="checkbox to give permission for sharing story"
+          className="w-6 mr-2.5"
+          src={permission ? checkboxFilled : checkbox}
+        />
+        <span>Do you consent to us publishing this?</span>
+      </div>
+      {permission && (
+        <ShareButton {...{ openModal, formCompleted, updateModalAction }} />
+      )}
+      <p className="font-xl mb-5 mt-7.5 font-serif">
+        Sometimes you just need to let your story go instead.{' '}
+      </p>
+      <p className="text-med leading-lg my-5">
+        Tap the button below to delete this story forever.
       </p>
       <DeleteButton {...{ openModal, formCompleted, updateModalAction }} />
       {isOpen && (
@@ -149,11 +169,11 @@ const ShareStoryForm = ({ inputsFromSanity, confirmationText }) => {
 }
 
 const Title = styled.h2.attrs({
-  className: 'font-serif text-lg leading-base mb-2.5',
+  className: 'font-serif text-xl leading-base mb-2.5',
 })``
 
 const ShareStoryStyled = styled(Container).attrs({
-  className: '',
+  className: 'px-5 py-5',
 })``
 
 const ShareStory = ({ body, inputsFromSanity, subtitle, confirmationText }) => {

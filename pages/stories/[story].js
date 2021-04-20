@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from 'react'
 import client from '../../client'
 import formatAuthor from '../../lib/formatAuthor'
 
-import Block from '../../components/Block'
+import { Block } from '../../components/BlockSerializers'
 import Container from '../../components/Container'
 import Likes from '../../components/Likes'
 import { PurpleButton } from '../../components/Button'
@@ -34,11 +34,9 @@ const StoryStyled = styled(Container).attrs({
 const StoryMedia = ({ audio, video }) => {
   if (audio) {
     return (
-      <div className="">
-        <audio controls className="w-full">
-          <source src={audio} />
-        </audio>
-      </div>
+      <audio controls className="w-full">
+        <source src={audio} />
+      </audio>
     )
   }
 
@@ -51,9 +49,8 @@ const StoryTranscript = ({ transcript }) => {
   return (
     transcript && (
       <div className="border-t border-midgray border-solid bg-white shadow">
-        <p className="px-5 font-bold mt-5 mb-2.5">Transcript</p>
         <Block
-          className="px-5 pb-5 font-base font-normal leading-large"
+          className="p-5 font-base font-normal leading-large"
           body={transcript}
         />
       </div>

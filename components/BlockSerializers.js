@@ -1,11 +1,27 @@
 /* eslint-disable react/display-name */
+import BlockContent from '@sanity/block-content-to-react'
 import styled from 'styled-components'
 import resolveConfig from 'tailwindcss/resolveConfig'
+import client from '../client'
 import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 import infoIcon from '../public/icons/infoWhite.svg'
-import Contact from '../components/Contact'
+import toggleInfo from '../public/icons/toggleInfo.svg'
+import Contact from './Contact'
 
 const { theme } = resolveConfig(tailwindConfig)
+
+const Block = ({ className, body, imageOptions }) => (
+  <BlockContent
+    blocks={body}
+    className={className}
+    renderContainerOnSingleChild={true}
+    imageOptions={imageOptions}
+    serializers={serializers}
+    projectId="is8j72h6"
+    dataset={process.env.SANITY_DATASET}
+    {...client.config()}
+  />
+)
 
 const StyledList = styled.ul.attrs({
   className: 'pt-2.5 mb-5',
@@ -48,6 +64,10 @@ const KarlaHeading = styled.h1.attrs({
   className: 'font-karla font-xl mb-2.5',
 })``
 
+const PurpleHeading = styled.h3.attrs({
+  className: 'font-serif font-xl pb-5 mt-10 text-darkpurple',
+})``
+
 const StandoutParagraph = styled.h4.attrs({
   className: 'font-xl mb-5 font-serif',
 })`
@@ -71,6 +91,43 @@ const RestyledContact = styled(Contact).attrs({})`
   box-shadow: none;
 `
 
+const ToggleContainer = styled.div.attrs({
+  className: 'flex justify-between',
+})`
+  details {
+    display: inline;
+  }
+
+  summary {
+    list-style-type: none;
+    width: calc(100vw - 40px);
+  }
+
+  [open] summary {
+    img {
+      transform: rotate(180deg);
+    }
+  }
+
+  position: relative;
+`
+
+const Toggle = ({ props }) => {
+  const { title, content } = props.node
+
+  return (
+    <ToggleContainer>
+      <details>
+        <summary className="mb-4.5 underline font-bold flex justify-between">
+          <span>{title}</span>
+          <img alt="arrow icon" src={toggleInfo} />
+        </summary>
+        <Block body={content} />
+      </details>
+    </ToggleContainer>
+  )
+}
+
 const serializers = {
   list: ({ children }) => {
     return <StyledList>{children}</StyledList>
@@ -89,6 +146,8 @@ const serializers = {
           return <KarlaHeading>{props.children}</KarlaHeading>
         case 'h2':
           return <StyledSubheading>{props.children}</StyledSubheading>
+        case 'h3':
+          return <PurpleHeading>{props.children}</PurpleHeading>
         case 'h4':
           return <StandoutParagraph>{props.children}</StandoutParagraph>
         case 'blockquote':
@@ -116,25 +175,36 @@ const serializers = {
         />
       )
     },
-  },
-
-  marks: {
-    internalLink: ({ mark, children }) => {
-      const { slug = {} } = mark
-      const href = `/${slug.current}`
-      return <a href={href}>{children}</a>
-    },
-    link: ({ mark, children }) => {
-      const { blank, href } = mark
-      return blank ? (
-        <a href={href} target="_blank" rel="noopener noreferrer">
-          {children}
-        </a>
-      ) : (
-        <a href={href}>{children}</a>
+    audio(props) {
+      const { audioURL } = props.node
+      return (
+        <audio controls className="mb-2.5 -mt-2.5 w-full">
+          <source src={audioURL} />
+        </audio>
       )
+    },
+    toggle(props) {
+      return <Toggle props={props} />
+    },
+
+    marks: {
+      internalLink: ({ mark, children }) => {
+        const { slug = {} } = mark
+        const href = `/${slug.current}`
+        return <a href={href}>{children}</a>
+      },
+      link: ({ mark, children }) => {
+        const { blank, href } = mark
+        return blank ? (
+          <a href={href} target="_blank" rel="noopener noreferrer">
+            {children}
+          </a>
+        ) : (
+          <a href={href}>{children}</a>
+        )
+      },
     },
   },
 }
 
-export default serializers
+export { serializers, Block }
