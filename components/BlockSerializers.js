@@ -96,11 +96,12 @@ const ToggleContainer = styled.div.attrs({
 })`
   details {
     display: inline;
+    width: 100%;
   }
 
   summary {
     list-style-type: none;
-    width: calc(100vw - 40px);
+    width: calc(100%);
   }
 
   [open] summary {
