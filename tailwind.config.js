@@ -68,6 +68,7 @@ module.exports = {
         36: '9rem', // 144px
       },
       maxWidth: {
+        16.25: '4.0625rem', // 65px
         22.5: '5.625rem', // 90px
         256: '64rem', //1024px
       },
@@ -82,6 +83,9 @@ module.exports = {
       minHeight: {
         content: 'calc(100vh - 200px - 60px)', // screen minus footer minus nav
         2.5: '0.625rem', // 10px
+      },
+      maxHeight: {
+        16.25: '4.0625rem', // 65px
       },
       borderRadius: {
         1.5: '0.375rem', // 6px
