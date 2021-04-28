@@ -49,21 +49,21 @@ const Category = ({ title, slug, theme }, index) => {
 
   const illustration = x => {
     switch (x) {
-      case 'Crisis Relief':
+      case 'crisis-relief':
         return crisisRelief
-      case 'Family and Children':
+      case 'family-and-children':
         return familyAndChildren
-      case 'Financial Support':
+      case 'financial-support':
         return financialSupport
-      case 'Housing':
+      case 'housing':
         return housing
-      case 'Legal Support':
+      case 'legal-support':
         return legalSupport
-      case 'Mental and Physical':
+      case 'mental-and-physical':
         return mentalAndPhysical
-      case 'Substance Use':
+      case 'substance-use':
         return substanceUse
-      case 'BME & Migrant':
+      case 'bme-and-migrant':
         return bmeMigrant
       default:
         return crisisRelief
@@ -79,7 +79,7 @@ const Category = ({ title, slug, theme }, index) => {
     >
       <CategoryStyled
         colour={theme.colors[colour]}
-        illustration={illustration(title)}
+        illustration={illustration(slug)}
         onClick={updateNavbarColour({ apollo, colour })}
       >
         {title}
