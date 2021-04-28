@@ -3,14 +3,16 @@ import * as R from 'ramda'
 import rightArrow from '../public/icons/right-arrow.svg'
 
 const Logo = styled.img.attrs({
-  className: 'max-w-22.5 w-full',
+  className: 'w-100',
 })`
   filter: grayscale(100%);
 `
 
 const LogoContainer = styled.div.attrs({
-  className: 'w-1/4 flex flex-col items-end',
-})``
+  className: 'w-1/4 max-w-16.25 flex flex-col items-end',
+})`
+  max-height: 42px;
+`
 
 const Link = styled.a.attrs({
   className: 'font-med flex',

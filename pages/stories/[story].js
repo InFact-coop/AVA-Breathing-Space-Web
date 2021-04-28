@@ -32,6 +32,17 @@ const StoryStyled = styled(Container).attrs({
 })``
 
 const StoryMedia = ({ audio, video }) => {
+  if (audio && video) {
+    return (
+      <>
+        <video className="w-full mb-5" src={video} controls />
+        <audio controls className="w-full">
+          <source src={audio} />
+        </audio>
+      </>
+    )
+  }
+
   if (audio) {
     return (
       <audio controls className="w-full">
@@ -63,6 +74,8 @@ const Story = props => {
   const { title, body, audio, video, transcript, likes } = story
   const { setPageID } = useContext(AppContext)
 
+  const hasMedia = audio || video
+
   useEffect(() => setPageID(story.parentID), [])
 
   return (
@@ -72,9 +85,9 @@ const Story = props => {
         {body && (
           <Block body={body} className="font-base font-normal leading-large" />
         )}
-        <StoryMedia audio={audio} video={video} />
+        {hasMedia && <StoryMedia audio={audio} video={video} />}
       </StoryStyled>
-      <StoryTranscript transcript={transcript} />
+      {transcript && <StoryTranscript transcript={transcript} />}
       <Likes likes={likes} className="mt-6" />
       <PurpleButton href="/stories/share-your-story" className="mx-5 mt-7.5">
         Share your story
