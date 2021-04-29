@@ -10,10 +10,7 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   const server = express()
 
-  console.log('not outside dev if statement') // eslint-disable-line
-
   if (!dev) {
-    console.log('not dev') // eslint-disable-line
     server.use(enforce.HTTPS({ trustProtoHeader: true })) // eslint-disable-line
   }
 
