@@ -85,7 +85,12 @@ const Technique = ({
             <p className="font-bold mb-4">More like this: </p>
             <p className="inline-block">
               <img className="inline mr-3.5" alt="web icon" src={web} />
-              <a className="underline" href={technique.link}>
+              <a
+                className="underline"
+                target="_blank"
+                rel="noreferrer"
+                href={technique.link}
+              >
                 {technique.link}
               </a>
             </p>
