@@ -4,9 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "NODE_ENV=production node server.js",
     "==lint&format==": "-----------------------------------------------------------------------------------",
     "format": "npm run prettier -- --write",
     "lint": "jest --config ./test/jest.lint.js",
