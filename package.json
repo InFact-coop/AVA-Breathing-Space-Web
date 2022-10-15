@@ -44,7 +44,7 @@
     "framer-motion": "^3.2.2-rc.1",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "next": "^9.4.2",
     "next-compose-plugins": "^2.2.0",
     "next-fonts": "^1.1.0",
@@ -78,7 +78,7 @@
     "lint-staged": "^10.2.4",
     "postcss-import": "^12.0.1",
     "prettier": "^2.2.1",
-    "shell-quote": "^1.7.2",
+    "shell-quote": "^1.7.3",
     "typescript": "^3.9.3"
   }
 }
