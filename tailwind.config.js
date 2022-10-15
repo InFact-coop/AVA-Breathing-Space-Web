@@ -24,6 +24,7 @@ module.exports = {
         1.5: '0.375rem', // 6px
         1.75: '0.5rem', // 8px
         2.5: '0.625rem', // 10px
+        3: '0.750rem', // 12px
         3.5: '0.875rem', // 14px
         3.75: '0.9375rem', // 15px
         4: '1rem', // 16px
@@ -94,6 +95,9 @@ module.exports = {
         2.5: '0.625rem', // 10px
         25: '6.25rem', // 100px
       },
+      borderWidth: {
+        0.5: '0.5px',
+      },
       opacity: {
         95: '0.95',
       },
@@ -120,6 +124,8 @@ module.exports = {
       // teal: '#2B8393', removed Jan 2021 to meet accessibility guidelines
       teal: '#297F8E',
       softred: '#F57479',
+      lightblue: '#CEDBFF',
+      opaquelightblue: 'rgba(206, 219, 255, 0.3)',
       // pastel colours
       lightviolet: '#DAD1EE',
       lightteal: '#C7ECEF',

@@ -1,5 +1,5 @@
 import client from '../../client'
-import Information from '../../components/Information'
+import { InformationStayingMum } from '../../components/Information'
 
 const GET_STAYING_MUM_ABOUT = `*[_type == "page" && slug.current == "about-staying-mum"][0]{
   ...,
@@ -12,7 +12,7 @@ const GET_STAYING_MUM_ABOUT = `*[_type == "page" && slug.current == "about-stayi
 }`
 
 const AboutStayingMum = props => {
-  return <Information background="" props={props} />
+  return <InformationStayingMum background="" props={props} />
 }
 
 export default AboutStayingMum
