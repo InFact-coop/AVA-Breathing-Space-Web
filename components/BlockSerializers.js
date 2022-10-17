@@ -65,8 +65,12 @@ const KarlaHeading = styled.h1.attrs({
 })``
 
 const PurpleHeading = styled.h3.attrs({
-  className: 'font-serif font-xl pb-5 mt-10 text-darkpurple',
-})``
+  className: 'font-serif font-xl pb-5 text-darkpurple',
+})`
+  &:not(:first-of-type) {
+    margin-top: 40px;
+  }
+`
 
 const StandoutParagraph = styled.h4.attrs({
   className: 'font-xl mb-5 font-serif',
@@ -179,6 +183,7 @@ const serializers = {
     audio(props) {
       const { audioURL } = props.node
       return (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
         <audio controls className="mb-2.5 -mt-2.5 w-full">
           <source src={audioURL} />
         </audio>

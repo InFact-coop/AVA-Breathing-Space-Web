@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import styled from 'styled-components'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import nextIcon from '../public/icons/next.svg'
@@ -64,19 +63,20 @@ const AccordionContainer = styled.div.attrs({
   position: relative;
 `
 
-const AccordionContentItem = ({ slug, title }) => {
+const AccordionContentItem = ({ newTab, slug, title }) => {
   return (
-    <Link
-      href="/self-care/[technique]"
-      as={`/self-care/${slug}`}
-      passHref
+    // eslint-disable-next-line react/jsx-no-target-blank
+    <a
+      href={`/${slug}`}
+      rel={newTab ? 'noreferrer' : ''}
+      target={newTab ? '_blank' : ''}
       key={slug}
     >
       <li className="font-bold p-4 flex justify-between items-center">
         <p className="mr-4">{title}</p>
         <img src={nextIcon} alt="Next icon" />
       </li>
-    </Link>
+    </a>
   )
 }
 
@@ -84,6 +84,7 @@ const AccordionButton = ({
   content,
   introText,
   buttonText,
+  newTab,
   themeColour: { solid, border, opacity },
 }) => {
   return border && content ? (
@@ -97,7 +98,12 @@ const AccordionButton = ({
         {introText && <p className="px-4 pt-4">{introText}</p>}
         {content &&
           content.map(({ slug, title }) => (
-            <AccordionContentItem slug={slug} title={title} key={slug} />
+            <AccordionContentItem
+              newTab={newTab}
+              slug={slug}
+              title={title}
+              key={slug}
+            />
           ))}
       </details>
     </AccordionContainer>
