@@ -64,6 +64,42 @@ export const ServicePreview = ({ name, logo, tags, slug }, index) => (
   </Link>
 )
 
+export const ServicePreviewStayingMum = (
+  {
+    name,
+    logo,
+    slug,
+    category: {
+      slug: { current },
+    },
+  },
+  index,
+) => {
+  return (
+    <a
+      href={`https://www.breathingspace-ava.org.uk/support/${current}/${slug}`}
+      rel="noopener noreferrer"
+      target="_blank"
+      key={`service-preview-${index}`}
+    >
+      <PreviewStyled
+        className="rounded-2.5 mb-3"
+        key={`ServicePreview-${index}`}
+      >
+        <div className="flex justify-between">
+          <p className="mb-4">{name}</p>
+          <LogoContainer>
+            {logo && <Logo src={logo} alt={`${name} logo`} />}
+          </LogoContainer>
+        </div>
+        <div className="flex font-sm">
+          View details <Arrow />
+        </div>
+      </PreviewStyled>
+    </a>
+  )
+}
+
 export const ServiceDetails = ({ title, logo, tags }) => {
   return (
     <DetailsStyled>

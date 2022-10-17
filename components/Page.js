@@ -7,15 +7,19 @@ import useLocalStorage from '../lib/useLocalStorage'
 import fromCamelCase from '../lib/fromCamelCase'
 
 import Navbar, { getNavbarOptions } from './Navbar'
+import StayingMumNav from './StayingMumNav'
+import TitleCard, { getTitleCardOptions } from './TitleCard'
 import Exit from './Exit'
 import Onboarding from './Onboarding'
 import Footer from './Footer'
 
-const PageStyled = styled.main.attrs({
-  className: '',
-})``
+const PageStyled = styled.main.attrs(({ stayingMum }) => ({
+  className: `${stayingMum ? 'pb-18 bg-white' : ''}`,
+}))``
 
-const Page = ({ _type, title, pageTitle, children }) => {
+const Page = ({ _type, title, children }) => {
+  const { pageTitle, summaryTitle } = children.props
+
   const [modal, setModal] = useState({
     targetRef: undefined,
     isOpen: undefined,
@@ -25,6 +29,7 @@ const Page = ({ _type, title, pageTitle, children }) => {
   })
 
   const [pageID, setPageID] = useState(undefined)
+  const [navOpen, setNavOpen] = useState(false)
   const [likedPageIDs, setLikedPageIDs] = useLocalStorage('likedPageIDs', [])
 
   const [quickExitPage, setQuickExitPage] = useLocalStorage(
@@ -33,9 +38,26 @@ const Page = ({ _type, title, pageTitle, children }) => {
   )
 
   const [region, setRegion] = useLocalStorage('region', null)
-
   const [windowHeight, setWindowHeight] = useState('100vh')
   const navbarOptions = getNavbarOptions({ _type, title })
+  const titleCardOptions = getTitleCardOptions({
+    _type,
+    title,
+    summaryTitle,
+  })
+  const [whichApp, setWhichApp] = useState('Breathing Space')
+  const [themeColour, setThemeColour] = useLocalStorage(
+    'themeColour',
+    'tealcoral',
+  )
+  const [titleBgIllustration, setTitleBgIllustration] = useLocalStorage(
+    'titleBgIllustration',
+    '',
+  )
+  const [titleIllustration, setTitleIllustration] = useLocalStorage(
+    'titleIllustration',
+    '',
+  )
 
   useEffect(() => {
     if (_type === 'supportCategory') {
@@ -45,57 +67,99 @@ const Page = ({ _type, title, pageTitle, children }) => {
     else setWindowHeight(`${window.innerHeight - 200 - 60}px`)
   })
 
+  useEffect(() => {
+    if (window.location.pathname.includes('staying-mum')) {
+      setWhichApp('Staying Mum')
+    }
+  })
+
   const headTitleContent = () => {
-    if (_type === 'page' || _type === 'form') {
-      return `Breathing Space - ${title}`
-    } else if (pageTitle) {
-      return `Breathing Space - ${fromCamelCase(pageTitle)}`
-    } else return 'Breathing Space'
+    switch (whichApp) {
+      case 'Breathing Space':
+        if (_type === 'page' || _type === 'form') {
+          return `Breathing Space - ${title}`
+        } else if (pageTitle) {
+          return `Breathing Space - ${fromCamelCase(pageTitle)}`
+        } else return 'Breathing Space'
+
+      case 'Staying Mum':
+        return `Staying Mum - ${fromCamelCase(pageTitle)}`
+
+      default:
+        return `${title}`
+    }
   }
 
-  return title === 'Landing' ? (
-    <>
-      <Head>
-        <title>{headTitleContent()}</title>
-      </Head>
-      <AppContext.Provider
-        value={{ modal, setModal, quickExitPage, setQuickExitPage }}
-      >
-        <PageStyled>{children}</PageStyled>
-      </AppContext.Provider>
-    </>
-  ) : (
-    <>
-      <Head>
-        <title>{headTitleContent()}</title>
-      </Head>
-      <AppContext.Provider
-        value={{
-          modal,
-          setModal,
-          quickExitPage,
-          setQuickExitPage,
-          region,
-          setRegion,
-          pageID,
-          setPageID,
-          likedPageIDs,
-          setLikedPageIDs,
-        }}
-      >
-        <Onboarding
-          quickExitPage={quickExitPage}
-          setQuickExitPage={setQuickExitPage}
+  const WhichNav = () =>
+    whichApp === 'Breathing Space' ? (
+      <Navbar {...navbarOptions} />
+    ) : (
+      <>
+        <StayingMumNav navOpen={navOpen} setNavOpen={setNavOpen} />
+        <TitleCard
+          titleCardOptions={titleCardOptions}
+          themeColour={themeColour}
+          titleIllustration={titleIllustration}
+          titleBgIllustration={titleBgIllustration}
         />
-        <Navbar {...navbarOptions} />
-        <Exit quickExitPage={quickExitPage} />
-        <PageStyled style={{ minHeight: `${windowHeight}` }}>
-          {children}
-        </PageStyled>
-      </AppContext.Provider>
-      <Footer />
-    </>
-  )
+      </>
+    )
+
+  if (title === 'Landing') {
+    return (
+      <>
+        <Head>
+          <title>{headTitleContent()}</title>
+        </Head>
+        <AppContext.Provider
+          value={{ modal, setModal, quickExitPage, setQuickExitPage }}
+        >
+          <PageStyled>{children}</PageStyled>
+        </AppContext.Provider>
+      </>
+    )
+  } else
+    return (
+      <>
+        <Head>
+          <title>{headTitleContent()}</title>
+        </Head>
+        <AppContext.Provider
+          value={{
+            modal,
+            setModal,
+            quickExitPage,
+            setQuickExitPage,
+            region,
+            setRegion,
+            pageID,
+            setPageID,
+            likedPageIDs,
+            setLikedPageIDs,
+            themeColour,
+            setThemeColour,
+            titleBgIllustration,
+            setTitleBgIllustration,
+            titleIllustration,
+            setTitleIllustration,
+          }}
+        >
+          <Onboarding
+            quickExitPage={quickExitPage}
+            setQuickExitPage={setQuickExitPage}
+          />
+          <WhichNav />
+          <Exit quickExitPage={quickExitPage} />
+          <PageStyled
+            stayingMum={whichApp === 'Staying Mum'}
+            style={{ minHeight: `${windowHeight}` }}
+          >
+            {children}
+          </PageStyled>
+        </AppContext.Provider>
+        {whichApp === 'Breathing Space' && <Footer />}
+      </>
+    )
 }
 
 export default Page
