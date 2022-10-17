@@ -13,11 +13,13 @@ import Exit from './Exit'
 import Onboarding from './Onboarding'
 import Footer from './Footer'
 
-const PageStyled = styled.main.attrs({
-  className: '',
-})``
+const PageStyled = styled.main.attrs(({ stayingMum }) => ({
+  className: `${stayingMum ? 'pb-18 bg-white' : ''}`,
+}))``
 
-const Page = ({ _type, title, pageTitle, children, colour, illustration }) => {
+const Page = ({ _type, title, children }) => {
+  const { pageTitle, summaryTitle } = children.props
+
   const [modal, setModal] = useState({
     targetRef: undefined,
     isOpen: undefined,
@@ -41,10 +43,21 @@ const Page = ({ _type, title, pageTitle, children, colour, illustration }) => {
   const titleCardOptions = getTitleCardOptions({
     _type,
     title,
-    colour,
-    illustration,
+    summaryTitle,
   })
   const [whichApp, setWhichApp] = useState('Breathing Space')
+  const [themeColour, setThemeColour] = useLocalStorage(
+    'themeColour',
+    'tealcoral',
+  )
+  const [titleBgIllustration, setTitleBgIllustration] = useLocalStorage(
+    'titleBgIllustration',
+    '',
+  )
+  const [titleIllustration, setTitleIllustration] = useLocalStorage(
+    'titleIllustration',
+    '',
+  )
 
   useEffect(() => {
     if (_type === 'supportCategory') {
@@ -83,7 +96,12 @@ const Page = ({ _type, title, pageTitle, children, colour, illustration }) => {
     ) : (
       <>
         <StayingMumNav navOpen={navOpen} setNavOpen={setNavOpen} />
-        <TitleCard {...titleCardOptions} />
+        <TitleCard
+          titleCardOptions={titleCardOptions}
+          themeColour={themeColour}
+          titleIllustration={titleIllustration}
+          titleBgIllustration={titleBgIllustration}
+        />
       </>
     )
 
@@ -118,6 +136,12 @@ const Page = ({ _type, title, pageTitle, children, colour, illustration }) => {
             setPageID,
             likedPageIDs,
             setLikedPageIDs,
+            themeColour,
+            setThemeColour,
+            titleBgIllustration,
+            setTitleBgIllustration,
+            titleIllustration,
+            setTitleIllustration,
           }}
         >
           <Onboarding
@@ -126,7 +150,10 @@ const Page = ({ _type, title, pageTitle, children, colour, illustration }) => {
           />
           <WhichNav />
           <Exit quickExitPage={quickExitPage} />
-          <PageStyled style={{ minHeight: `${windowHeight}` }}>
+          <PageStyled
+            stayingMum={whichApp === 'Staying Mum'}
+            style={{ minHeight: `${windowHeight}` }}
+          >
             {children}
           </PageStyled>
         </AppContext.Provider>
