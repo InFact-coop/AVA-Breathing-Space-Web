@@ -1,21 +1,24 @@
 /* eslint-disable complexity */
-import { useQuery } from '@apollo/react-hooks'
 
 import styled from 'styled-components'
-import gql from 'graphql-tag'
 import Router, { useRouter } from 'next/router'
-
+import resolveConfig from 'tailwindcss/resolveConfig'
 import getParentPath from '../lib/getParentPath'
 
 import BackIcon from '../public/icons/back-black.svg'
-import { HOME } from '../lib/constants'
+import { HOME, RELATIVE } from '../lib/constants'
+import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 
-const GET_NAVBAR_COLOUR = gql`
-  query {
-    state @client {
-      navbarColour
-    }
-  }
+const { theme } = resolveConfig(tailwindConfig)
+
+const TitleCardStyled = styled.div.attrs({
+  className: `w-100 pb-4.5 pt-3.5 px-6 `,
+})`
+  background-image: ${({ titleBgIllustration, themeColour }) =>
+    `url(${titleBgIllustration}), ${theme.colors[themeColour]}`};
+  background-position: 40px 100%, right bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
 `
 
 const BackButton = styled.img.attrs(({ back, current }) => ({
@@ -31,56 +34,55 @@ const Back = ({ back }) => {
   return <BackButton back={back} current={asPath} />
 }
 
-const Title = styled.h1.attrs(({ font = 'sans' }) => ({
-  className: `py-5 font-${font} text-center`,
-}))``
+const TitleCard = cardVars => {
+  const {
+    titleCardOptions,
+    themeColour,
+    titleIllustration,
+    titleBgIllustration,
+  } = cardVars
 
-const TitleCardStyled = styled.nav.attrs(
-  ({ left, right, border, colour, lines = 1 }) => ({
-    className: `flex ${
-      lines > 1 ? 'flex-wrap' : 'flex-no-wrap'
-    } items-center justify-between bg-${colour}${
-      border ? ' border-b border-lightgray' : ''
-    }${left ? ' pl-5' : ''}${right ? ' pr-5.5' : ''}`,
-  }),
-)``
+  if (titleCardOptions.title) {
+    const { back, title } = titleCardOptions
 
-const TitleCard = ({ back, colour, fallbackColour, font, title }) => {
-  const { loading, error, data } = useQuery(GET_NAVBAR_COLOUR)
-  const { navbarColour } = data && data.state
-
-  if (loading || error) return <div />
-
-  return (
-    <TitleCardStyled colour={colour || navbarColour || fallbackColour}>
-      {back && <Back back={back} />}
-      {title && <Title font={font}>{title}</Title>}
-    </TitleCardStyled>
-  )
+    return (
+      <TitleCardStyled
+        themeColour={themeColour.gradient}
+        titleBgIllustration={titleBgIllustration}
+      >
+        {back && <Back back={back} />}
+        <div>
+          <div className="flex font-bold justify-start items-center mt-5 mr-10">
+            {titleIllustration && (
+              <img
+                src={titleIllustration}
+                className="h-16 mr-10"
+                alt="drawn illustration"
+              />
+            )}
+            {title && <p>{title}</p>}
+          </div>
+        </div>
+      </TitleCardStyled>
+    )
+  } else {
+    return null
+  }
 }
 
-export const getTitleCardOptions = ({
-  _type,
-  title,
-  colour,
-  illustration,
-  bgIllustration,
-}) => {
+export const getTitleCardOptions = ({ _type, title, summaryTitle }) => {
   switch (_type) {
     case 'topic':
       return {
-        illustration,
-        bgIllustration,
-        colour,
-        title,
-        fallbackColour: 'coral',
+        back: RELATIVE,
+        title: summaryTitle,
       }
     case 'page':
       return title.includes('Staying Mum')
         ? {}
         : {
             title,
-            fallbackColour: 'coral',
+            back: RELATIVE,
           }
 
     case 'article':
@@ -88,15 +90,10 @@ export const getTitleCardOptions = ({
     case 'form':
     default:
       return {
+        back: RELATIVE,
         title,
-        fallbackColour: 'coral',
       }
   }
 }
-
-export const updateNavbarColour = ({ apollo, colour }) => () =>
-  apollo.writeData({
-    data: { state: { __typename: 'State', navbarColour: colour } },
-  })
 
 export default TitleCard
