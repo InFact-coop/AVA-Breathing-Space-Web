@@ -24,6 +24,7 @@ module.exports = {
         1.5: '0.375rem', // 6px
         1.75: '0.5rem', // 8px
         2.5: '0.625rem', // 10px
+        3: '0.750rem', // 12px
         3.5: '0.875rem', // 14px
         3.75: '0.9375rem', // 15px
         4: '1rem', // 16px
@@ -73,9 +74,11 @@ module.exports = {
         256: '64rem', //1024px
       },
       height: {
+        4.5: '1.125rem', // 18px
         7.5: '1.875rem', // 30px
         8.75: '2.1875rem', // 35px
         13.5: '3.375rem', // 54px
+        17.5: '4.875rem', //70px
         25: '6.25rem', // 100px
         45: '11.25rem', // 180px
         50: '12.5rem', // 200px
@@ -91,6 +94,9 @@ module.exports = {
         1.5: '0.375rem', // 6px
         2.5: '0.625rem', // 10px
         25: '6.25rem', // 100px
+      },
+      borderWidth: {
+        0.5: '0.5px',
       },
       opacity: {
         95: '0.95',
@@ -118,6 +124,8 @@ module.exports = {
       // teal: '#2B8393', removed Jan 2021 to meet accessibility guidelines
       teal: '#297F8E',
       softred: '#F57479',
+      lightblue: '#CEDBFF',
+      opaquelightblue: 'rgba(206, 219, 255, 0.3)',
       // pastel colours
       lightviolet: '#DAD1EE',
       lightteal: '#C7ECEF',

@@ -7,4 +7,10 @@ const Container = styled.div.attrs(({ bgColour, shadow = true }) => ({
   height: 100%;
 `
 
+export const StayingMumContainer = styled.div.attrs({
+  className: `p-4`,
+})`
+  height: 100%;
+`
+
 export default Container
