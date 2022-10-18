@@ -11,14 +11,15 @@ import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 
 const { theme } = resolveConfig(tailwindConfig)
 
-const TitleCardStyled = styled.div.attrs({
-  className: `w-100 pb-4.5 pt-3.5 px-6 `,
-})`
-  background-image: ${({ titleBgIllustration, themeColour }) =>
-    `url(${titleBgIllustration}), ${theme.colors[themeColour]}`};
+const TitleCardStyled = styled.div.attrs(({ bgColour, bgOpacity }) => ({
+  className: `w-100 pb-4.5 pt-3.5 px-6 bg-${bgColour} bg-opacity-${bgOpacity}`,
+}))`
+  background-image: ${({ titleBgIllustration, bgGradient, _type }) =>
+    `url(${titleBgIllustration}), ${theme.colors[bgGradient]}`};
   background-position: 40px 100%, right bottom;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 130px;
 `
 
 const BackButton = styled.img.attrs(({ back, current }) => ({
@@ -43,17 +44,19 @@ const TitleCard = cardVars => {
   } = cardVars
 
   if (titleCardOptions.title) {
-    const { back, title } = titleCardOptions
+    const { back, title, _type } = titleCardOptions
 
     return (
       <TitleCardStyled
-        themeColour={themeColour.gradient}
-        titleBgIllustration={titleBgIllustration}
+        bgGradient={_type == 'topic' ? themeColour.gradient : ''}
+        bgColour={themeColour.solid}
+        bgOpacity={themeColour.opacity}
+        titleBgIllustration={_type == 'topic' ? titleBgIllustration : ''}
       >
         {back && <Back back={back} />}
         <div>
           <div className="flex font-bold justify-start items-center mt-5 mr-10">
-            {titleIllustration && (
+            {_type == 'topic' && titleIllustration && (
               <img
                 src={titleIllustration}
                 className="h-16 mr-10"
@@ -76,6 +79,7 @@ export const getTitleCardOptions = ({ _type, title, summaryTitle }) => {
       return {
         back: RELATIVE,
         title: summaryTitle,
+        _type,
       }
     case 'page':
       return title.includes('Staying Mum')
@@ -83,6 +87,7 @@ export const getTitleCardOptions = ({ _type, title, summaryTitle }) => {
         : {
             title,
             back: RELATIVE,
+            _type,
           }
 
     case 'article':
@@ -92,6 +97,7 @@ export const getTitleCardOptions = ({ _type, title, summaryTitle }) => {
       return {
         back: RELATIVE,
         title,
+        _type,
       }
   }
 }

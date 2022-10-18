@@ -12,13 +12,13 @@ import client from '../../../client'
 const GET_TOPIC = `*[_type == "topic" && slug.current == $slug][0]{
   ...,
   "services": services[]->{ name, "logo": logo.asset->url, "category": categories[0]->{ slug { current }}, "slug": slug.current },
-  "articles": *[ _type == "article" && references(^._id) ] { title, "slug": slug.current },
-  "people": *[ _type == "person" && references(^._id) ] { title, "slug": slug.current },  
-  "stories": *[ _type == "story" && references(^._id) ] { "title": author, "slug": slug.current }, 
+  "articles": *[ _type == "article" && references(^._id) ] { title, "slug": "staying-mum/" + $slug + "/articles/" + slug.current },
+  "people": *[ _type == "person" && references(^._id) ] { title, "slug": "staying-mum/" + $slug + "/people/" + slug.current },  
+  "stories": *[ _type == "story" && references(^._id) ] { "title": author, "slug": "stories/" + slug.current }, 
 }`
 
 const OuterContainer = styled.div.attrs({
-  className: 'bg-white min-h-content py-5 px-5',
+  className: 'bg-white py-5 px-5',
 })``
 
 const Topic = ({ overview, articles, people, stories, services }) => {
@@ -51,11 +51,12 @@ const Topic = ({ overview, articles, people, stories, services }) => {
               buttonText="Stories"
               content={stories}
               introText=""
+              newTab={true}
             />
           </>
         )}
       </div>
-      {services && (
+      {services.length !== 0 && (
         <>
           <p className="mt-10 mb-4 font-bold">Useful numbers</p>
           {R.addIndex(R.map)(ServicePreviewStayingMum)(services)}

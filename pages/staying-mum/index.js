@@ -21,10 +21,11 @@ const GET_STAYING_MUM_LANDING = `*[_type == "page" && slug.current == "staying-m
   }
 }`
 
-const GET_TOPICS = `*[_type == "topic" && onHomepage]{
+const GET_TOPICS = `*[_type == "topic" && onHomepage == true ]{
   _type,
   summaryTitle,
   quoteTitle,
+  onHomepage, 
   "slug": slug.current, 
   "illustration": illustration.asset->url, 
   "background": *[ _type == "colourAndIllustration" && _id == ^.colourAndBackgroundIllustration._ref ][0] { "url": file.asset->url, color }, 
@@ -46,6 +47,7 @@ const TopicCard = ({
   setTitleBgIllustration,
 }) => {
   const { quoteTitle, summaryTitle, illustration, background, slug } = topic
+
   const colour = getColour(background.color)
   const setTitleCardVars = () => {
     setThemeColour(colour)
