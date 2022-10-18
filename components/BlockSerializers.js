@@ -2,11 +2,13 @@
 import BlockContent from '@sanity/block-content-to-react'
 import styled from 'styled-components'
 import resolveConfig from 'tailwindcss/resolveConfig'
+import Link from 'next/link'
 import client from '../client'
 import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 import infoIcon from '../public/icons/infoWhite.svg'
 import toggleInfo from '../public/icons/toggleInfo.svg'
 import Contact from './Contact'
+import { AccordionContainer } from './Button'
 
 const { theme } = resolveConfig(tailwindConfig)
 
@@ -133,6 +135,29 @@ const Toggle = ({ props }) => {
   )
 }
 
+const Accordion = ({ props }) => {
+  const { title, content } = props.node
+
+  return (
+    <AccordionContainer border="grey">
+      <details>
+        <summary className="bg-lightblue text-left bg-opacity-30 font-serif py-3.5 px-4 rounded-2.5 block font-med cursor-pointer flex justify-between">
+          <p className="mr-4">{title}</p>
+        </summary>
+        <Block className="font-base p-4" body={content} />
+      </details>
+    </AccordionContainer>
+  )
+}
+
+const NeedHelpButton = () => (
+  <Link href="/need-immediate-help">
+    <button className="py-4.5 w-full mb-5 pl-4.5 block rounded-2.5 cursor-pointer text-left bg-darkpurple text-white ">
+      Need immediate help?
+    </button>
+  </Link>
+)
+
 const serializers = {
   list: ({ children }) => {
     return <StyledList>{children}</StyledList>
@@ -191,6 +216,12 @@ const serializers = {
     },
     toggle(props) {
       return <Toggle props={props} />
+    },
+    accordion(props) {
+      return <Accordion props={props} />
+    },
+    needHelpButton() {
+      return <NeedHelpButton />
     },
 
     marks: {

@@ -22,7 +22,7 @@ const OutlineButton = styled(Button).attrs({
   className: 'bg-white border border-lightgray mb-2.5',
 })``
 
-const AccordionContainer = styled.div.attrs({
+export const AccordionContainer = styled.div.attrs({
   className: 'flex justify-between font-sm my-2',
 })`
   details {
