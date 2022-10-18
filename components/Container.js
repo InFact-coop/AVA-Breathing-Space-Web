@@ -8,7 +8,7 @@ const Container = styled.div.attrs(({ bgColour, shadow = true }) => ({
 `
 
 export const StayingMumContainer = styled.div.attrs({
-  className: `p-4`,
+  className: `p-5`,
 })`
   height: 100%;
 `

@@ -47,22 +47,24 @@ const DetailsStyled = styled.div.attrs({
   className: 'w-full',
 })``
 
-export const ServicePreview = ({ name, logo, tags, slug }, index) => (
-  <Link href={`/${slug}`} key={`service-preview-${index}`}>
-    <PreviewStyled key={`ServicePreview-${index}`}>
-      <div className="flex justify-between">
-        <p className="font-lg mb-4">{name}</p>
-        <LogoContainer>
-          {logo && <Logo src={logo} alt={`${name} logo`} />}
-        </LogoContainer>
-      </div>
-      {tags && <Tags>{R.addIndex(R.map)(Tag)(tags)}</Tags>}
-      <div className="flex">
-        View details <Arrow />
-      </div>
-    </PreviewStyled>
-  </Link>
-)
+export const ServicePreview = ({ name, logo, tags, slug }, index) => {
+  return (
+    <Link href={`/${slug}`} key={`service-preview-${index}`}>
+      <PreviewStyled key={`ServicePreview-${index}`}>
+        <div className="flex justify-between">
+          <p className="font-lg mb-4">{name}</p>
+          <LogoContainer>
+            {logo && <Logo src={logo} alt={`${name} logo`} />}
+          </LogoContainer>
+        </div>
+        {tags && <Tags>{R.addIndex(R.map)(Tag)(tags)}</Tags>}
+        <div className="flex">
+          View details <Arrow />
+        </div>
+      </PreviewStyled>
+    </Link>
+  )
+}
 
 export const ServicePreviewStayingMum = (
   {

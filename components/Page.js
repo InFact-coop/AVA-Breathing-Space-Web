@@ -17,6 +17,7 @@ const PageStyled = styled.main.attrs(({ stayingMum }) => ({
   className: `${stayingMum ? 'pb-18 bg-white' : ''}`,
 }))``
 
+// eslint-disable-next-line max-lines-per-function
 const Page = ({ _type, title, children }) => {
   const { pageTitle, summaryTitle } = children.props
 
@@ -72,6 +73,15 @@ const Page = ({ _type, title, children }) => {
       setWhichApp('Staying Mum')
     }
   })
+
+  useEffect(() => {
+    if (navOpen) {
+      document.body.style.overflow = 'hidden'
+    }
+    const unsetFixedBody = () => (document.body.style.overflow = 'auto')
+
+    return unsetFixedBody
+  }, [navOpen])
 
   const headTitleContent = () => {
     switch (whichApp) {
