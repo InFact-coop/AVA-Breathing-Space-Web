@@ -47,21 +47,26 @@ const NavOpen = ({ navOpen, setNavOpen }) => (
         <StyledLink onClick={() => setNavOpen(false)}>Your journey</StyledLink>
       </Link>
       <Link href="/staying-mum/whos-who" passHref>
-        <StyledLink>Who&apos;s who - professionals</StyledLink>
+        <StyledLink onClick={() => setNavOpen(false)}>
+          Who&apos;s who - professionals
+        </StyledLink>
       </Link>
       <Link href="/staying-mum/support" passHref>
-        <StyledLink>Support</StyledLink>
+        <StyledLink onClick={() => setNavOpen(false)}>Support</StyledLink>
       </Link>
       <Link href="/staying-mum/stories" passHref>
-        <StyledLink>Stories</StyledLink>
+        <StyledLink onClick={() => setNavOpen(false)}>Stories</StyledLink>
       </Link>
       <Link href="/staying-mum/about-staying-mum" passHref>
         <StyledLink onClick={() => setNavOpen(false)}>
           About Staying Mum
         </StyledLink>
       </Link>
-      <Link href="/need-immediate-help">
-        <button className="py-4.5 pl-4.5 block rounded-2.5 cursor-pointer text-left bg-darkpurple text-white my-4.5 mx-5">
+      <Link href="/staying-mum/need-immediate-help">
+        <button
+          onClick={() => setNavOpen(false)}
+          className="py-4.5 pl-4.5 block rounded-2.5 cursor-pointer text-left bg-darkpurple text-white my-4.5 mx-5"
+        >
           Need immediate help?
         </button>
       </Link>

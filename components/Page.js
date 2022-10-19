@@ -14,7 +14,7 @@ import Onboarding from './Onboarding'
 import Footer from './Footer'
 
 const PageStyled = styled.main.attrs(({ stayingMum }) => ({
-  className: `${stayingMum ? 'pb-18 bg-white' : ''}`,
+  className: `${stayingMum ? 'pb-30 bg-white' : ''}`,
 }))``
 
 // eslint-disable-next-line max-lines-per-function
@@ -61,10 +61,22 @@ const Page = ({ _type, title, children }) => {
   )
 
   useEffect(() => {
+    // breathing space support category page
     if (_type === 'supportCategory') {
       setWindowHeight(`${window.innerHeight - 200 - 103}px`)
     }
-    // footer = 200px, top navbar = 60px
+    // staying mum navbar only
+    else if (
+      whichApp === 'Staying Mum' &&
+      title.toLowerCase().includes('staying mum')
+    ) {
+      setWindowHeight(`${window.innerHeight - 78}px`)
+    }
+    // staying mum navbar and title card
+    else if (whichApp === 'Staying Mum') {
+      setWindowHeight(`${window.innerHeight - 208}px`)
+    }
+    // breathing space normal : footer = 200px, top navbar = 60px
     else setWindowHeight(`${window.innerHeight - 200 - 60}px`)
   })
 

@@ -14,7 +14,7 @@ const GET_TOPIC = `*[_type == "topic" && slug.current == $slug][0]{
   "services": services[]->{ name, "logo": logo.asset->url, "category": categories[0]->{ slug { current }}, "slug": slug.current },
   "articles": *[ _type == "article" && references(^._id) ] { title, "slug": "staying-mum/" + $slug + "/articles/" + slug.current },
   "people": *[ _type == "person" && references(^._id) ] { title, "slug": "staying-mum/" + $slug + "/people/" + slug.current },  
-  "stories": *[ _type == "story" && references(^._id) ] { "title": author, "slug": "stories/" + slug.current }, 
+  "stories": *[ _type == "story" && references(^._id) ] { "title": author, "slug": "staying-mum/stories/all-stories/" + slug.current }, 
 }`
 
 const OuterContainer = styled.div.attrs({
@@ -71,7 +71,7 @@ Topic.getInitialProps = async ctx => {
     slug: ctx.query.topic,
   })
 
-  return { pageTitle: data._type, ...data }
+  return { title: data.summaryTitle, pageTitle: data._type, ...data }
 }
 
 export default Topic

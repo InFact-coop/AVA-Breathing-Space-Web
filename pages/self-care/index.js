@@ -13,7 +13,7 @@ import Container from '../../components/Container'
 const GET_SELF_CARE_BY_CATEGORY = `*[ _type == "selfcareCategory" ] {
     title, 
     "techniques": *[ _type == "selfcareTechnique" && references(^._id) ] { title, "slug": slug.current }, 
-    "illustration": *[ _type == "colourAndBackgroundIllustration" && _id == ^.colourAndBackgroundIllustration._ref ][0] { "url": file.asset->url, color }, 
+    "illustration": *[ _type == "colourAndIllustration" && _id == ^.colourAndIllustration._ref ][0] { "url": file.asset->url, color }, 
   }`
 
 const TechniqueStyled = styled.a.attrs(({ colour }) => ({
@@ -113,6 +113,7 @@ const SelfCare = ({ categories }) => {
 
 SelfCare.getInitialProps = async () => {
   const categories = await client.fetch(GET_SELF_CARE_BY_CATEGORY)
+
   return { pageTitle: 'selfcareCategories', categories }
 }
 
