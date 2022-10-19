@@ -14,7 +14,7 @@ import Onboarding from './Onboarding'
 import Footer from './Footer'
 
 const PageStyled = styled.main.attrs(({ stayingMum }) => ({
-  className: `${stayingMum ? 'pb-18 bg-white' : ''}`,
+  className: `${stayingMum ? 'pb-30 bg-white' : ''}`,
 }))``
 
 // eslint-disable-next-line max-lines-per-function
