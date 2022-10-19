@@ -56,7 +56,7 @@ const Topic = ({ overview, articles, people, stories, services }) => {
           </>
         )}
       </div>
-      {services.length !== 0 && (
+      {services && services.length !== 0 && (
         <>
           <p className="mt-10 mb-4 font-bold">Useful numbers</p>
           {R.addIndex(R.map)(ServicePreviewStayingMum)(services)}
