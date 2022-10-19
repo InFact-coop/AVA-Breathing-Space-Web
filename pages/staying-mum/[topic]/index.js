@@ -71,7 +71,7 @@ Topic.getInitialProps = async ctx => {
     slug: ctx.query.topic,
   })
 
-  return { pageTitle: data._type, ...data }
+  return { title: data.summaryTitle, pageTitle: data._type, ...data }
 }
 
 export default Topic

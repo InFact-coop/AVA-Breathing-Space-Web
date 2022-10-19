@@ -22,6 +22,11 @@ const OutlineButton = styled(Button).attrs({
   className: 'bg-white border border-lightgray mb-2.5',
 })``
 
+const StayingMumButton = styled.a.attrs({
+  className:
+    'p-4 flex bg-opacity-30 justify-between font-med cursor-pointer bg-lightblue border border-gray mb-3 rounded-2.5 text-left',
+})``
+
 export const AccordionContainer = styled.div.attrs({
   className: 'flex justify-between font-sm my-3',
 })`
@@ -112,4 +117,11 @@ const AccordionButton = ({
   )
 }
 
-export { Button, PurpleButton, CoralButton, OutlineButton, AccordionButton }
+export {
+  Button,
+  PurpleButton,
+  CoralButton,
+  StayingMumButton,
+  OutlineButton,
+  AccordionButton,
+}

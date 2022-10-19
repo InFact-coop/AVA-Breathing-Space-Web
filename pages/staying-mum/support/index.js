@@ -2,6 +2,7 @@ import client from '../../../client'
 import { AccordionButton } from '../../../components/Button'
 import { InformationStayingMum } from '../../../components/Information'
 import { StayingMumContainer } from '../../../components/Container'
+import { defaultThemeColour } from '../../../lib/getColour'
 
 const GET_SUPPORT = `*[_type == "page" && slug.current == "support" ][0]{
   ...,
@@ -28,11 +29,7 @@ const Support = props => {
         {props.topics.map(({ quoteTitle, summaryTitle, articles }) => {
           return (
             <AccordionButton
-              themeColour={{
-                solid: 'lightblue',
-                border: 'gray',
-                opacity: '30',
-              }}
+              themeColour={defaultThemeColour}
               key={`topic-${quoteTitle ? quoteTitle : summaryTitle}`}
               buttonText={quoteTitle ? quoteTitle : summaryTitle}
               content={articles}
