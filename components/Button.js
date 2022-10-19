@@ -24,7 +24,7 @@ const OutlineButton = styled(Button).attrs({
 
 const StayingMumButton = styled.a.attrs({
   className:
-    'p-4 flex bg-opacity-30 justify-between font-med cursor-pointer bg-lightblue border border-gray rounded-2.5 text-left',
+    'p-4 flex bg-opacity-30 my-4 justify-between font-med cursor-pointer bg-lightblue border border-gray rounded-2.5 text-left',
 })``
 
 export const AccordionContainer = styled.div.attrs({
