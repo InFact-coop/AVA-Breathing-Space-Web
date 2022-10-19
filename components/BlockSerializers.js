@@ -8,9 +8,42 @@ import tailwindConfig from '../tailwind.config.js' //eslint-disable-line
 import infoIcon from '../public/icons/infoWhite.svg'
 import toggleInfo from '../public/icons/toggleInfo.svg'
 import Contact from './Contact'
-import { AccordionContainer } from './Button'
 
 const { theme } = resolveConfig(tailwindConfig)
+
+const AccordionContainer = styled.div.attrs({
+  className: 'flex justify-between font-sm my-4',
+})`
+  details {
+    display: inline;
+    width: 100%;
+    border: ${({ border }) => `0.5px solid ${border}`};
+    border-radius: 10px;
+    > li:not(:last-of-type) {
+      border-bottom: 0.5px solid grey;
+    }
+    > li:last-of-type {
+      padding-bottom: 20px;
+    }
+  }
+  summary {
+    list-style-type: none;
+    width: calc(100%);
+  }
+  [open] summary {
+    border: ${({ border }) => `0.5px solid ${border}`};
+    border-radius: 10px;
+  }
+  summary:after {
+    content: '+';
+    font-size: 30px;
+  }
+  [open] summary:after {
+    content: '-';
+    font-size: 30px;
+  }
+  position: relative;
+`
 
 const Block = ({ className, body, imageOptions }) => (
   <BlockContent
@@ -103,7 +136,7 @@ const RestyledContact = styled(Contact).attrs({})`
 `
 
 const ToggleContainer = styled.div.attrs({
-  className: 'flex justify-between',
+  className: 'flex justify-between py-4',
 })`
   details {
     display: inline;
