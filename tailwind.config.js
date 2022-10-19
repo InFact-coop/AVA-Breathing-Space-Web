@@ -108,7 +108,7 @@ module.exports = {
       },
     },
     fontSize: {
-      sm: '0.875rem', // 14px
+      sm: '1rem', //16px
       // base: '1rem', // 16px increased to 18px January 2021
       base: '1.125rem', // 18px
       med: '1.125rem', // 18px
