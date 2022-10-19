@@ -82,7 +82,7 @@ export const getTitleCardOptions = ({ _type, title, summaryTitle }) => {
         _type,
       }
     case 'page':
-      return title.includes('Staying Mum')
+      return title.toLowerCase().includes('staying mum')
         ? {}
         : {
             title,

@@ -1,21 +1,23 @@
 import styled from 'styled-components'
 import { useState, useEffect, useContext } from 'react'
 
-import client from '../../client'
-import formatAuthor from '../../lib/formatAuthor'
+import client from '../../../../client'
 
-import { Block } from '../../components/BlockSerializers'
-import Container from '../../components/Container'
-import Likes from '../../components/Likes'
-import { PurpleButton } from '../../components/Button'
+import { Block } from '../../../../components/BlockSerializers'
+import Container, {
+  StayingMumContainer,
+} from '../../../../components/Container'
+import Likes from '../../../../components/Likes'
+import { PurpleButton, StayingMumButton } from '../../../../components/Button'
 
-import AppContext from '../../lib/AppContext'
+import AppContext from '../../../../lib/AppContext'
 
 const GET_STORY = `*[_type == "story" && slug.current == $slug][0]{
   _type,
   "parentID": _id,
   "title": author,
   tags, 
+  preview,
   body,
   "video": video.asset->url,
   "audio": audio.asset->url, 
@@ -27,7 +29,7 @@ const StoryTitle = styled.h2.attrs({
   className: 'font-serif font-xl pb-5 text-darkpurple',
 })``
 
-const StoryStyled = styled(Container).attrs({
+const StoryStyled = styled(StayingMumContainer).attrs({
   className: 'px-5 pt-5 pb-5',
 })``
 
@@ -59,7 +61,7 @@ const StoryMedia = ({ audio, video }) => {
 const StoryTranscript = ({ transcript }) => {
   return (
     transcript && (
-      <div className="border-t border-midgray border-solid bg-white shadow">
+      <div className="border-t border-midgray border-solid ">
         <Block
           className="p-5 font-base font-normal leading-large"
           body={transcript}
@@ -71,7 +73,7 @@ const StoryTranscript = ({ transcript }) => {
 
 const Story = props => {
   const [story] = useState(props)
-  const { title, body, audio, video, transcript, likes } = story
+  const { title, body, audio, video, transcript, preview } = story
   const { setPageID } = useContext(AppContext)
 
   const hasMedia = audio || video
@@ -81,17 +83,13 @@ const Story = props => {
   return (
     <>
       <StoryStyled bgColour="white">
-        <StoryTitle>{title}</StoryTitle>
+        {preview && <p className="mb-4">{preview}</p>}
         {body && (
           <Block body={body} className="font-base font-normal leading-large" />
         )}
         {hasMedia && <StoryMedia audio={audio} video={video} />}
       </StoryStyled>
       {transcript && <StoryTranscript transcript={transcript} />}
-      <Likes likes={likes} className="mt-6" />
-      <PurpleButton href="/stories/share-your-story" className="mx-5 mt-7.5">
-        Share your story
-      </PurpleButton>
     </>
   )
 }
@@ -104,7 +102,7 @@ Story.getInitialProps = async ctx => {
   return {
     ...data,
     pageTitle: data._type,
-    title: `${formatAuthor(data.title)} story`,
+    title: data.title,
   }
 }
 
