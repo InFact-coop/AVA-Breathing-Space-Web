@@ -62,8 +62,11 @@ const NavOpen = ({ navOpen, setNavOpen }) => (
           About Staying Mum
         </StyledLink>
       </Link>
-      <Link onClick={() => setNavOpen(false)} href="/need-immediate-help">
-        <button className="py-4.5 pl-4.5 block rounded-2.5 cursor-pointer text-left bg-darkpurple text-white my-4.5 mx-5">
+      <Link href="/staying-mum/need-immediate-help">
+        <button
+          onClick={() => setNavOpen(false)}
+          className="py-4.5 pl-4.5 block rounded-2.5 cursor-pointer text-left bg-darkpurple text-white my-4.5 mx-5"
+        >
           Need immediate help?
         </button>
       </Link>
