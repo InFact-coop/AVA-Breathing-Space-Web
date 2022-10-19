@@ -43,6 +43,11 @@ const StyledListItem = styled.li.attrs({
   span {
     margin-left: -6px;
   }
+
+  a {
+    color: ${theme.colors.teal};
+    text-decoration: underline;
+  }
 `
 
 const StyledParagraph = styled.p.attrs({

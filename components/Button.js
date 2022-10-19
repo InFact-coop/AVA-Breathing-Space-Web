@@ -24,36 +24,18 @@ const OutlineButton = styled(Button).attrs({
 
 const StayingMumButton = styled.a.attrs({
   className:
-    'p-4 flex bg-opacity-30 justify-between font-med cursor-pointer bg-lightblue border border-gray mb-3 rounded-2.5 text-left',
+    'p-4 flex bg-opacity-30 justify-between font-med cursor-pointer bg-lightblue border border-gray rounded-2.5 text-left',
 })``
 
 export const AccordionContainer = styled.div.attrs({
-  className: 'flex justify-between font-sm my-3',
-})`
-  details {
-    display: inline;
-    width: 100%;
-    border: ${({ border }) => `0.5px solid ${border}`};
-    border-radius: 10px;
+  className: 'flex justify-between font-sm',
+})``
 
-    > li:not(:last-of-type) {
-      border-bottom: 0.5px solid grey;
-    }
-
-    > li:last-of-type {
-      padding-bottom: 20px;
-    }
-  }
-
-  summary {
-    list-style-type: none;
-    width: calc(100%);
-  }
-
-  [open] summary {
-    border: ${({ border }) => `0.5px solid ${border}`};
-    border-radius: 10px;
-  }
+const Details = styled.details.attrs({})`
+  display: inline;
+  width: 100%;
+  border: ${({ border }) => `0.5px solid ${border}`};
+  border-radius: 10px;
 
   summary:after {
     content: '+';
@@ -64,8 +46,6 @@ export const AccordionContainer = styled.div.attrs({
     content: '-';
     font-size: 30px;
   }
-
-  position: relative;
 `
 
 const AccordionContentItem = ({ newTab, slug, title }) => {
@@ -77,7 +57,7 @@ const AccordionContentItem = ({ newTab, slug, title }) => {
       target={newTab ? '_blank' : ''}
       key={slug}
     >
-      <li className="font-bold p-4 flex justify-between items-center">
+      <li className="font-bold font-sm p-4 flex justify-between items-center">
         <p className="mr-4">{title}</p>
         <img src={nextIcon} alt="Next icon" />
       </li>
@@ -93,24 +73,35 @@ const AccordionButton = ({
   themeColour: { solid, border, opacity },
 }) => {
   return border && content ? (
-    <AccordionContainer border={theme.colors[border]}>
-      <details>
+    <AccordionContainer>
+      <Details border={theme.colors[border]} className="my-2">
         <summary
-          className={`bg-${solid} bg-opacity-${opacity} font-serif  py-3.5 px-4 rounded-2.5 block  font-med cursor-pointer flex justify-between`}
+          className={`bg-${solid} bg-opacity-${opacity} border-${border} border-0.5 font-serif py-3.5 px-4 rounded-2.5 block font-med cursor-pointer flex justify-between`}
         >
           <p>{buttonText}</p>
         </summary>
-        {introText && <p className="px-4 pt-4">{introText}</p>}
-        {content &&
-          content.map(({ slug, title }) => (
-            <AccordionContentItem
-              newTab={newTab}
-              slug={slug}
-              title={title}
-              key={slug}
-            />
-          ))}
-      </details>
+        <div
+          className={`border-${border} border-l-0.5 border-r-0.5 border-b-0.5 border-t-0 rounded-2.5 rounded-t-none -mt-2 pt-2`}
+        >
+          {introText && <p className="font-sm px-4 pt-4">{introText}</p>}
+          {content &&
+            content.map(({ slug, title }, index) => {
+              return (
+                <>
+                  <AccordionContentItem
+                    newTab={newTab}
+                    slug={slug}
+                    title={title}
+                    key={slug}
+                  />
+                  {index !== content.length - 1 && (
+                    <hr className="border-t-0.5 border-gray mx-4" />
+                  )}
+                </>
+              )
+            })}
+        </div>
+      </Details>
     </AccordionContainer>
   ) : (
     <div />
