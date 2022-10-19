@@ -15,11 +15,6 @@ const GET_STORIES_PAGE = `*[_type == "page" && slug.current == "stories" ][0]{
   }
 }`
 
-const GET_STORIES = `*[_type == "story" && !(_id in path('drafts.**')) && "Child Removal" in tags[]->title]{
-  title,
-  "slug": "staying-mum/whos-who/" + slug.current
-}`
-
 const LinkButton = ({ slug, title, newTab }) => (
   <StayingMumButton href={`/${slug}`}>
     <p className="mr-4">{title}</p>
@@ -34,7 +29,7 @@ const StoriesPage = props => {
       <StayingMumContainer>
         <LinkButton
           title="Stories from other mums"
-          slug="stories"
+          slug="staying-mum/stories/all-stories"
           newTab={false}
         />
         <LinkButton
@@ -56,7 +51,6 @@ export default StoriesPage
 
 StoriesPage.getInitialProps = async () => {
   const data = await client.fetch(GET_STORIES_PAGE)
-  const stories = await client.fetch(GET_STORIES)
 
-  return { ...data, stories }
+  return { ...data }
 }

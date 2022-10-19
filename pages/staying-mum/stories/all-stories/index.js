@@ -25,7 +25,7 @@ const StoryTitle = styled.h2.attrs({
 const Preview = styled.div.attrs({ className: 'font-lg font-serif mb-4' })``
 
 const Story = ({ title, slug, preview, media }) => (
-  <a href={`/stories/${slug}`} key={slug}>
+  <a href={`/staying-mum/stories/all-stories/${slug}`} key={slug}>
     <StoryStyled>
       <div className="flex justify-between items-start mb-2.5">
         <StoryTitle>{title}</StoryTitle>
