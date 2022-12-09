@@ -6,6 +6,7 @@ import QuickExitStep from './QuickExitStep'
 import WelcomeStep from './WelcomeStep'
 import OnlineSafetyStep from './OnlineSafetyStep'
 import LocationStep from './LocationStep'
+import SelectAppStep from './SelectAppStep'
 import Landing from './Landing'
 
 const OnboardingStyled = styled.section.attrs({
@@ -26,19 +27,23 @@ const Onboarding = () => {
   const [moduleIdx, setModuleIdx] = useState(0)
   const [landing, setLanding] = useState(true)
 
-  const Modules = [WelcomeStep, OnlineSafetyStep, QuickExitStep, LocationStep]
+  const Modules = [
+    WelcomeStep,
+    OnlineSafetyStep,
+    QuickExitStep,
+    LocationStep,
+    SelectAppStep,
+  ]
   const CurrentModule = Modules[moduleIdx]
 
-  const closeOnboarding = () => setOnboarding(false)
   const nextModuleIdx = () => {
-    if (moduleIdx + 1 === Modules.length) closeOnboarding()
     setModuleIdx(moduleIdx + 1)
   }
 
   const navBarOptions = getNavbarOptions({
     _type: 'onboarding',
     title: `Step ${moduleIdx + 1} of ${Modules.length}`,
-    next: nextModuleIdx,
+    next: moduleIdx + 1 === Modules.length ? 'end' : nextModuleIdx,
   })
 
   useEffect(() => {
@@ -66,7 +71,7 @@ const Onboarding = () => {
     <OnboardingStyled>
       <Navbar {...navBarOptions} />
       <Content>
-        <CurrentModule closeOnboarding={closeOnboarding} />
+        <CurrentModule setOnboarding={setOnboarding} />
       </Content>
     </OnboardingStyled>
   )
