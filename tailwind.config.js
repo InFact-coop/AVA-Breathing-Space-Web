@@ -64,6 +64,7 @@ module.exports = {
         6: '1.5rem', //24px
         7.5: '1.875rem', // 30px
         36: '9rem', // 144px
+        75: '75%',
         half: '49%', // 50%
       },
       minWidth: {

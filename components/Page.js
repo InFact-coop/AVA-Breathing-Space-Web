@@ -46,7 +46,7 @@ const Page = ({ _type, title, children }) => {
     title,
     summaryTitle,
   })
-  const [whichApp, setWhichApp] = useState('Breathing Space')
+  const [whichApp, setWhichApp] = useLocalStorage('whichApp', null)
   const [themeColour, setThemeColour] = useLocalStorage(
     'themeColour',
     'tealcoral',
@@ -61,6 +61,12 @@ const Page = ({ _type, title, children }) => {
   )
 
   useEffect(() => {
+    if (window.location.pathname.includes('staying-mum')) {
+      setWhichApp('Staying Mum')
+    } else setWhichApp('Breathing Space')
+  })
+
+  useEffect(() => {
     // breathing space support category page
     if (_type === 'supportCategory') {
       setWindowHeight(`${window.innerHeight - 200 - 103}px`)
@@ -68,6 +74,7 @@ const Page = ({ _type, title, children }) => {
     // staying mum navbar only
     else if (
       whichApp === 'Staying Mum' &&
+      title &&
       title.toLowerCase().includes('staying mum')
     ) {
       setWindowHeight(`${window.innerHeight - 78}px`)
@@ -78,12 +85,6 @@ const Page = ({ _type, title, children }) => {
     }
     // breathing space normal : footer = 200px, top navbar = 60px
     else setWindowHeight(`${window.innerHeight - 200 - 60}px`)
-  })
-
-  useEffect(() => {
-    if (window.location.pathname.includes('staying-mum')) {
-      setWhichApp('Staying Mum')
-    }
   })
 
   useEffect(() => {
@@ -154,6 +155,8 @@ const Page = ({ _type, title, children }) => {
             setQuickExitPage,
             region,
             setRegion,
+            whichApp,
+            setWhichApp,
             pageID,
             setPageID,
             likedPageIDs,
@@ -169,6 +172,7 @@ const Page = ({ _type, title, children }) => {
           <Onboarding
             quickExitPage={quickExitPage}
             setQuickExitPage={setQuickExitPage}
+            setWhichApp={setWhichApp}
           />
           <WhichNav />
           <Exit quickExitPage={quickExitPage} />

@@ -8,7 +8,7 @@ import Exit from './Exit'
 
 const GET_LOCATION_STEP = `*[_type == "page" && slug.current == "customise-location"][0]`
 
-const LocationStep = ({ closeOnboarding }) => {
+const LocationStep = () => {
   const { setRegion } = useContext(AppContext)
   const [selectedRegion, setSelectedRegion] = useState(null)
   const [props, updateProps] = useState()
@@ -40,7 +40,6 @@ const LocationStep = ({ closeOnboarding }) => {
         <button
           onClick={() => {
             setRegion(selectedRegion)
-            closeOnboarding()
           }}
           className="uppercase bg-lightviolet rounded-2.5 py-4 px-4 ml-2.5"
         >
