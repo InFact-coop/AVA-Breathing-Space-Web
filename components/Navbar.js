@@ -53,11 +53,14 @@ const NextButton = styled.button.attrs({
   className: '',
 })``
 
-const Next = ({ onClick }) => (
-  <NextButton onClick={onClick}>
-    <img src="/icons/next.svg" alt="Next button" />
-  </NextButton>
-)
+const Next = ({ next, onClick }) =>
+  next === 'end' ? (
+    <div />
+  ) : (
+    <NextButton onClick={onClick}>
+      <img src="/icons/next.svg" alt="Next button" />
+    </NextButton>
+  )
 
 const Heart = ({ pageID, likedPageIDs, setLikedPageIDs }) => {
   const isLiked = R.includes(pageID, likedPageIDs)
@@ -175,7 +178,7 @@ const Navbar = ({
       {back && <Back back={back} lines={lines} closeModal={closeModal} />}
       {emptyLeft && <div />}
       {title && <Title font={font}>{title}</Title>}
-      {next && <Next onClick={next} />}
+      {next && <Next next={next} onClick={next} />}
       {clear && <Clear onClick={clear} />}
       {heart && (
         <Heart
